@@ -1,53 +1,70 @@
-# ASP.NET Boilerplate ReactJS Template
+# Getting Started with Create React App
 
-The React.js integration for ABP Boilerplate framework. This template is built on React+Mobx+Typescript. SOLID, SoC principles are used.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![](_screenshots/dashboard.png)
+## Available Scripts
 
-## Getting Started
+In the project directory, you can run:
 
-### Installing
+### `npm start`
 
-After cloning repository, first install npm packages:
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-```sh
-cd reactjs
-npm install 
-```
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-And then start
+### `npm test`
 
-```
-npm start
-```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Deployment
+### `npm run build`
 
-```sh
-npm build
-```
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Built With
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-* [React](https://reactjs.org/) - The JavaScript library for building user interfaces
-* [Typescript](https://www.typescriptlang.org/) - Used for static typing
-* [Mobx](https://mobx.js.org/) - Simple, scalable state management
-* [AntDesign](https://ant.design/) - A design system with values of Nature and Determinacy for better user experience of enterprise applications
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-# Architecture
+### `npm run eject`
 
-This framework is designed by utilizing MVC design pattern and layered architecture as follows:
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-- All Backend communications are done by service layer.
-- For every Container Component there exists one Store and one Model.
-- Store has state of application so it consumes service See "Defining data stores". All service functions will be called in store not in Component. Component executes Store actions when state is needed.
-- Presentational Component can use store directly by injecting the store or Props from Container Component can be passed in it.
-- Container or Presentational Component can invoke store actions and automatic rendering of component will be done by Mobx.
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-![](_screenshots/architecture.jpg)
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-## Authors of ASP.NET Boilerplate ReactJS Template
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-* **Rashiduddin Yoldash** - *Initial work* - [ryoldash](https://github.com/ryoldash)
-* **Mehmet Yasir Aktunç** - *Initial work* - [mhmtyasr](https://github.com/mhmtyasr)
-* **Samet Kabay** - *Initial work* - [smtkby](https://github.com/smtkby)
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
