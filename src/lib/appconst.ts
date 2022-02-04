@@ -3,7 +3,7 @@ const AppConsts = {
     defaultAdminUserName: 'admin',
   },
   localization: {
-    defaultLocalizationSourceName: 'MvMangement',
+    defaultLocalizationSourceName: 'MvManagement',
   },
   authorization: {
     encrptedAuthTokenName: 'enc_auth_token',
