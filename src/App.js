@@ -1,7 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
 
+import axios from 'axios';
+import { useEffect } from 'react';
+import logo from './logo.svg';
+import { setAuthTokenCookie, setTenantIdCookie } from './services/cookie/cookieService';
+import { httpRequest } from './services/httpService';
+
 function App() {
+  useEffect(async () => {
+    var result = await httpRequest.post("https://localhost:44311/api/TokenAuth/Authenticate",{
+      userNameOrEmailAddress:"admin",
+      password:"123qwe",
+      rememberClient:true
+    })
+    console.log(result.data.result);
+    await setTenantIdCookie("1");
+    await setAuthTokenCookie(result.data.result.accessToken, result.data.result.expireInSeconds);
+  }, []);
+  
+
+
   return (
     <div className="App">
       <header className="App-header">
