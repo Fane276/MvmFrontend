@@ -3,15 +3,18 @@ import './index.css';
 import React from 'react';
 import { CookiesProvider } from 'react-cookie';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { ChakraProvider } from '@chakra-ui/react'
+import App from './app/App';
+import theme from './app/theme/theme'
 import reportWebVitals from './reportWebVitals';
-import utils from './utils/utils';
 
 ReactDOM.render(
   <React.StrictMode>
-     <CookiesProvider>  
-      <App />
-     </CookiesProvider>
+    <CookiesProvider>  
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
+    </CookiesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

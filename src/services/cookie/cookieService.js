@@ -1,8 +1,5 @@
-import moment from "moment";
 import Cookies from "universal-cookie";
 import CookieConst from "./Consts/CookieConst";
-
-const cookies = new Cookies();
 
 const getAuthTokenCookie = () => {
   const cookies = new Cookies();
