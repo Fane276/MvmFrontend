@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 import AppLayoutNotAuth from '../components/Layout/AppLayoutNotAuth';
 import LoginForm from '../components/Login/LoginForm';
@@ -6,7 +7,8 @@ import SelectTenantModal from '../components/Login/SelectTenantModal';
 import useAuth from '../utils/auth/useAuth';
 
 function Login() {
-
+  const { t } = useTranslation();
+   
   var [isAuthenticated, currentUser] = useAuth();
 
   useEffect(() => {
@@ -24,7 +26,7 @@ function Login() {
           <SelectTenantModal/>
           <Flex justifyContent="center" mt={7}>
             <Box textStyle='noAuthFormTitle' mb='5'>
-              Login
+              {t("Login")}
             </Box>
           </Flex>
           <LoginForm/>

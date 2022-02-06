@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { FiBriefcase } from 'react-icons/fi';
 import { Box, Button, Flex, FormControl, FormErrorMessage, Input, InputGroup, InputLeftElement, ModalFooter, useDisclosure } from '@chakra-ui/react';
 import { setTenantIdCookie } from '../../services/cookie/cookieService';
@@ -7,6 +8,7 @@ import { httpRequest } from '../../services/httpService';
 import ModalLayout from '../Modals/ModalLayout';
 
 function SelectTenantModal() {
+  const { t } = useTranslation();
   const [tenantName, setTenantName] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -30,14 +32,14 @@ function SelectTenantModal() {
   return (
     <>
       <Flex justifyContent="center">
-          <Box onClick={onOpen} textTransform='capitalize'> {tenantName? tenantName : "Select tenant"} </Box>
+          <Box onClick={onOpen} textTransform='capitalize'> {tenantName? tenantName : t("SelectTenant")} </Box>
       </Flex>
-      <ModalLayout isOpen={isOpen} onClose={onClose} title="Tenancy name"
+      <ModalLayout isOpen={isOpen} onClose={onClose} title={t("TenancyName")}
         footerComponent={
           <ModalFooter alignContent="space-between">
-            <Button onClick={onClose}>Cancel</Button> 
+            <Button onClick={onClose}>{t("Cancel")}</Button> 
             <Button onClick={handleSubmit(onSubmit)} colorScheme='blue' ml={3}>
-              Save
+              {t("Save")}
             </Button>
           </ModalFooter>
         }
@@ -47,7 +49,7 @@ function SelectTenantModal() {
             <InputLeftElement pointerEvents='none'>
               <FiBriefcase/>
             </InputLeftElement>
-            <Input placeholder='Enter tenancy name'
+            <Input placeholder={t("EnterTenancyName")}
               {...register('tenancyName', {required: "Tenancy name is required"})}
               />
             

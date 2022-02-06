@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import {FiEye, FiEyeOff, FiLock, FiUser} from 'react-icons/fi'
 import { Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, useColorModeValue } from '@chakra-ui/react';
 import {tokenAuth} from '../../services/tokenAuth/tokenAuthService';
 
 const LoginForm = () => {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false)
   const handleClick = () => setShowPassword(!showPassword)
 
@@ -33,7 +35,7 @@ const LoginForm = () => {
   return (
     <Flex direction='column' mb={3}>
       <FormControl isInvalid={errors.userNameOrEmailAddress}>
-        <FormLabel htmlFor='userNameOrEmailAddress'>Email</FormLabel>
+        <FormLabel htmlFor='userNameOrEmailAddress'>{t("Email")}</FormLabel>
         <InputGroup >
           <InputLeftElement pointerEvents='none'>
             <FiUser/>
@@ -48,12 +50,12 @@ const LoginForm = () => {
         }
       </FormControl>
       <FormControl isInvalid={errors.password} mt='2'>
-        <FormLabel htmlFor='password'>Password</FormLabel>
+        <FormLabel htmlFor='password'>{t("Password")}</FormLabel>
         <InputGroup >
           <InputLeftElement pointerEvents='none'>
             <FiLock/>
           </InputLeftElement>
-          <Input placeholder='password' type={showPassword ? 'text' : 'password'} focusBorderColor={inputBorderFocusColor}
+          <Input placeholder={t("Password")} type={showPassword ? 'text' : 'password'} focusBorderColor={inputBorderFocusColor}
             {...register('password', {required: true, })}
             />
           <InputRightElement>
@@ -71,10 +73,10 @@ const LoginForm = () => {
         }
       </FormControl>
       <Button colorScheme='blue' variant='solid' onClick={handleSubmit(onSubmit)} mt='5'>
-        Login
+        {t("Login")}
       </Button>
       <Button colorScheme='blue' variant='outline' onClick={handleSubmit(onSubmit)} mt='2'>
-        Register
+        {t("Register")}
       </Button>
     </Flex>
   )

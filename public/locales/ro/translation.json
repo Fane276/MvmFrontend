@@ -1,0 +1,13 @@
+{
+  "Login":"Autentificare",
+  "Register":"Înregistrare",
+  "Email":"Email",
+  "Password":"Parolă",
+  "SelectTenant":"Selectează tenant",
+  "Romana":"Română",
+  "English":"English",
+  "TenancyName":"Nume tenant",
+  "EnterTenancyName":"Introduceți nume tenant",
+  "Save":"Salvează",
+  "Cancel":"Anulează"
+}

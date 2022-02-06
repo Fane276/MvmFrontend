@@ -1,6 +1,7 @@
 import './index.css';
+import './utils/i18n';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { CookiesProvider } from 'react-cookie';
 import ReactDOM from 'react-dom';
 import { ChakraProvider } from '@chakra-ui/react'
@@ -10,11 +11,13 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
+    <Suspense fallback="...is loading">
     <CookiesProvider>  
       <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
     </CookiesProvider>
+    </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
 );

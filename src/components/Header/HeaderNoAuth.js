@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MoonIcon, StarIcon, SunIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, HStack, Menu, MenuButton, MenuItem, MenuList, Text, VStack, useColorMode, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue } from '@chakra-ui/react';
 
 function HeaderNoAuth() {
+  const { t, i18n } = useTranslation();
   const { colorMode, toggleColorMode }=useColorMode();
-  const {isOpen, onOpen, onClose} = useDisclosure();
+  const [selectedLanguage, setSelectedLanguage] = useState("ro");
 
-  var headerBgColor = useColorModeValue('gray.100', 'gray.900');
+  useEffect(() => {
+    if(i18n.language==='en'){
+      setSelectedLanguage("English")
+    }
+    else{
+      setSelectedLanguage("Romana")
+    }
+  }, [selectedLanguage]);
+  
+
+  const lang = [
+    {
+      key:"ro",
+      value:"Romana"
+    },
+    {
+      key:"en",
+      value:"English"
+    }
+  ]
+
+  const changeLanguage = (languageKey, languageValue)=>{
+    i18n.changeLanguage(languageKey);
+    setSelectedLanguage(languageValue)
+  }
+
+  const headerBgColor = useColorModeValue('gray.100', 'gray.900');
 
   return (
     <Box bg={headerBgColor} px={4}>
@@ -28,12 +56,15 @@ function HeaderNoAuth() {
             >
               <HStack >
                 <StarIcon/>
-                <Text> Romana</Text>
+                <Text> {t(selectedLanguage)}</Text>
               </HStack>
             </MenuButton>
             <MenuList>
-              <MenuItem>Romana</MenuItem>  
-              <MenuItem>English</MenuItem>  
+              {
+                lang.map((language)=>{
+                  return <MenuItem key={language.key} onClick={()=>changeLanguage(language.key, language.value)}> {t(language.value)}</MenuItem>  
+                })
+              }
             </MenuList>
           </Menu>
         </Flex>
