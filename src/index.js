@@ -14,11 +14,11 @@ ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback="...is loading">
       <CookiesProvider>  
-        <AuthProvider>
-          <ChakraProvider theme={theme}>
+        <ChakraProvider theme={theme}>
+          <AuthProvider>
             <App />
-          </ChakraProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </ChakraProvider>
       </CookiesProvider>
     </Suspense>
   </React.StrictMode>,

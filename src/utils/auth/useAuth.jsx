@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { httpRequestAuthenticated } from '../../services/httpService';
 
 function useAuth() {
-  const [isAuthenticated, setIsAuthenticated] = useState();
-  const [currentUser, setCurrentUser] = useState();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const [isInitializingAuthentication, setIsInitializingAuthentication] = useState(true);
 
   useEffect(() => {
@@ -22,10 +22,6 @@ function useAuth() {
         setIsInitializingAuthentication(false);
     }
     fetch();
-    return () => {
-      setIsAuthenticated(false);
-      setCurrentUser(null);
-    };
   }, []);
   
 

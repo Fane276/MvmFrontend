@@ -1,17 +1,39 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Navigate } from 'react-router';
-import GlobalLoading from '../../pages/GlobalLoading';
+import { httpRequestAuthenticated } from '../../services/httpService';
 import { AuthContext } from '../Context/AuthContex';
 
 const ProtectedRoute = ({children}) => {
-  const {isAuthenticated, isInitializingAuthentication} = useContext(AuthContext);
+  const {value, setValue} = useContext(AuthContext);
 
-  if(isInitializingAuthentication){
-   <GlobalLoading/>
+  useEffect(() => {
+    const fetch= async ()=>{
+
+      console.log("useEffect NotAuthRoute: ");
+      if(value.isFirstRender){
+
+        var request = await httpRequestAuthenticated("api/services/app/Session/GetCurrentLoginInformations")
+        var currentSession = request.data.result;
+        if(currentSession.user){
+          setValue({isAuthenticated:true, currentUser:currentSession.user, isFirstRender:false});
+        }
+        else{
+          setValue({isAuthenticated:false, currentUser:null, isFirstRender:false});
+        }
+      }
+      console.log(value);
   }
+  fetch();
+  }, []);
+  // if(isInitializingAuthentication){
+  //  <GlobalLoading/>
+  // }
   return (
-    isAuthenticated ? children: (
+    !value.isInitializingAuthentication &&(
+    console.log("protected: " + value.isAuthenticated),
+    value.isAuthenticated ? children: (
       <Navigate to="/login"      />
+    )
     )
   )
 };

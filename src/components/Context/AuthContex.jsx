@@ -1,17 +1,16 @@
-import React, { createContext } from 'react';
-import useAuth from '../../utils/auth/useAuth';
+import React, { createContext, useState } from 'react';
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+  value: {},
+  setValue: ({isAuthenticated,currentUser,isFirstRender}) =>{}
+});
 
 const AuthProvider = ({children}) => {
 
-  const {isAuthenticated, currentUser, isInitializingAuthentication} = useAuth()
 
-  const value = {
-    isAuthenticated, currentUser, isInitializingAuthentication
-  }
+  const [value, setValue] = useState({isAuthenticated:false,currentUser:null,isFirstRender:true});
   
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{value, setValue}}>{children}</AuthContext.Provider>
 };
 
 export {AuthProvider, AuthContext};
