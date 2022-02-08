@@ -13,7 +13,6 @@ function AppLayoutNotAuth({ children, ...props }) {
     >
       <HeaderNoAuth/>
       <Flex mt="5vh" px="30vw" alignItems="center" justifyContent="center" >
-
         {children}
       </Flex>
     </Flex>

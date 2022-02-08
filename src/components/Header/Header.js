@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { useTranslation } from 'react-i18next';
+import { FiMenu } from 'react-icons/fi';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, HStack, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue } from '@chakra-ui/react';
 
-function HeaderNoAuth() {
+function Header({onOpen}) {
   const { t, i18n } = useTranslation();
   const { colorMode, toggleColorMode }=useColorMode();
   const [selectedLanguage, setSelectedLanguage] = useState(null);
@@ -44,13 +45,20 @@ function HeaderNoAuth() {
     }
   }
 
-  const headerBgColor = useColorModeValue('gray.100', 'gray.900');
+  const headerBgColor = useColorModeValue('white', 'gray.900');
 
   return (
-    <Box bg={headerBgColor} px={4}>
+    <Box bg={headerBgColor} borderBottom="1px" borderBottomColor={useColorModeValue('gray.200', 'gray.700')} px={3}>
       <Flex h={14} alignItems={'center'} justifyContent={'space-between'}>
-        <Box>
+        
+        <Box display={{ base: 'block', md: 'none' }}>
+          <IconButton onClick={onOpen} mr={2}>
+            <FiMenu/>
+          </IconButton>
           MvManagement
+        </Box>
+        <Box display={{ base: 'none', md: 'block' }}>
+          
         </Box>
         <Flex alignItems={"center"}>
           <Button onClick={toggleColorMode} rounded={'6'}>
@@ -66,7 +74,7 @@ function HeaderNoAuth() {
             >
               <HStack >
                 <ReactCountryFlag countryCode={selectedLanguage?.countryCode} svg/>
-                <Text> {t(selectedLanguage?.name)}</Text>
+                <Text display={{ base: 'none', md: 'block' }}> {t(selectedLanguage?.name)}</Text>
               </HStack>
             </MenuButton>
             <MenuList>
@@ -88,4 +96,4 @@ function HeaderNoAuth() {
   )
 }
 
-export default HeaderNoAuth;
+export default Header;

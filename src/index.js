@@ -13,13 +13,13 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback="...is loading">
-    <AuthProvider>
       <CookiesProvider>  
-        <ChakraProvider theme={theme}>
-          <App />
-        </ChakraProvider>
+        <AuthProvider>
+          <ChakraProvider theme={theme}>
+            <App />
+          </ChakraProvider>
+        </AuthProvider>
       </CookiesProvider>
-      </AuthProvider>
     </Suspense>
   </React.StrictMode>,
   document.getElementById('root')

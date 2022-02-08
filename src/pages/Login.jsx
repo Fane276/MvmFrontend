@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 import AppLayoutNotAuth from '../components/Layout/AppLayoutNotAuth';
 import LoginForm from '../components/Login/LoginForm';
@@ -7,6 +8,7 @@ import SelectTenantModal from '../components/Login/SelectTenantModal';
 
 function Login() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const bgColor = useColorModeValue('gray.100','gray.900');
 
@@ -20,7 +22,7 @@ function Login() {
               {t("Login")}
             </Box>
           </Flex>
-          <LoginForm/>
+          <LoginForm navigate={navigate}/>
         </Flex>
     </AppLayoutNotAuth>
   );
