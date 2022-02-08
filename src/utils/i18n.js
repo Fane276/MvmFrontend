@@ -12,7 +12,7 @@ i18n
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    debug: true,
+    debug: false,
     fallbackLng: 'ro',
     keySeparator: false,
     interpolation: {

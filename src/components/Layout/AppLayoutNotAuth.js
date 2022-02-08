@@ -1,9 +1,8 @@
 import React from 'react';
-import { Flex, LinkOverlay, useColorModeValue, useMediaQuery } from '@chakra-ui/react';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
 import HeaderNoAuth from '../Header/HeaderNoAuth';
 
 function AppLayoutNotAuth({ children, ...props }) {
-  const [minWidth1024] = useMediaQuery("(min-width: 1024px)");
   const bgGradient =  useColorModeValue('white', 'gray.800')
   return (
     <Flex 
