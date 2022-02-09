@@ -1,31 +1,15 @@
-import { Box, Drawer, DrawerContent, useColorModeValue, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import Header from "../Header/Header";
-import SidebarContent from "./SidebarContent";
+import SidebarMenu from "./SidebarMenu";
 
 export default function SidebarMenuWithHeader({children}) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
-      <SidebarContent
-        onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
-      />
-      <Drawer
-        autoFocus={false}
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        returnFocusOnClose={false}
-        onOverlayClick={onClose}
-        size="xs">
-        <DrawerContent>
-          <SidebarContent onClose={onClose}/>
-        </DrawerContent>
-      </Drawer>
-      <Box ml={{ base: 0, md: 60 }}>
-        <Header onOpen={onOpen}/>
+    <Flex minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+      <SidebarMenu />
+      <Box w="100%">
+        <Header/>
         {children}
       </Box>
-    </Box>
+    </Flex>
   );
 }

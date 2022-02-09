@@ -3,12 +3,15 @@ import ReactCountryFlag from 'react-country-flag';
 import { useTranslation } from 'react-i18next';
 import { FiMenu } from 'react-icons/fi';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import MobileMenu from '../Menu/MobileMenu';
 
-function Header({onOpen}) {
+function Header() {
   const { t, i18n } = useTranslation();
   const { colorMode, toggleColorMode }=useColorMode();
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+
+  const {isOpen, onOpen, onClose} = useDisclosure();
 
   useEffect(() => {
     if(selectedLanguage == null){
@@ -45,17 +48,18 @@ function Header({onOpen}) {
     }
   }
 
-  const headerBgColor = useColorModeValue('white', 'gray.900');
+  const headerBgColor = useColorModeValue('white', 'gray.800');
+  const headerBorderBgColor = useColorModeValue('gray.200', 'gray.700');
 
   return (
-    <Box bg={headerBgColor} borderBottom="1px" borderBottomColor={useColorModeValue('gray.200', 'gray.700')} px={3}>
+    <Box bg={headerBgColor} borderBottom="1px" borderBottomColor={headerBorderBgColor} px={3} mx={4} my={2} borderRadius={14}>
       <Flex h={14} alignItems={'center'} justifyContent={'space-between'}>
         
         <Box display={{ base: 'block', md: 'none' }}>
-          <IconButton onClick={onOpen} mr={2}>
+          <IconButton mr={2} onClick={onOpen}>
             <FiMenu/>
           </IconButton>
-          MvManagement
+          <MobileMenu isOpen={isOpen} onClose={onClose}/>
         </Box>
         <Box display={{ base: 'none', md: 'block' }}>
           

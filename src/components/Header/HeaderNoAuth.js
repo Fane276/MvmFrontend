@@ -45,9 +45,10 @@ function HeaderNoAuth() {
   }
 
   const headerBgColor = useColorModeValue('gray.100', 'gray.900');
+  const headerBorderBgColor = useColorModeValue('gray.200', 'gray.700');
 
   return (
-    <Box bg={headerBgColor} px={4}>
+    <Box bg={headerBgColor} borderBottom={1} borderBottomColor={headerBorderBgColor} px={4} mx={4} my={2} borderRadius={14}>
       <Flex h={14} alignItems={'center'} justifyContent={'space-between'}>
         <Box>
           MvManagement
