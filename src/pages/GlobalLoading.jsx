@@ -4,7 +4,7 @@ import { Flex } from '@chakra-ui/react';
 import useAuth from '../utils/auth/useAuth';
 
 const GlobalLoading = () => {
-  const {isAuthenticated} = useAuth();
+  // const {isAuthenticated} = useAuth();
   const navigate = useNavigate();
 
 

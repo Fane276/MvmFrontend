@@ -1,42 +1,19 @@
 import React, { useContext, useEffect } from 'react';
 import { Navigate } from 'react-router';
-import { httpRequestAuthenticated } from '../../services/httpService';
+import GlobalLoading from '../../pages/GlobalLoading';
 import { AuthContext } from '../Context/AuthContex';
 
 const NotAuthRoute = ({children}) => {
-  const {value,setValue} = useContext(AuthContext);
+  const {isAuthenticated, isLoading} = useContext(AuthContext);
 
-  useEffect(() => {
-
-    const fetch= async ()=>{
-
-      console.log("useEffect NotAuthRoute: ");
-      if(value.isFirstRender){
-
-        var request = await httpRequestAuthenticated("api/services/app/Session/GetCurrentLoginInformations")
-        var currentSession = request.data.result;
-        
-        if(currentSession.user){
-          setValue({isAuthenticated:true, currentUser:currentSession.user, isFirstRender:false});
-        }
-        else{
-          setValue({isAuthenticated:false, currentUser:null, isFirstRender:false});
-        }
-      }
-      console.log(value);
+  
+  if(isLoading){
+   <GlobalLoading/>
   }
-  fetch();
-  
-  }, []);
-  
-  // if(isInitializingAuthentication){
-  //  <GlobalLoading/>
-  // }
 
   return (
-    !value.isInitializingAuthentication &&(
-    console.log("NotAuthRoute: " + value.isAuthenticated),
-    !value.isAuthenticated ? children: (
+    !isLoading &&(
+    !isAuthenticated ? children : (
       <Navigate to="/dashboard"
       />
     ) 

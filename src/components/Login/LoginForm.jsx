@@ -2,9 +2,11 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {FiEye, FiEyeOff, FiLock, FiUser} from 'react-icons/fi'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, useColorModeValue } from '@chakra-ui/react';
 import {tokenAuth} from '../../services/tokenAuth/tokenAuthService';
+import { login } from '../../state/user/userSlice';
 import {AuthContext} from '../Context/AuthContex'
 
 const LoginForm = () => {
@@ -12,6 +14,7 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const handleClick = () => setShowPassword(!showPassword)
 
+  const dispatch = useDispatch()
 
   const {handleSubmit, register, formState: { errors } } = useForm();
 
@@ -27,7 +30,7 @@ const LoginForm = () => {
       var isSuccess = await tokenAuth(data);
       if(isSuccess){
         console.log("success token auth");
-        setValue({isAuthenticated:true, currentUser:{},isInitializingAuthentication:false});
+        dispatch(login({isAuthenticated:true, currentUser:null, currentTenant: null,isLoading:false}));
         navigate("/dashboard")
       }
       else{

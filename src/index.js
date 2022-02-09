@@ -4,22 +4,26 @@ import './utils/i18n';
 import React, { Suspense } from 'react';
 import { CookiesProvider } from 'react-cookie';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react'
 import App from './app/App';
 import theme from './app/theme/theme'
 import {AuthProvider} from './components/Context/AuthContex';
 import reportWebVitals from './reportWebVitals';
+import store from './state/store';
 
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback="...is loading">
-      <CookiesProvider>  
-        <ChakraProvider theme={theme}>
-          <AuthProvider>
-            <App />
-          </AuthProvider>
-        </ChakraProvider>
-      </CookiesProvider>
+      <Provider store={store}>
+        <CookiesProvider>  
+          <ChakraProvider theme={theme}>
+            <AuthProvider>
+              <App />
+            </AuthProvider>
+          </ChakraProvider>
+        </CookiesProvider>
+      </Provider>
     </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
