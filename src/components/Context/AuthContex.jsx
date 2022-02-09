@@ -1,7 +1,5 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { httpRequestAuthenticated } from '../../services/httpService';
-import { login } from '../../state/user/userSlice';
+import React, { createContext } from 'react';
+import { useSelector } from 'react-redux';
 import useAuth from '../../utils/auth/useAuth';
 
 const AuthContext = createContext({
@@ -13,10 +11,9 @@ const AuthContext = createContext({
 
 const AuthProvider = ({children}) => {
 
-  const {currentUser:ceva}= useAuth();
+  useAuth();
   const value = useSelector((state)=>state.user.value);
 
-  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   const fetch= async ()=>{

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import { Navigate } from 'react-router';
 import GlobalLoading from '../../pages/GlobalLoading';
 import { AuthContext } from '../Context/AuthContex';

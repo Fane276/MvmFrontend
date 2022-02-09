@@ -2,6 +2,7 @@ import './App.css';
 
 import { Route, Routes } from 'react-router';
 import {BrowserRouter as Router} from 'react-router-dom'
+import { Text } from '@chakra-ui/react';
 import NotAuthRoute from '../components/CustomRouteWrappers/NotAuthRoute';
 import ProtectedRoute from '../components/CustomRouteWrappers/ProtectedRoute';
 import Dashboard from '../pages/Dashboard';
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route exact path="/design" element = {<ProtectedRoute><GlobalLoading/></ProtectedRoute>}/>
         <Route exact path="/login" element={<NotAuthRoute><Login/></NotAuthRoute>}/>
+        <Route exact path="/register" element={<NotAuthRoute><Text>Register</Text></NotAuthRoute>}/>
         <Route exact path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
       </Routes>
     </Router>

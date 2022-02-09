@@ -1,12 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { httpRequestAuthenticated } from '../../services/httpService';
 import { login } from '../../state/user/userSlice';
 
 function useAuth() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [isInitializingAuthentication, setIsInitializingAuthentication] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,7 +22,7 @@ function useAuth() {
   }, [dispatch]);
   
 
-  return {isAuthenticated, currentUser, isInitializingAuthentication}
+  return null;
 }
 
 export default useAuth;
