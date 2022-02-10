@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Box, Divider, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 import SideBarMenuFooter from './SideBarMenuFooter';
+import SidebarContent from './SidebarContent';
 
 const SidebarMenu = ({ children, ...rest }) => {
   const [ navSize, setNavSize] = useState("large");
@@ -16,7 +17,7 @@ const SidebarMenu = ({ children, ...rest }) => {
       pos="sticky"
       h="100vh"
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-      w={navSize === "small" ? "100px" : "240px"}
+      w={navSize === "small" ? "100px" : "300px"}
       flexDir="column"
       justifyContent="space-between"
       backgroundColor={menuBgColor}
@@ -73,8 +74,8 @@ const SidebarMenu = ({ children, ...rest }) => {
           
         }
         </Box>
-
         </Flex>
+        <SidebarContent navSize={navSize}/>
       </Flex>
       
       <Flex

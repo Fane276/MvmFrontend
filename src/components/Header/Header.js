@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { useTranslation } from 'react-i18next';
 import { FiMenu } from 'react-icons/fi';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import { Avatar, Box, Button, Divider, Flex, HStack, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import { AuthContext } from '../Context/AuthContex';
 import MobileMenu from '../Menu/MobileMenu';
 
 function Header() {
   const { t, i18n } = useTranslation();
   const { colorMode, toggleColorMode }=useColorMode();
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+
+  const {currentUser} = useContext(AuthContext); 
 
   const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -76,22 +79,54 @@ function Header() {
               minW={0}
               marginLeft={3}
             >
-              <HStack >
+              <HStack>
                 <ReactCountryFlag countryCode={selectedLanguage?.countryCode} svg/>
-                <Text display={{ base: 'none', md: 'block' }}> {t(selectedLanguage?.name)}</Text>
+                <Text display={{ base: 'none', md: 'block' }}>{t(selectedLanguage?.name)}</Text>
+                
               </HStack>
             </MenuButton>
             <MenuList>
               {
                 lang.map((language)=>{
                   return <MenuItem key={language.key} onClick={()=>changeLanguage(language.key, language.value)}> 
-                  <ReactCountryFlag countryCode={language.key} svg/>
-                  <Text ml={3}>
-                    {t(language.value)}
-                  </Text>
+                    <ReactCountryFlag countryCode={language.key} svg/>
+                    <Text ml={3}>
+                      {t(language.value)}
+                    </Text>
                   </MenuItem>  
                 })
               }
+            </MenuList>
+          </Menu>
+          <Menu>
+            <MenuButton
+              rounded='16'
+              cursor={'pointer'}
+              minW={0}
+              marginLeft={3}
+            >
+              <HStack>
+                {/* <Text display={{ base: 'none', md: 'block' }}>{currentUser.name} {currentUser.surname}</Text> */}
+                <Avatar size='sm'/>
+              </HStack>
+            </MenuButton>
+            <MenuList>
+              <MenuItem mb='1' onClick={()=>{}}> 
+                <Avatar size='sm' ml={3}/>
+                <Text ml={3} display={{ base: 'none', md: 'block' }}>{currentUser.name} {currentUser.surname}</Text>
+              </MenuItem>  
+              <Divider/>
+              <MenuItem my='1' onClick={()=>{}}> 
+                <Text ml={3}>
+                  {t("Settings")}
+                </Text>
+              </MenuItem>  
+              <Divider/>
+              <MenuItem onClick={()=>{}} mt='1'> 
+                <Text ml={3}>
+                  {t("Logout")}
+                </Text>
+              </MenuItem>  
             </MenuList>
           </Menu>
         </Flex>
