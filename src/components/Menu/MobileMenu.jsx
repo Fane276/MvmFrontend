@@ -1,6 +1,6 @@
 import React from 'react'
 import { FiX } from 'react-icons/fi'
-import { Divider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, Flex, IconButton, Text } from '@chakra-ui/react'
+import { Divider, Drawer, DrawerBody, DrawerContent, Flex, IconButton, Text } from '@chakra-ui/react'
 import SideBarMenuFooter from './SideBarMenuFooter'
 import SidebarContent from './SidebarContent'
 

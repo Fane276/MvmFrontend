@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiGasPump, BiWrench } from 'react-icons/bi'
 import { FiCalendar, FiFileText, FiHome } from 'react-icons/fi'
+import { useLocation, useNavigate } from 'react-router'
 import { Flex } from '@chakra-ui/react'
 import NavItem from './NavItem'
 
@@ -9,18 +10,22 @@ const MenuItems = [
 {
   title: "Home",
   icon: FiHome,
+  path: '/dashboard'
 },
 {
   title: "DocumentsManagement",
   icon: FiFileText,
+  path: '/Documents'
 },
 {
   title: "FuelEconomy",
   icon: BiGasPump,
+  path: '/GasEconomy'
 },
 {
   title: "ServiceHistory",
   icon: BiWrench,
+  path: '/Service'
 },
 
 ]
@@ -28,6 +33,9 @@ const MenuItems = [
 
 const SidebarContent = ({navSize}) => {
   const { t } = useTranslation();
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <Flex
@@ -37,10 +45,9 @@ const SidebarContent = ({navSize}) => {
     >
       {
         MenuItems.map((menuItem)=>{
-          return <NavItem key={menuItem.title} navSize={navSize} title={t(menuItem.title)} icon={menuItem.icon}/>
+          return <NavItem key={menuItem.title} navSize={navSize} title={t(menuItem.title)} icon={menuItem.icon} onClick={()=>navigate(menuItem.path)} active={location.pathname === menuItem.path ? true:false}/>
         })
       }
-      <NavItem navSize={navSize} title="Active menu item" icon={FiCalendar} active/>
     </Flex>
   )
 }

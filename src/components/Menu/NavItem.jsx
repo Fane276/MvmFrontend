@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex, Icon, Link, Menu, MenuButton, MenuList, Text, useColorModeValue } from '@chakra-ui/react'
 
-const NavItem = ({navSize, title, icon, active}) => {
+const NavItem = ({navSize, title, icon, active = false}) => {
 
   const activeColor = useColorModeValue('blue.100', 'blue.900');
   const iconColor = useColorModeValue('gray.900', 'gray.200');
@@ -15,7 +15,7 @@ const NavItem = ({navSize, title, icon, active}) => {
     >
       <Menu>
         <Link
-          backgroundColor={active && activeColor}
+          backgroundColor={active === true && activeColor}
           p={2}
           borderRadius={8}
           _hover={{textDecor: 'none', backgroundColor: activeColor}}

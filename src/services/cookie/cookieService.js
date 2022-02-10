@@ -24,5 +24,15 @@ const setTenantIdCookie=(tenantId)=>{
   return cookies.set(CookieConst.Abp.tenantIdCookieName, tenantId);
 }
 
+const removeAuthTokenCookie=()=>{
+  const cookies = new Cookies();
+  return cookies.remove(CookieConst.Abp.tokenCookieName);
+}
 
-export {getAuthTokenCookie, getTenantIdCookie, setAuthTokenCookie, setTenantIdCookie};
+const removeTenantIdCookie=()=>{
+  const cookies = new Cookies();
+  return cookies.remove(CookieConst.Abp.tenantIdCookieName);
+}
+
+
+export {getAuthTokenCookie, getTenantIdCookie, setAuthTokenCookie, setTenantIdCookie,removeAuthTokenCookie,removeTenantIdCookie};

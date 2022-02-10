@@ -2,8 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { useTranslation } from 'react-i18next';
 import { FiMenu } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Avatar, Box, Button, Divider, Flex, HStack, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import { Avatar, Box, Button, Divider, Flex, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import { removeAuthTokenCookie, removeTenantIdCookie } from '../../services/cookie/cookieService';
+import { login } from '../../state/user/userSlice';
 import { AuthContext } from '../Context/AuthContex';
 import MobileMenu from '../Menu/MobileMenu';
 
@@ -12,7 +16,10 @@ function Header() {
   const { colorMode, toggleColorMode }=useColorMode();
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
-  const {currentUser} = useContext(AuthContext); 
+  const navigate = useNavigate()
+
+  const {currentUser} = useSelector((state)=>state.user.value); 
+  const dispatch = useDispatch();
 
   const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -28,6 +35,15 @@ function Header() {
     }
   }, [selectedLanguage,i18n.language]);
   
+  const onLogout = ()=>{
+    removeAuthTokenCookie();
+    removeTenantIdCookie();
+
+    dispatch(login({isAuthenticated:false, currentUser:null, currentTenant: null,isLoading:false}));
+
+    navigate("/login")
+  }
+
 
   const lang = [
     {
@@ -113,7 +129,7 @@ function Header() {
             <MenuList>
               <MenuItem mb='1' onClick={()=>{}}> 
                 <Avatar size='sm' ml={3}/>
-                <Text ml={3} display={{ base: 'none', md: 'block' }}>{currentUser.name} {currentUser.surname}</Text>
+                <Text ml={3} display={{ base: 'none', md: 'block' }}>{currentUser?.name} {currentUser?.surname}</Text>
               </MenuItem>  
               <Divider/>
               <MenuItem my='1' onClick={()=>{}}> 
@@ -122,7 +138,7 @@ function Header() {
                 </Text>
               </MenuItem>  
               <Divider/>
-              <MenuItem onClick={()=>{}} mt='1'> 
+              <MenuItem onClick={onLogout} mt='1'> 
                 <Text ml={3}>
                   {t("Logout")}
                 </Text>
