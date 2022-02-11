@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { useTranslation } from 'react-i18next';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, HStack, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Image, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useMediaQuery } from '@chakra-ui/react';
 
 function HeaderNoAuth() {
   const { t, i18n } = useTranslation();
   const { colorMode, toggleColorMode }=useColorMode();
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [isMobileScreen] = useMediaQuery('(min-width:480px)');
 
   useEffect(() => {
     if(selectedLanguage == null){
@@ -50,8 +51,13 @@ function HeaderNoAuth() {
   return (
     <Box bg={headerBgColor} borderBottom={1} borderBottomColor={headerBorderBgColor} px={4} mx={4} my={2} borderRadius={14}>
       <Flex h={14} alignItems={'center'} justifyContent={'space-between'}>
-        <Box>
-          MvManagement
+        <Box ml='3'>
+          {
+            isMobileScreen?
+            <Image h='42px'  src='mvm-logo-large.png'/>
+            :
+            <Image h='42px'  src='mvm-logo-small.png'/>
+          }
         </Box>
         <Flex alignItems={"center"}>
           <Button onClick={toggleColorMode} rounded={'6'}>

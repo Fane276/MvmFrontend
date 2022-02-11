@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { Box, Divider, Flex, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Divider, Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
 import SideBarMenuFooter from './SideBarMenuFooter';
 import SidebarContent from './SidebarContent';
 
@@ -40,7 +40,11 @@ const SidebarMenu = ({ children, ...rest }) => {
           justifyContent = "space-between"
         >
         <Text fontSize={16} fontWeight='bold'>
-          {navSize === "small"? "MVM" : "MvManagement"}
+          {navSize === "small"? 
+            <Image h='42px'  src='mvm-logo-small.png'/>
+            :
+            <Image h='42px'  src='mvm-logo-large.png'/>
+          }
         </Text>
         {/* <IconButton
           p="0.5"
