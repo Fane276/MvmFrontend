@@ -8,7 +8,7 @@ const getAuthTokenCookie = () => {
 
 const getTenantIdCookie=()=>{
   const cookies = new Cookies();
-  return cookies.get(CookieConst.Abp.tenantIdCookie);
+  return cookies.get(CookieConst.Abp.tenantIdCookieName);
 }
 
 const setAuthTokenCookie = (authToken, expireInSeconds) => {
