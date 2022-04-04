@@ -5,6 +5,8 @@ import {FiEye, FiEyeOff, FiLock, FiUser} from 'react-icons/fi'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, useColorModeValue } from '@chakra-ui/react';
+import { getAuthTokenCookie, getTenantIdCookie, setTenantIdCookie } from '../../services/cookie/cookieService';
+import { httpRequest, httpRequestAuthenticated } from '../../services/httpService';
 import {tokenAuth} from '../../services/tokenAuth/tokenAuthService';
 import { login } from '../../state/user/userSlice';
 
@@ -20,11 +22,20 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     try{
+      
+      var tenantIdCookie = getTenantIdCookie();
+      if(tenantIdCookie === undefined){
+        setTenantIdCookie(1);
+        httpRequest.defaults.headers['Abp.TenantId'] = getTenantIdCookie();
+      }
 
       var isSuccess = await tokenAuth(data);
+      
       if(isSuccess){
-        console.log("success token auth");
         dispatch(login({isAuthenticated:true, currentUser:null, currentTenant: null,isLoading:false}));
+        httpRequestAuthenticated.defaults.headers['Abp.TenantId'] = getTenantIdCookie();
+        httpRequestAuthenticated.defaults.headers['Authorization'] = `Bearer ${ getAuthTokenCookie()}`;
+
         navigate("/dashboard")
       }
       else{

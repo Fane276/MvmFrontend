@@ -2,7 +2,7 @@ import axios from "axios";
 import AppConsts from "../lib/appconst";
 import { getAuthTokenCookie, getTenantIdCookie } from "./cookie/cookieService";
 
-const httpRequestAuthenticated = axios.create({
+var httpRequestAuthenticated = axios.create({
   baseURL: AppConsts.remoteServiceBaseUrl,
   timeout: 30000,
   headers:{ 
@@ -11,7 +11,7 @@ const httpRequestAuthenticated = axios.create({
   }
 });
 
-const httpRequest = axios.create({
+var httpRequest = axios.create({
   baseURL: AppConsts.remoteServiceBaseUrl,
   timeout: 30000,
   headers:{ 

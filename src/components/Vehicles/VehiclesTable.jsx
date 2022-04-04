@@ -24,7 +24,7 @@ const VehiclesTable = ({endpoint}) => {
           SkipCount: skipCount
         }
       })
-      if(result.data.success == true){
+      if(result.data.success === true){
         result = result.data.result;
         setItems(result.items);
         setTotalCount(result.totalCount)
@@ -43,7 +43,6 @@ const VehiclesTable = ({endpoint}) => {
   }
   
   const handleMaxCountChanged=(event)=>{
-    console.log(event.target.value);
     setMaxResultCount(event.target.value);
   }
 
