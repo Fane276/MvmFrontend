@@ -1,19 +1,28 @@
 import { AsyncSelect } from 'chakra-react-select';
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { FiChevronDown } from 'react-icons/fi';
-import { Button, Input, InputGroup, InputRightAddon, InputRightElement } from '@chakra-ui/react';
+import { Input, InputGroup, InputRightAddon } from '@chakra-ui/react';
 import { httpRequest } from '../../services/httpService';
 
-const Select2 = ({endpoint, control, setValue,register, name, registerOptions, hasOtherOption}) => {
+const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setValue,register, name, registerOptions, hasOtherOption}) => {
   const [items, setItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   const [valueInput, setValueInput] = useState(null);
   const [otherIsVisible, setOtherIsVisible] = useState(false);
+  const [extraParameterValueLocal, setExtraParameterValueLocal] = useState(null);
   const asyncSelect = useRef();
 
   const {t} = useTranslation();
  
+  useEffect(() => {
+    setExtraParameterValueLocal(extraParameterValue)
+  
+    asyncSelect.current.setValue('');
+
+  }, [extraParameterValue])
+  
+
   // handle input change event
   const handleInputChange = value => {
     setValueInput(value);
@@ -45,17 +54,35 @@ const Select2 = ({endpoint, control, setValue,register, name, registerOptions, h
   }
  
   const fetchData = (query) => {
+    console.log("vehicleType: " + extraParameterValue);
+    console.log("query: " + query);
     if(query){
-      return  httpRequest.get(`${endpoint}&q=${query}`).then(result => {
-        const res =  result.data.result.items;
-        return res;
-      });
+      if(extraParameter && extraParameterValue){
+        return  httpRequest.get(`${endpoint}?${extraParameter}=${extraParameterValue}&q=${query}`).then(result => {
+          const res =  result.data.result.items;
+          return res;
+        });
+      }
+      else{
+        return  httpRequest.get(`${endpoint}?&q=${query}`).then(result => {
+          const res =  result.data.result.items;
+          return res;
+        });
+      }
     }
     else{
-      return  httpRequest.get(endpoint).then(result => {
-        const res =  result.data.result.items;
-        return res;
-      });
+      if(extraParameter && extraParameterValue){
+        return  httpRequest.get(`${endpoint}?${extraParameter}=${extraParameterValue}`).then(result => {
+          const res =  result.data.result.items;
+          return res;
+        });
+      }
+      else{
+        return  httpRequest.get(endpoint).then(result => {
+          const res =  result.data.result.items;
+          return res;
+        });
+      }
     }
   }
   return (
@@ -67,6 +94,7 @@ const Select2 = ({endpoint, control, setValue,register, name, registerOptions, h
           otherIsVisible == false ?
           <AsyncSelect
           ref={asyncSelect}
+          key={JSON.stringify(extraParameterValueLocal)}
           cacheOptions
           defaultOptions
           value={selectedValue}
