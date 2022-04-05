@@ -5,7 +5,7 @@ import { FiChevronDown } from 'react-icons/fi';
 import { Input, InputGroup, InputRightAddon } from '@chakra-ui/react';
 import { httpRequest } from '../../services/httpService';
 
-const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setValue,register, name, registerOptions, hasOtherOption}) => {
+const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setValue,register, name, registerOptions, hasOtherOption, onChange}) => {
   const [items, setItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   const [valueInput, setValueInput] = useState(null);
@@ -40,6 +40,9 @@ const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setVal
         setOtherIsVisible(false);
       }
     }
+    if(onChange){
+      onChange(value.id);
+    }
   }
 
   const openSelect = ()=>{
@@ -54,8 +57,6 @@ const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setVal
   }
  
   const fetchData = (query) => {
-    console.log("vehicleType: " + extraParameterValue);
-    console.log("query: " + query);
     if(query){
       if(extraParameter && extraParameterValue){
         return  httpRequest.get(`${endpoint}?${extraParameter}=${extraParameterValue}&q=${query}`).then(result => {
@@ -105,12 +106,12 @@ const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setVal
           onInputChange={handleInputChange}
           onChange={handleChange}
           openMenuOnFocus={true}
-          placeholder={t("SelectMake")}
+          placeholder={t("Select")}
           />
           :
           <InputGroup>
             <Input
-              placeholder={t("EnterMakeName")}
+              placeholder={t("Other")}
               {...register(`${name}Other`)}
               />
             <InputRightAddon onClick={openSelect}>

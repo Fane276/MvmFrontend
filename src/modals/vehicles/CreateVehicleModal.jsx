@@ -1,9 +1,9 @@
 import { Select } from 'chakra-react-select';
-import React, { useEffect, useState } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiPlus } from 'react-icons/fi';
-import { Button, IconButton, ModalFooter, useDisclosure } from '@chakra-ui/react';
+import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, ModalFooter, useDisclosure } from '@chakra-ui/react';
 import Select2 from '../../components/Form/Select2'
 import ModalLayout from '../../components/Modals/ModalLayout'
 
@@ -65,17 +65,18 @@ const vehicleTypes = [
 
 const CreateVehicleModal = () => {
   const [vehicleType, setVehicleType] = useState();
+  const [vehicleMake, setVehicleMake] = useState();
   const {t} = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { handleSubmit, register, setValue, getValues, control, formState: { errors } } = useForm();
 
-
-useEffect(() => {
-}, [vehicleType])
-
   const onChangeVehicleType = (value) =>{
     setVehicleType(value.value);
+  }
+
+  const onChangeVehicleMake = (value) =>{
+    setVehicleMake(value);
   }
 
   const onSubmit = async (data)=>{
@@ -96,9 +97,32 @@ useEffect(() => {
           </ModalFooter>
         }
       >
-        <Select options={vehicleTypes} onChange={onChangeVehicleType} name="idVehicleType" />
+        <FormControl isInvalid={errors.idVehicleType}>
+          <FormLabel>{t("VehicleType")}</FormLabel>
+          <Select options={vehicleTypes} onChange={onChangeVehicleType} name="idVehicleType"  />
+          {errors.idVehicleType &&
+          <FormErrorMessage>{t("VehicleTypeError")}</FormErrorMessage>
+          }
+        </FormControl>
+
+        <FormControl mt='2' isInvalid={errors.idMake}>
+          <FormLabel>{t("Make")}</FormLabel>
+          <Select2 extraParameterValue={vehicleType} extraParameter={"categorie"} onChange={onChangeVehicleMake} endpoint='/api/services/app/AutoCatalogue/GetMakeByCategory' control={control} setValue={setValue} register={register} name='idMake' registerOptions={{required:true}} hasOtherOption={true}/>
+          {errors.idMake &&
+          <FormErrorMessage>{t("MakeError")}</FormErrorMessage>
+          }
+        </FormControl>
+
+        <FormControl mt='2' isInvalid={errors.idModel}>
+          <FormLabel>{t("Model")}</FormLabel>
+          <Select2 extraParameterValue={vehicleMake} extraParameter={"idMarca"} endpoint='/api/services/app/AutoCatalogue/GetModels' control={control} setValue={setValue} register={register} name='idModel' registerOptions={{required:true}} hasOtherOption={true}/>
+          {errors.idModel &&
+          <FormErrorMessage>{t("Model")}</FormErrorMessage>
+          }
+        </FormControl>
         
-        <Select2 extraParameterValue={vehicleType} extraParameter={"categorie"} endpoint='/api/services/app/AutoCatalogue/GetMakeByCategory' control={control} setValue={setValue} register={register} name='IdMake' registerOptions={{required:true}} hasOtherOption={true}/>
+        
+        
       </ModalLayout>
     </>
   )
