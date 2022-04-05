@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiPlus } from 'react-icons/fi';
-import { Box, Flex, HStack, IconButton, Text } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import Card from '../components/Cards/Card';
 import CardHeader from '../components/Cards/CardHeader';
 import AppLayout from '../components/Layout/AppLayout';
 import VehiclesTable from '../components/Vehicles/VehiclesTable';
+import CreateVehicleModal from '../modals/vehicles/CreateVehicleModal';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -18,9 +18,7 @@ const Dashboard = () => {
           <Card>
             <CardHeader 
               title={t("MyVehicles")} 
-              action={<IconButton>
-                <FiPlus/>
-                </IconButton>}
+              action={<CreateVehicleModal/>}
             />
             <VehiclesTable endpoint='/api/Vehicle/GetCurrentUserPersonalVehicles'></VehiclesTable>
           </Card>
