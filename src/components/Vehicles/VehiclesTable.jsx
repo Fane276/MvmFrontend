@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
+import { FiEye } from 'react-icons/fi'
 import { Box, Flex, Select, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { httpRequestAuthenticated } from '../../services/httpService';
 import PageButton from './PageButton';
@@ -52,7 +53,7 @@ const VehiclesTable = ({endpoint}) => {
         <TableCaption>
           <Flex direction='row' alignItems='center' justifyContent='space-between'>
             <Box>
-              Currently displayed {items.length} out of {totalCount}
+              {t("CurrentlyDisplayed")} {items.length} {t("outOf")} {totalCount}
             </Box>
             <Box>
               <Select value={maxResultCount} onChange={handleMaxCountChanged} size='sm' borderRadius='10'>
@@ -73,6 +74,8 @@ const VehiclesTable = ({endpoint}) => {
         <Thead>
           <Tr>
             <Th>{t('Title')}</Th>
+            <Th>{t('Make')}</Th>
+            <Th>{t('Model')}</Th>
             <Th>{t('ProductionYear')}</Th>
             <Th>{t('RegistrationNumber')}</Th>
             <Th>{t('Actions')}</Th>
@@ -88,13 +91,21 @@ const VehiclesTable = ({endpoint}) => {
                   {item.title}            
                 </Td>
                 <Td>
+                  {item.makeAuto}            
+                </Td>
+                <Td>
+                  {item.modelAuto}            
+                </Td>
+                <Td>
                   {item.productionYear}            
                 </Td>
                 <Td>
                   {item.registrationNumber}            
                 </Td>
                 <Td>
-                              
+                  <Flex justifyContent='center'>
+                    <FiEye/> 
+                  </Flex>
                 </Td>
               </Tr>
               )

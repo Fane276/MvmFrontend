@@ -3,70 +3,69 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiPlus } from 'react-icons/fi';
-import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, ModalFooter, useDisclosure } from '@chakra-ui/react';
+import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, useDisclosure } from '@chakra-ui/react';
 import Select2 from '../../components/Form/Select2'
 import ModalLayout from '../../components/Modals/ModalLayout'
-
-const vehicleTypes = [
-  {
-    label: "Necunoscuta",
-    value: 0
-  },
-  {
-    label: "Autoturism",
-    value: 1
-  },
-  {
-    label: "Motocicleta",
-    value: 2
-  }, 
-  {
-    label: "Rulota",
-    value: 3
-  }, 
-  {
-    label: "Autocamion",
-    value: 4
-  },
-  {
-    label: "Autobuz",
-    value: 5
-  },
-  {
-    label: "CamionSemiremorca",
-    value: 6
-  },
-  {
-    label: "Furgoneta",
-    value: 7
-  },
-  {
-    label: "Motostivuitor",
-    value: 8
-  },
-  {
-    label: "Remorca",
-    value: 9
-  },
-  {
-    label: "Semiremorca",
-    value: 10
-  },
-  {
-    label: "UtilajDeConstructii",
-    value: 11
-  },
-  {
-    label: "VehiculAgricol",
-    value: 12
-  }
-]
-
+import { createVehicle } from '../../services/Vehicles/vehiclesService';
 
 const CreateVehicleModal = () => {
+  const {t} = useTranslation();
+  const vehicleTypes = [
+    {
+      label: t("Necunoscuta"),
+      value: 0
+    },
+    {
+      label: t("Autoturism"),
+      value: 1
+    },
+    {
+      label: t("Motocicleta"),
+      value: 2
+    }, 
+    {
+      label: t("Rulota"),
+      value: 3
+    }, 
+    {
+      label: t("Autocamion"),
+      value: 4
+    },
+    {
+      label: t("Autobuz"),
+      value: 5
+    },
+    {
+      label: t("CamionSemiremorca"),
+      value: 6
+    },
+    {
+      label: t("Furgoneta"),
+      value: 7
+    },
+    {
+      label: t("Motostivuitor"),
+      value: 8
+    },
+    {
+      label: "Remorca",
+      value: 9
+    },
+    {
+      label: t("Semiremorca"),
+      value: 10
+    },
+    {
+      label: t("UtilajDeConstructii"),
+      value: 11
+    },
+    {
+      label: t("VehiculAgricol"),
+      value: 12
+    }
+  ]
   const [vehicleType, setVehicleType] = useState();
   const [vehicleMake, setVehicleMake] = useState();
-  const {t} = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { handleSubmit, register, setValue, getValues, control, formState: { errors } } = useForm();
@@ -81,13 +80,17 @@ const CreateVehicleModal = () => {
 
   const onSubmit = async (data)=>{
     console.log(data)
+
+    createVehicle(data);
+
+    onClose();
   }
   return (
     <>
       <IconButton onClick={onOpen}>
         <FiPlus/>
       </IconButton>
-      <ModalLayout isOpen={isOpen} onClose={onClose} title={t("CreateVehicle") } size='5xl'
+      <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddVehicle") } size='5xl'
         footerComponent={
           <ModalFooter alignContent="space-between">
             <Button onClick={onClose}>{t("Cancel")}</Button> 
@@ -97,6 +100,14 @@ const CreateVehicleModal = () => {
           </ModalFooter>
         }
       >
+        <FormControl isInvalid={errors.title}>
+          <FormLabel>{t("Title")}</FormLabel>
+          <Input {...register("title", { required: true })} />
+          {errors.title &&
+          <FormErrorMessage>{t("TitleError")}</FormErrorMessage>
+          }
+        </FormControl>
+
         <FormControl isInvalid={errors.idVehicleType}>
           <FormLabel>{t("VehicleType")}</FormLabel>
           <Select options={vehicleTypes} onChange={onChangeVehicleType} name="idVehicleType"  />
@@ -107,7 +118,7 @@ const CreateVehicleModal = () => {
 
         <FormControl mt='2' isInvalid={errors.idMake}>
           <FormLabel>{t("Make")}</FormLabel>
-          <Select2 extraParameterValue={vehicleType} extraParameter={"categorie"} onChange={onChangeVehicleMake} endpoint='/api/services/app/AutoCatalogue/GetMakeByCategory' control={control} setValue={setValue} register={register} name='idMake' registerOptions={{required:true}} hasOtherOption={true}/>
+          <Select2 extraParameterValue={vehicleType} extraParameter={"categorie"} onChange={onChangeVehicleMake} endpoint='/api/services/app/AutoCatalogue/GetMakeByCategory' control={control} setValue={setValue} register={register} name='idMakeAuto' registerOptions={{required:true}} hasOtherOption={true}/>
           {errors.idMake &&
           <FormErrorMessage>{t("MakeError")}</FormErrorMessage>
           }
@@ -115,9 +126,33 @@ const CreateVehicleModal = () => {
 
         <FormControl mt='2' isInvalid={errors.idModel}>
           <FormLabel>{t("Model")}</FormLabel>
-          <Select2 extraParameterValue={vehicleMake} extraParameter={"idMarca"} endpoint='/api/services/app/AutoCatalogue/GetModels' control={control} setValue={setValue} register={register} name='idModel' registerOptions={{required:true}} hasOtherOption={true}/>
+          <Select2 extraParameterValue={vehicleMake} extraParameter={"idMarca"} endpoint='/api/services/app/AutoCatalogue/GetModels' control={control} setValue={setValue} register={register} name='idModelAuto' registerOptions={{required:true}} hasOtherOption={true}/>
           {errors.idModel &&
           <FormErrorMessage>{t("Model")}</FormErrorMessage>
+          }
+        </FormControl>
+
+        <FormControl isInvalid={errors.productionYear}>
+          <FormLabel>{t("ProductionYear")}</FormLabel>
+          <Input {...register("productionYear", { required: true })} />
+          {errors.productionYear &&
+          <FormErrorMessage>{t("ProductionYearError")}</FormErrorMessage>
+          }
+        </FormControl>
+
+        <FormControl isInvalid={errors.registrationNumber}>
+          <FormLabel>{t("RegistrationNumber")}</FormLabel>
+          <Input {...register("registrationNumber", { required: true })} />
+          {errors.registrationNumber &&
+          <FormErrorMessage>{t("RegistrationNumberError")}</FormErrorMessage>
+          }
+        </FormControl>
+
+        <FormControl isInvalid={errors.chassisNo}>
+          <FormLabel>{t("ChassisNo")}</FormLabel>
+          <Input {...register("chassisNo", { required: true })} />
+          {errors.chassisNo &&
+          <FormErrorMessage>{t("ChassisNo")}</FormErrorMessage>
           }
         </FormControl>
         
