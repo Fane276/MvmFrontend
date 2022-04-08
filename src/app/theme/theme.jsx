@@ -22,4 +22,19 @@ const theme = extendTheme({ config,
   shadows:{...shadows}
  })
 
+ const dateTimeTheme = {
+  dateNavBtnProps: {
+    colorScheme: "purple.700"
+  },
+  dayOfMonthBtnProps: {
+    borderColor: "purple.700",
+    selectedBg: "blue.300",
+    _hover: {
+      bg: 'blue.400',
+    }
+  }
+}
+
 export default theme
+
+export {dateTimeTheme}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { FiEye } from 'react-icons/fi'
+import { useNavigate } from 'react-router';
 import { Box, Flex, Select, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { httpRequestAuthenticated } from '../../services/httpService';
 import PageButton from './PageButton';
@@ -16,6 +17,7 @@ const VehiclesTable = ({endpoint}) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [lastPage, setLastPage] = useState(0)
   
+  const navigate = useNavigate();
 
   useEffect(() => {
     const asyncExecuter = async()=>{
@@ -104,7 +106,7 @@ const VehiclesTable = ({endpoint}) => {
                 </Td>
                 <Td>
                   <Flex justifyContent='center'>
-                    <FiEye/> 
+                    <FiEye onClick={()=>navigate(`/Vehicle/${item.id}`)}/> 
                   </Flex>
                 </Td>
               </Tr>

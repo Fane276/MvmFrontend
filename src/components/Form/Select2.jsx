@@ -16,9 +16,11 @@ const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setVal
   const {t} = useTranslation();
  
   useEffect(() => {
-    setExtraParameterValueLocal(extraParameterValue)
-  
-    asyncSelect.current.setValue('');
+    if(extraParameterValue){
+      setExtraParameterValueLocal(extraParameterValue)
+    
+      asyncSelect.current.setValue('');
+    }
 
   }, [extraParameterValue])
   
@@ -99,8 +101,8 @@ const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setVal
           cacheOptions
           defaultOptions
           value={selectedValue}
-          getOptionLabel={e => e.name}
-          getOptionValue={e => e.id}
+          getOptionLabel={e => e.name? e.name:e.text}
+          getOptionValue={e => e.id? e.id:e.value}
           control = {control}
           loadOptions={fetchData}
           onInputChange={handleInputChange}
@@ -124,16 +126,17 @@ const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setVal
       <>
       {
         <AsyncSelect
-        cacheOptions
-        defaultOptions
-        value={selectedValue}
-        getOptionLabel={e => e.name}
-        getOptionValue={e => e.id}
-        control = {control}
-        loadOptions={fetchData}
-        onInputChange={handleInputChange}
-        onChange={handleChange}
-        placeholder={t("SelectMake")}
+          cacheOptions
+          defaultOptions
+          value={selectedValue}
+          getOptionLabel={e => e.name? e.name:e.text}
+          getOptionValue={e => e.id? e.id:e.value}
+          control = {control}
+          loadOptions={fetchData}
+          onInputChange={handleInputChange}
+          onChange={handleChange}
+          openMenuOnFocus={true}
+          placeholder={t("Select")}
         />
       }
       </>

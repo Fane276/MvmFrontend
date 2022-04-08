@@ -44,5 +44,7 @@
   "Home": "Acasă",
   "DocumentsManagement": "Consultă documente",
   "FuelEconomy": "Combustibil",
-  "ServiceHistory": "Istoric service"
+  "ServiceHistory": "Istoric service",
+  "CascoInsuranceNotSet": "Asigurarea Casco nu a fost adăugată",
+  "MandatoryInsuranceNotSet": "Asigurarea obligatorie nu a fost adăugată"
 }

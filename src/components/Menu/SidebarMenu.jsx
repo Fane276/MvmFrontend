@@ -41,9 +41,9 @@ const SidebarMenu = ({ children, ...rest }) => {
         >
         <Text fontSize={16} fontWeight='bold'>
           {navSize === "small"? 
-            <Image h='42px'  src='mvm-logo-small.png'/>
+            <Image h='42px'  src='/mvm-logo-small.png'/>
             :
-            <Image h='42px'  src='mvm-logo-large.png'/>
+            <Image h='42px'  src='/mvm-logo-large.png'/>
           }
         </Text>
         {/* <IconButton

@@ -44,5 +44,7 @@
   "Home": "Home",
   "DocumentsManagement": "Documents management",
   "FuelEconomy": "Fuel economy",
-  "ServiceHistory": "Service history"
+  "ServiceHistory": "Service history",
+  "CascoInsuranceNotSet": "Casco insurance was not added",
+  "MandatoryInsuranceNotSet": "Mandatory insurance was not added"
 }
