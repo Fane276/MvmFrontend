@@ -46,5 +46,18 @@
   "FuelEconomy": "Combustibil",
   "ServiceHistory": "Istoric service",
   "CascoInsuranceNotSet": "Asigurarea Casco nu a fost adăugată",
-  "MandatoryInsuranceNotSet": "Asigurarea obligatorie nu a fost adăugată"
+  "MandatoryInsuranceNotSet": "Asigurarea obligatorie nu a fost adăugată",
+  "Insurance": "Asigurare",
+  "InsuranceAdded":"Asigurarea a fost adăugată",
+  "AnErrorOccurred":"A intervenit o eroare",
+  "AddMandatoryInsurance":"Adaugă asigurare obligatorie",
+  "InsuranceCompany":"Companie de asigurări",
+  "InsuranceCompanyError":"Companie de asigurări este obligatorie",
+  "InsurancePolicyNumber":"Nr. poliță asigurare",
+  "InsurancePolicyNumberError":"Nr. poliță asigurare este obligatoriu",
+  "ValidFrom":"Valid de la",
+  "ValidFromError":"Valid de la trebuie completat",
+  "ValidTo":"Valid pana la",
+  "ValidToError":"Valid până la trebuie completat",
+  "DateFormat":"zz.ll.aaaa"
 }

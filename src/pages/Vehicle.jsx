@@ -23,7 +23,7 @@ const Vehicle = () => {
               <CardHeader 
                 title={t("Insurance")}
                 />
-              <InsuranceCard/>
+              <InsuranceCard idvehicle={idVehicle}/>
             </Card>
           </Box>
           <Box w='100%'>

@@ -1,12 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Flex } from '@chakra-ui/react'
 import CreateRcaInsuranceModal from '../../modals/Documents/CreateRcaInsuranceModal'
-import ClickableCard from '../Cards/ClickableCard'
+import { getInsuranceStatus } from '../../services/documents/insuranceService'
 import InsuranceNotSet from './Insurance/InsuranceNotSet'
 
-const InsuranceCard = ({idVehicle}) => {
+const InsuranceCard = ({idvehicle}) => {
   const [rcaIsSet, setRcaIsSet] = useState(false);
   const [cascoIsSet, setCascoIsSet] = useState(false)
+
+  useEffect(() => {
+    const asyncExecutor = async()=>{
+      var result = await getInsuranceStatus(idvehicle);
+
+      if(result.status === 200){
+        if(result.data.result.rca){
+          setRcaIsSet(true);
+        }
+        if(result.data.result.casco){
+          setCascoIsSet(true);
+        }
+      }
+
+    }
+    asyncExecutor();
+  }, [idvehicle])
+  
 
   return (
     <Flex direction='row' p='3'>
@@ -16,7 +34,7 @@ const InsuranceCard = ({idVehicle}) => {
           is set
         </Flex>
         :
-        <CreateRcaInsuranceModal mr='2'/>
+        <CreateRcaInsuranceModal idvehicle={idvehicle} mr='2'/>
       }
         {
           cascoIsSet ?

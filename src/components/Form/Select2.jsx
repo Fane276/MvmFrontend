@@ -6,7 +6,6 @@ import { Input, InputGroup, InputRightAddon } from '@chakra-ui/react';
 import { httpRequest } from '../../services/httpService';
 
 const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setValue,register, name, registerOptions, hasOtherOption, onChange}) => {
-  const [items, setItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   const [valueInput, setValueInput] = useState(null);
   const [otherIsVisible, setOtherIsVisible] = useState(false);
@@ -33,9 +32,9 @@ const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setVal
   // handle selection
   const handleChange = value => {
     setSelectedValue(value);
-    setValue(name, value.id);
+    setValue(name, value.id?value.id : value.value);
     if(hasOtherOption){
-      if(value.id == -1){
+      if(value.id === -1){
         setOtherIsVisible(true);
       }
       else{
@@ -43,7 +42,7 @@ const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setVal
       }
     }
     if(onChange){
-      onChange(value.id);
+      onChange(value.id?value.id : value.value);
     }
   }
 

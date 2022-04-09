@@ -46,5 +46,18 @@
   "FuelEconomy": "Fuel economy",
   "ServiceHistory": "Service history",
   "CascoInsuranceNotSet": "Casco insurance was not added",
-  "MandatoryInsuranceNotSet": "Mandatory insurance was not added"
+  "MandatoryInsuranceNotSet": "Mandatory insurance was not added",
+  "Insurance": "Insurance",
+  "InsuranceAdded":"Insurance added successfully",
+  "AnErrorOccurred":"An error occurred",
+  "AddMandatoryInsurance":"Add mandatory insurance",
+  "InsuranceCompany":"Insurance company",
+  "InsuranceCompanyError":"Insurance company is required",
+  "InsurancePolicyNumber":"Insurance policy number",
+  "InsurancePolicyNumberError":"Insurance policy number is required",
+  "ValidFrom":"Valid from",
+  "ValidFromError":"Valid from date is required",
+  "ValidTo":"Valid to",
+  "ValidToError":"Valid to date is required",
+  "DateFormat": "dd.mm.yyyy"
 }

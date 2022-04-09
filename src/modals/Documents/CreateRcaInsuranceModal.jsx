@@ -1,25 +1,42 @@
-import {SingleDatepicker} from 'chakra-dayzed-datepicker'
-import React, { useState } from 'react'
-import DatePicker from "react-datepicker";
-import { Controller, useForm } from 'react-hook-form';
+import moment from 'moment';
+import React from 'react'
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button, FormControl, FormErrorMessage, FormLabel, Input, ModalFooter, useDisclosure } from '@chakra-ui/react';
-import { dateTimeTheme } from '../../app/theme/theme';
+import { Button, FormControl, FormErrorMessage, FormLabel, Input, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react';
 import InsuranceNotSet from '../../components/Documents/Insurance/InsuranceNotSet';
+import ChakraDatePicker from '../../components/Form/ChakraDatePicker';
 import Select2 from '../../components/Form/Select2';
 import ModalLayout from '../../components/Modals/ModalLayout';
+import { saveInsurance } from '../../services/documents/insuranceService';
 
-const CreateRcaInsuranceModal = ({...props}) => {
+const CreateRcaInsuranceModal = ({idvehicle, ...props}) => {
   const {t} = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [date, setDate] = useState(new Date());
+  const toast = useToast();
 
-  const { handleSubmit, register, setValue, getValues, control, formState: { errors } } = useForm();
+  const { handleSubmit, register, setValue, control, formState: { errors } } = useForm();
 
   const onSubmit = async (data)=>{
-    console.log(data)
-
-
+    data.insuranceType=0;
+    data.idVehicle= parseInt(idvehicle); 
+    data.validFrom = moment(data.validFrom).format();
+    data.validTo = moment(data.validTo).format();
+    var result = await saveInsurance(data).catch(
+      toast({
+        title: t("AnErrorOccurred"),
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+    );
+    if(result.status === 200){
+      toast({
+        title: t("InsuranceAdded"),
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+    }
     onClose();
   }
   return (
@@ -43,24 +60,35 @@ const CreateRcaInsuranceModal = ({...props}) => {
           }
         </FormControl>
         
-        <FormControl isInvalid={errors.isurancePolicyNumber}>
-          <FormLabel>{t("IsurancePolicyNumber")}</FormLabel>
-          <Input {...register("isurancePolicyNumber", { required: false })} />
-          {errors.isurancePolicyNumber &&
-          <FormErrorMessage>{t("IsurancePolicyNumberError")}</FormErrorMessage>
+        <FormControl isInvalid={errors.insurancePolicyNumber}>
+          <FormLabel>{t("InsurancePolicyNumber")}</FormLabel>
+          <Input {...register("insurancePolicyNumber", { required: true })} />
+          {errors.insurancePolicyNumber &&
+          <FormErrorMessage>{t("InsurancePolicyNumberError")}</FormErrorMessage>
           }
         </FormControl>
         
         <FormControl isInvalid={errors.validFrom}>
           <FormLabel>{t("ValidFrom")}</FormLabel>
-          <SingleDatepicker
-            name="date-input"
-            date={date}
-            onDateChange={setDate}
-            propsConfigs={dateTimeTheme}
+          <ChakraDatePicker
+          control={control}
+          name='validFrom'
+          rules={{ required: true }}
           />
           {errors.validFrom &&
-          <FormErrorMessage>{t("IsurancePolicyNumberError")}</FormErrorMessage>
+          <FormErrorMessage>{t("ValidFromError")}</FormErrorMessage>
+          }
+        </FormControl>
+        
+        <FormControl isInvalid={errors.validTo}>
+          <FormLabel>{t("ValidTo")}</FormLabel>
+          <ChakraDatePicker
+          control={control}
+          name='validTo'
+          rules={{ required: true }}
+          />
+          {errors.validTo &&
+          <FormErrorMessage>{t("ValidToError")}</FormErrorMessage>
           }
         </FormControl>
       </ModalLayout>
