@@ -8,7 +8,7 @@ const InsuranceNotSet = ({insuranceType, ...props}) => {
 
   const {t} = useTranslation();
   return (
-    <ClickableCard w='100%' h='100%' p='5' {...props}>
+    <ClickableCard w='100%' h='auto' p='5' {...props}>
       <Flex direction='column' justifyContent='center' alignItems='center' px='20'>
         <Box>
           {insuranceType === 'casco'? <FaCarCrash size='50px' color='#4299E1' /> : <FaCar size='50px' color='#4299E1'/>}

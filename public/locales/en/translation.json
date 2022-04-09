@@ -59,5 +59,12 @@
   "ValidFromError":"Valid from date is required",
   "ValidTo":"Valid to",
   "ValidToError":"Valid to date is required",
-  "DateFormat": "dd.mm.yyyy"
+  "DateFormat": "dd.mm.yyyy",
+  "CascoInsuranceAvailableTo" : "Casco insurance is available until ",
+  "MandatoryInsuranceAvailableTo" : "Mandatory insurance is available until ",
+  "CascoInsuranceIsExpiredFrom" : "Casco insurance is expired from ",
+  "MandatoryInsuranceIsExpiredFrom" : "Mandatory insurance is expired from ",
+  "ModifyMandatoryInsurance" : "Modify mandatory insurance",
+  "AddCascoInsurance" : "Add Casco insurance",
+  "ModifyCascoInsurance" : "Modify Casco insurance"
 }

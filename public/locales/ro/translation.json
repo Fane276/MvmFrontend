@@ -59,5 +59,12 @@
   "ValidFromError":"Valid de la trebuie completat",
   "ValidTo":"Valid pana la",
   "ValidToError":"Valid până la trebuie completat",
-  "DateFormat":"zz.ll.aaaa"
+  "DateFormat":"zz.ll.aaaa",
+  "CascoInsuranceAvailableTo":"Asigurarea Casco este valabilă pana la ",
+  "MandatoryInsuranceAvailableTo":"Asigurarea obligatorie este valabilă pana la ",
+  "CascoInsuranceIsExpiredFrom" : "Asigurarea Casco este expirată de la data de ",
+  "MandatoryInsuranceIsExpiredFrom" : "Asigurarea obligatorie este expirată de la data de ",
+  "ModifyMandatoryInsurance" : "Modifică asigurare obligatorie",
+  "AddCascoInsurance" : "Adaugă asigurare Casco",
+  "ModifyCascoInsurance" : "Modifica asigurare Casco"
 }

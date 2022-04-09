@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Flex } from '@chakra-ui/react'
+import CreateCascoInsuranceModal from '../../modals/Documents/CreateCascoInsuranceModal'
 import CreateRcaInsuranceModal from '../../modals/Documents/CreateRcaInsuranceModal'
+import EditCascoInsuranceModal from '../../modals/Documents/EditCascoInsuranceModal'
+import EditRcaInsuranceModal from '../../modals/Documents/EditRcaInsuranceModal'
 import { getInsuranceStatus } from '../../services/documents/insuranceService'
 import InsuranceNotSet from './Insurance/InsuranceNotSet'
+import InsuranceSet from './Insurance/InsuranceSet'
 
 const InsuranceCard = ({idvehicle}) => {
   const [rcaIsSet, setRcaIsSet] = useState(false);
-  const [cascoIsSet, setCascoIsSet] = useState(false)
+  const [cascoIsSet, setCascoIsSet] = useState(false);
 
   useEffect(() => {
     const asyncExecutor = async()=>{
@@ -30,19 +34,15 @@ const InsuranceCard = ({idvehicle}) => {
     <Flex direction='row' p='3'>
       {
         rcaIsSet ?
-        <Flex>
-          is set
-        </Flex>
+        <EditRcaInsuranceModal idvehicle={idvehicle} mr='2'/>
         :
         <CreateRcaInsuranceModal idvehicle={idvehicle} mr='2'/>
       }
         {
           cascoIsSet ?
-          <Flex>
-            is set
-          </Flex>
+          <EditCascoInsuranceModal idvehicle={idvehicle} ml='2'/>
           :
-          <InsuranceNotSet insuranceType='casco'/>
+          <CreateCascoInsuranceModal idvehicle={idvehicle} ml='2'/>
         }
     </Flex>
   )
