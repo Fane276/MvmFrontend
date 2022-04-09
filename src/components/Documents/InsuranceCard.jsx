@@ -5,8 +5,6 @@ import CreateRcaInsuranceModal from '../../modals/Documents/CreateRcaInsuranceMo
 import EditCascoInsuranceModal from '../../modals/Documents/EditCascoInsuranceModal'
 import EditRcaInsuranceModal from '../../modals/Documents/EditRcaInsuranceModal'
 import { getInsuranceStatus } from '../../services/documents/insuranceService'
-import InsuranceNotSet from './Insurance/InsuranceNotSet'
-import InsuranceSet from './Insurance/InsuranceSet'
 
 const InsuranceCard = ({idvehicle}) => {
   const [rcaIsSet, setRcaIsSet] = useState(false);

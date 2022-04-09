@@ -37,22 +37,29 @@ const EditCascoInsuranceModal = ({idvehicle, ...props}) => {
     data.idVehicle= parseInt(idvehicle); 
     data.validFrom = moment(data.validFrom).format();
     data.validTo = moment(data.validTo).format();
-    var result = await saveInsurance(data).catch(
-      toast({
-        title: t("AnErrorOccurred"),
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
-    );
-    if(result.status === 200){
-      toast({
-        title: t("InsuranceAdded"),
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      })
+    await saveInsurance(data)
+    .then((result)=>{
+      if(result.status === 200){
+        toast({
+          title: t("InsuranceAdded"),
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+    })
+    .catch((err)=>{
+      if(err){
+
+        toast({
+          title: t("AnErrorOccurred"),
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
     }
+    );
     onClose();
   }
   return (

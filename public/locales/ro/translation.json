@@ -66,5 +66,12 @@
   "MandatoryInsuranceIsExpiredFrom" : "Asigurarea obligatorie este expirată de la data de ",
   "ModifyMandatoryInsurance" : "Modifică asigurare obligatorie",
   "AddCascoInsurance" : "Adaugă asigurare Casco",
-  "ModifyCascoInsurance" : "Modifica asigurare Casco"
+  "ModifyCascoInsurance" : "Modify Casco insurance",
+  "DeleteMandatoryInsurance" : "Șterge asigurarea obligatorie",
+  "DeleteCascoInsurance" : "Șterge asigurarea casco",
+  "Delete" : "Șterge",
+  "AreYouSureYouWantToDelete" : "Ești sigur(ă) că vrei să ștergi",
+  "mandatoryInsurance" : "asigurarea obligatorie",
+  "cascoInsurance" : "asigurarea casco",
+  "InsuranceDeleted" : "Asigurarea a fost ștearsă"
 }

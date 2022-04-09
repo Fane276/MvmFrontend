@@ -11,4 +11,14 @@ const getInsuranceStatus = async (idVehicle)=>{
   return result
 }
 
-export {saveInsurance, getInsuranceStatus}
+const getInsuranceIds = async (idVehicle)=>{
+  var result = await httpRequestAuthenticated.get(`/api/Document/GetInsuranceIds?idVehicle=${idVehicle}`)
+  return result
+}
+
+const deleteInsurance = async (idInsurance)=>{
+  var result = await httpRequestAuthenticated.post(`/api/Document/DeleteInsurance`,{id: idInsurance});
+  return result;
+}
+
+export {saveInsurance, getInsuranceStatus, getInsuranceIds, deleteInsurance}

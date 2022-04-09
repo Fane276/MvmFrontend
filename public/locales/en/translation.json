@@ -66,5 +66,12 @@
   "MandatoryInsuranceIsExpiredFrom" : "Mandatory insurance is expired from ",
   "ModifyMandatoryInsurance" : "Modify mandatory insurance",
   "AddCascoInsurance" : "Add Casco insurance",
-  "ModifyCascoInsurance" : "Modify Casco insurance"
+  "ModifyCascoInsurance" : "Modify Casco insurance",
+  "DeleteMandatoryInsurance" : "Delete mandatory insurance",
+  "DeleteCascoInsurance" : "Delete casco insurance",
+  "Delete" : "Delete",
+  "AreYouSureYouWantToDelete" : "Are you sure you want to delete",
+  "mandatoryInsurance" : "mandatory insurance",
+  "cascoInsurance" : "casco insurance",
+  "InsuranceDeleted" : "Insurance deleted"
 }
