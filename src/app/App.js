@@ -12,6 +12,7 @@ import NotAuthRoute from '../components/CustomRouteWrappers/NotAuthRoute';
 import ProtectedRoute from '../components/CustomRouteWrappers/ProtectedRoute';
 import Dashboard from '../pages/Dashboard';
 import GlobalLoading from '../pages/GlobalLoading';
+import LandingPage from '../pages/LandingPage';
 import Login from '../pages/Login';
 import Vehicle from '../pages/Vehicle';
 
@@ -23,6 +24,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route exact path="/" element = {<LandingPage/>}/>
         <Route exact path="/design" element = {<ProtectedRoute><GlobalLoading/></ProtectedRoute>}/>
         <Route exact path="/login" element={<NotAuthRoute><Login/></NotAuthRoute>}/>
         <Route exact path="/register" element={<NotAuthRoute><Text>Register</Text></NotAuthRoute>}/>

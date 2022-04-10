@@ -9,12 +9,13 @@ import { ChakraProvider } from '@chakra-ui/react'
 import App from './app/App';
 import theme from './app/theme/theme'
 import {AuthProvider} from './components/Context/AuthContex';
+import GlobalLoading from './pages/GlobalLoading';
 import reportWebVitals from './reportWebVitals';
 import store from './state/store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Suspense fallback="...is loading">
+    <Suspense fallback={<GlobalLoading/>}>
       <Provider store={store}>
         <CookiesProvider>  
           <ChakraProvider theme={theme}>

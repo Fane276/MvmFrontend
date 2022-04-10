@@ -1,24 +1,15 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router';
-import { Flex } from '@chakra-ui/react';
-import useAuth from '../utils/auth/useAuth';
+import 'animate.css';
+
+import React from 'react';
+import { Flex, Image } from '@chakra-ui/react';
 
 const GlobalLoading = () => {
-  // const {isAuthenticated} = useAuth();
-  const navigate = useNavigate();
 
-
-  // useEffect(() => {
-  //   if(isAuthenticated){
-  //     navigate('/dashboard');
-  //   }
-  //   else{
-  //     navigate('/login');
-  //   }
-    
-  // }, [isAuthenticated, navigate]);
-  
-  return (<Flex>Loading...</Flex>)
+  return (
+    <Flex direction='column' w='100vw' h='100vh' justifyContent='center' alignItems='center'>
+      <Image src='/mvm-logo-large.png' className='animate__animated animate__bounce animate__slow animate__infinite'/>
+    </Flex>
+  )
 };
 
 export default GlobalLoading;
