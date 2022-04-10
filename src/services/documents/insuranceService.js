@@ -1,7 +1,6 @@
 import { httpRequestAuthenticated } from "../httpService"
 
 const saveInsurance = async (insurance)=>{
-
   var result = await httpRequestAuthenticated.post("/api/Document/SaveInsurance", insurance);
   return result
 }
@@ -21,4 +20,10 @@ const deleteInsurance = async (idInsurance)=>{
   return result;
 }
 
-export {saveInsurance, getInsuranceStatus, getInsuranceIds, deleteInsurance}
+const updateInsurance = async (insurance)=>{
+  var result = await httpRequestAuthenticated.post("/api/Document/UpdateInsurance", insurance);
+  return result
+}
+
+
+export {saveInsurance, getInsuranceStatus, getInsuranceIds, deleteInsurance, updateInsurance}

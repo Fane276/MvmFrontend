@@ -1,7 +1,7 @@
 import 'animate.css';
 
 import React, { useContext, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { AuthContext } from '../components/Context/AuthContex';
 import GlobalLoading from './GlobalLoading';
 
@@ -20,7 +20,7 @@ const LandingPage = () => {
         }
       }
     },1000);
-  }, [isLoading, isAuthenticated])
+  }, [isLoading, isAuthenticated, navigate])
   
   return (
     <>

@@ -73,5 +73,7 @@
   "AreYouSureYouWantToDelete" : "Are you sure you want to delete",
   "mandatoryInsurance" : "mandatory insurance",
   "cascoInsurance" : "casco insurance",
-  "InsuranceDeleted" : "Insurance deleted"
+  "InsuranceDeleted" : "Insurance deleted",
+  "VehicleAdded" : "Vehicle added",
+  "InsuranceEdited" : "Insurance edited"
 }

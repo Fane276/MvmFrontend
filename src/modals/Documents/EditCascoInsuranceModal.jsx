@@ -7,7 +7,7 @@ import InsuranceSet from '../../components/Documents/Insurance/InsuranceSet';
 import ChakraDatePicker from '../../components/Form/ChakraDatePicker';
 import Select2 from '../../components/Form/Select2';
 import ModalLayout from '../../components/Modals/ModalLayout';
-import { getInsuranceStatus, saveInsurance } from '../../services/documents/insuranceService';
+import { getInsuranceStatus, updateInsurance } from '../../services/documents/insuranceService';
 
 const EditCascoInsuranceModal = ({idvehicle, ...props}) => {
   const {t} = useTranslation();
@@ -22,6 +22,7 @@ const EditCascoInsuranceModal = ({idvehicle, ...props}) => {
       var result = await getInsuranceStatus(idvehicle);
       result =result.data.result.casco;
       setValidDate(result.validTo);
+      setValue("id", result.id);
       setValue("validFrom", new Date(result.validFrom));
       setValue("validTo", new Date(result.validTo));
       setValue("insurancePolicyNumber", result.insurancePolicyNumber);
@@ -33,15 +34,16 @@ const EditCascoInsuranceModal = ({idvehicle, ...props}) => {
 
 
   const onSubmit = async (data)=>{
-    data.insuranceType=1;
+    data.insuranceType=0;
+    data.id= parseInt(data.id); 
     data.idVehicle= parseInt(idvehicle); 
     data.validFrom = moment(data.validFrom).format();
     data.validTo = moment(data.validTo).format();
-    await saveInsurance(data)
+    await updateInsurance(data)
     .then((result)=>{
       if(result.status === 200){
         toast({
-          title: t("InsuranceAdded"),
+          title: t("InsuranceEdited"),
           status: 'success',
           duration: 3000,
           isClosable: true,

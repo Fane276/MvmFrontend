@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiPlus } from 'react-icons/fi';
-import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, useDisclosure } from '@chakra-ui/react';
+import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react';
 import Select2 from '../../components/Form/Select2'
 import ModalLayout from '../../components/Modals/ModalLayout'
 import { createVehicle } from '../../services/Vehicles/vehiclesService';
@@ -64,6 +64,9 @@ const CreateVehicleModal = () => {
       value: 12
     }
   ]
+
+  const toast = useToast();
+
   const [vehicleType, setVehicleType] = useState();
   const [vehicleMake, setVehicleMake] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -81,7 +84,28 @@ const CreateVehicleModal = () => {
   const onSubmit = async (data)=>{
     console.log(data)
 
-    createVehicle(data);
+    await createVehicle(data)
+    .then((result)=>{
+      if(result.status === 200){
+        toast({
+          title: t("VehicleAdded"),
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+    })
+    .catch((err)=>{
+      if(err){
+        toast({
+          title: t("AnErrorOccurred"),
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+    }
+    );
 
     onClose();
   }

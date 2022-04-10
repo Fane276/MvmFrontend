@@ -73,5 +73,7 @@
   "AreYouSureYouWantToDelete" : "Ești sigur(ă) că vrei să ștergi",
   "mandatoryInsurance" : "asigurarea obligatorie",
   "cascoInsurance" : "asigurarea casco",
-  "InsuranceDeleted" : "Asigurarea a fost ștearsă"
+  "InsuranceDeleted" : "Asigurarea a fost ștearsă",
+  "VehicleAdded" : "Vehicul adăugat",
+  "InsuranceEdited" : "Asigurare modificată"
 }

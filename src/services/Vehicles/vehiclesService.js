@@ -1,6 +1,6 @@
 import { httpRequestAuthenticated } from "../httpService"
 
-const createVehicle = (vehicle)=>{
+const createVehicle = async (vehicle)=>{
   if(vehicle.idMakeAutoOther){
     vehicle.otherAutoMake = vehicle.idMakeAutoOther
   }
@@ -8,8 +8,8 @@ const createVehicle = (vehicle)=>{
     vehicle.otherAutoModel = vehicle.idModelAutoOther
   }
 
-  var result = httpRequestAuthenticated.post("/api/Vehicle/CreateNewVehicle", vehicle);
-  console.log(result);
+  var result = await httpRequestAuthenticated.post("/api/Vehicle/CreateNewVehicle", vehicle);
+  return result;
 }
 
 export {createVehicle}
