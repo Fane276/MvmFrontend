@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import {FiTrash} from 'react-icons/fi'
+import {GiHomeGarage} from 'react-icons/gi'
 import { useParams } from 'react-router'
-import { Box, Divider, Flex, IconButton, Menu, MenuButton, MenuList, Text, useToast } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Divider, Flex, IconButton, Menu, MenuButton, MenuList, Text, useToast } from '@chakra-ui/react';
 import Card from '../components/Cards/Card';
 import CardHeader from '../components/Cards/CardHeader';
 import ConfirmDeletionDialog from '../components/Dialogs/ConfirmDeletionDialog';
@@ -59,7 +61,21 @@ const Vehicle = () => {
     <AppLayout>
       <Flex direction='column' w='100%'>
         <Box w='100%' pb='3'>
-          <Text fontSize='3xl'>Vehicle {idVehicle}</Text>
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <BreadcrumbLink as={Link} to='/'>
+                <GiHomeGarage/>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink as={Link} to='/dashboard'>
+                {t("Dashboard")}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink>Vehicle {idVehicle}</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
         </Box>
         <Flex w="100%" direction='row' justifyContent='space-around'>
           <Box w='100%'>

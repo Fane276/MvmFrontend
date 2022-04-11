@@ -75,5 +75,6 @@
   "cascoInsurance" : "asigurarea casco",
   "InsuranceDeleted" : "Asigurarea a fost ștearsă",
   "VehicleAdded" : "Vehicul adăugat",
-  "InsuranceEdited" : "Asigurare modificată"
+  "InsuranceEdited" : "Asigurare modificată",
+  "MyGarage" : "Grajul meu"
 }

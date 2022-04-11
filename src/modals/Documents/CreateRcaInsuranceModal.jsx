@@ -2,6 +2,7 @@ import moment from 'moment';
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import PulseLoader from 'react-spinners/PulseLoader'
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react';
 import InsuranceNotSet from '../../components/Documents/Insurance/InsuranceNotSet';
 import ChakraDatePicker from '../../components/Form/ChakraDatePicker';

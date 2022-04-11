@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {FiEye, FiEyeOff, FiLock, FiUser} from 'react-icons/fi'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import PulseLoader from 'react-spinners/PulseLoader'
 import { Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, useColorModeValue } from '@chakra-ui/react';
 import { getAuthTokenCookie, getTenantIdCookie, setTenantIdCookie } from '../../services/cookie/cookieService';
 import { httpRequest, httpRequestAuthenticated } from '../../services/httpService';
@@ -15,7 +16,7 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const handleClick = () => setShowPassword(!showPassword)
   const dispatch = useDispatch()
-  const {handleSubmit, register, formState: { errors } } = useForm();
+  const {handleSubmit, register, formState: { errors, isSubmitting } } = useForm();
 
   const inputBorderFocusColor = useColorModeValue('purple.600', 'purple.500');
   const navigate = useNavigate();
@@ -88,7 +89,7 @@ const LoginForm = () => {
           <FormErrorMessage>Password is required.</FormErrorMessage>
         }
       </FormControl>
-      <Button colorScheme='blue' variant='solid' onClick={handleSubmit(onSubmit)} mt='5'>
+      <Button colorScheme='blue' variant='solid' onClick={handleSubmit(onSubmit)} isLoading={isSubmitting} spinner={<PulseLoader size={8} color='white' />} mt='5'>
         {t("Login")}
       </Button>
       <Button colorScheme='blue' variant='outline' onClick={handleSubmit(onSubmit)} mt='2'>

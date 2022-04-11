@@ -2,6 +2,7 @@ import moment from 'moment';
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import PulseLoader from 'react-spinners/PulseLoader'
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react';
 import InsuranceNotSet from '../../components/Documents/Insurance/InsuranceNotSet';
 import ChakraDatePicker from '../../components/Form/ChakraDatePicker';
@@ -14,7 +15,7 @@ const CreateCascoInsuranceModal = ({idvehicle, props}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast();
 
-  const { handleSubmit, register, setValue, control, formState: { errors } } = useForm();
+  const { handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data)=>{
     data.insuranceType=1;
@@ -54,7 +55,7 @@ const CreateCascoInsuranceModal = ({idvehicle, props}) => {
         footerComponent={
           <ModalFooter alignContent="space-between">
             <Button onClick={onClose}>{t("Cancel")}</Button> 
-            <Button onClick={handleSubmit(onSubmit)} colorScheme='blue' ml={3}>
+            <Button onClick={handleSubmit(onSubmit)}  isLoading={isSubmitting} spinner={<PulseLoader size={8} color='white'/>} colorScheme='blue' ml={3}>
               {t("Save")}
             </Button>
           </ModalFooter>

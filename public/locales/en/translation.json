@@ -75,5 +75,6 @@
   "cascoInsurance" : "casco insurance",
   "InsuranceDeleted" : "Insurance deleted",
   "VehicleAdded" : "Vehicle added",
-  "InsuranceEdited" : "Insurance edited"
+  "InsuranceEdited" : "Insurance edited",
+  "MyGarage" : "My garage"
 }

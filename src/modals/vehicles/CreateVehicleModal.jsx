@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiPlus } from 'react-icons/fi';
+import PulseLoader from 'react-spinners/PulseLoader'
 import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react';
 import Select2 from '../../components/Form/Select2'
 import ModalLayout from '../../components/Modals/ModalLayout'
@@ -71,7 +72,7 @@ const CreateVehicleModal = () => {
   const [vehicleMake, setVehicleMake] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const { handleSubmit, register, setValue, getValues, control, formState: { errors } } = useForm();
+  const { handleSubmit, register, setValue, getValues, control, formState: { errors, isSubmitting } } = useForm();
 
   const onChangeVehicleType = (value) =>{
     setVehicleType(value.value);
@@ -118,7 +119,7 @@ const CreateVehicleModal = () => {
         footerComponent={
           <ModalFooter alignContent="space-between">
             <Button onClick={onClose}>{t("Cancel")}</Button> 
-            <Button onClick={handleSubmit(onSubmit)} colorScheme='blue' ml={3}>
+            <Button onClick={handleSubmit(onSubmit)} isLoading={isSubmitting} spinner={<PulseLoader size={8} color='white' />} colorScheme='blue' ml={3}>
               {t("Save")}
             </Button>
           </ModalFooter>
