@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { useTranslation } from 'react-i18next';
 import { FiMenu } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { Avatar, Box, Button, Divider, Flex, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode, useColorModeValue, useDisclosure } from '@chakra-ui/react';
@@ -15,10 +15,11 @@ function Header() {
   const { t, i18n } = useTranslation();
   const { colorMode, toggleColorMode }=useColorMode();
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [currentUserLocal, setCurrentUserLocal] = useState(null);
 
   const navigate = useNavigate()
 
-  const {currentUser} = useSelector((state)=>state.user.value); 
+  const {isAuthenticated, currentUser, isLoading} = useContext(AuthContext);
   const dispatch = useDispatch();
 
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -33,13 +34,21 @@ function Header() {
         setSelectedLanguage({countryCode:"ro", name:"Romana"})
       }
     }
-  }, [selectedLanguage,i18n.language]);
+  }, [selectedLanguage, i18n.language, currentUser]);
+
+  useEffect(()=>{
+    if(!isLoading){
+      if(isAuthenticated){
+        setCurrentUserLocal(currentUser);
+      }
+    }
+  },[currentUser, isAuthenticated, isLoading]);
   
   const onLogout = ()=>{
     removeAuthTokenCookie();
     removeTenantIdCookie();
 
-    dispatch(login({isAuthenticated:false, currentUser:null, currentTenant: null,isLoading:false}));
+    dispatch(login({isAuthenticated:false, currentUser:null, currentTenant: null,isLoading:false, permissions:[]}));
 
     navigate("/login")
   }
@@ -129,7 +138,7 @@ function Header() {
             <MenuList>
               <MenuItem mb='1' onClick={()=>{}}> 
                 <Avatar size='sm' ml={3}/>
-                <Text ml={3} display={{ base: 'none', md: 'block' }}>{currentUser?.name} {currentUser?.surname}</Text>
+                <Text ml={3} display={{ base: 'none', md: 'block' }}>{currentUserLocal?.surname} {currentUserLocal?.name}</Text>
               </MenuItem>  
               <Divider/>
               <MenuItem my='1' onClick={()=>{}}> 

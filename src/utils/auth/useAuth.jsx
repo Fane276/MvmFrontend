@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { httpRequestAuthenticated } from '../../services/httpService';
+import { getCurrentUserPermissions, getSessionInfo } from '../../services/account/accountService';
 import { login } from '../../state/user/userSlice';
 
 function useAuth() {
@@ -9,10 +9,10 @@ function useAuth() {
   useEffect(() => {
     const fetch= async ()=>{
 
-        var request = await httpRequestAuthenticated("api/services/app/Session/GetCurrentLoginInformations")
+        var request = await getSessionInfo()
         var currentSession = request.data.result;
         if(currentSession.user){
-          var userPermissionsRequest = await httpRequestAuthenticated.get("/api/services/app/Account/GetCurrentUserPermissions")
+          var userPermissionsRequest = await getCurrentUserPermissions();
           var permissions = userPermissionsRequest.data.result.items;
           dispatch(login({isAuthenticated:true, currentUser:currentSession.user,currentTenant:currentSession.tenant, isLoading:false, permissions:permissions}));
         }

@@ -88,5 +88,6 @@
   "PasswordError" : "Password can not be empty",
   "ConfirmPassword" : "Confirm password",
   "ConfirmPasswordError" : "Passwords don't match",
-  "NotAuthorizedToViewThisPage" : "Not authorized to view this page"
+  "NotAuthorizedToViewThisPage" : "Not authorized to view this page",
+  "WrongUserNameOrPassword" : "Wrong email or password"
 }

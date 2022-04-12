@@ -88,5 +88,6 @@
   "PasswordError" : "Parola trebuie completată",
   "ConfirmPassword" : "Confirmă parola",
   "ConfirmPasswordError" : "Parolele nu se potrivesc",
-  "NotAuthorizedToViewThisPage" : "Nu aveți permisiunea de a vedea această pagină"
+  "NotAuthorizedToViewThisPage" : "Nu aveți permisiunea de a vedea această pagină",
+  "WrongUserNameOrPassword" : "Email-ul sau parola sunt incorecte"
 }

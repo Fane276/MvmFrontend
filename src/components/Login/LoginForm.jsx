@@ -5,7 +5,8 @@ import {FiEye, FiEyeOff, FiLock, FiUser} from 'react-icons/fi'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import PulseLoader from 'react-spinners/PulseLoader'
-import { Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, useColorModeValue } from '@chakra-ui/react';
+import { Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, useColorModeValue, useToast } from '@chakra-ui/react';
+import { getCurrentUserPermissions, getSessionInfo } from '../../services/account/accountService';
 import { getAuthTokenCookie, getTenantIdCookie, setTenantIdCookie } from '../../services/cookie/cookieService';
 import { httpRequest, httpRequestAuthenticated } from '../../services/httpService';
 import {tokenAuth} from '../../services/tokenAuth/tokenAuthService';
@@ -16,38 +17,62 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const handleClick = () => setShowPassword(!showPassword)
   const dispatch = useDispatch()
+
+  const toast = useToast();
+  
   const {handleSubmit, register, formState: { errors, isSubmitting } } = useForm();
 
   const inputBorderFocusColor = useColorModeValue('purple.600', 'purple.500');
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    try{
-      
-      var tenantIdCookie = getTenantIdCookie();
-      if(tenantIdCookie === undefined){
-        setTenantIdCookie(1);
-        httpRequest.defaults.headers['Abp.TenantId'] = getTenantIdCookie();
-      }
+    var tenantIdCookie = getTenantIdCookie();
+    if(tenantIdCookie === undefined){
+      setTenantIdCookie(1);
+      httpRequest.defaults.headers['Abp.TenantId'] = getTenantIdCookie();
+    }
 
-      var isSuccess = await tokenAuth(data);
-      
-      if(isSuccess){
+    await tokenAuth(data).then(async (result)=>{
+      if(result.status === 200){
         httpRequestAuthenticated.defaults.headers['Abp.TenantId'] = getTenantIdCookie();
         httpRequestAuthenticated.defaults.headers['Authorization'] = `Bearer ${ getAuthTokenCookie()}`;
-        var userPermissionsRequest = await httpRequestAuthenticated.get("/api/services/app/Account/GetCurrentUserPermissions")
+        var currentSession = await getSessionInfo();
+        currentSession = currentSession.data.result;
+        var userPermissionsRequest = await getCurrentUserPermissions();
         var permissions = userPermissionsRequest.data.result.items;
-        dispatch(login({isAuthenticated:true, currentUser:null, currentTenant: null,isLoading:false, permissions: permissions}));
+        dispatch(login({isAuthenticated:true, currentUser:currentSession.user, currentTenant: currentSession.tenant,isLoading:false, permissions: permissions}));
 
         navigate("/")
       }
       else{
-        console.log("fail token auth");
+        toast({
+          title: t("WrongUserNameOrPassword"),
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
       }
-    }
-    catch (err){
-      console.log(err);
-    }
+    })
+    .catch((err)=>{
+      if(err){
+        if(err.data.error.message){
+          toast({
+            title: err.data.error.message,
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
+        }
+        else{
+          toast({
+            title: t("AnErrorOccurred"),
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
+        }
+      }
+    });
   }
 
 
