@@ -7,7 +7,7 @@ var httpRequestAuthenticated = axios.create({
   timeout: 30000,
   headers:{ 
     Authorization: `Bearer ${ getAuthTokenCookie()}`,
-    'Abp.TenantId': getTenantIdCookie()
+    'Abp.TenantId': getTenantIdCookie() ?? AppConsts.defaultTenantId
   }
 });
 
@@ -15,7 +15,7 @@ var httpRequest = axios.create({
   baseURL: AppConsts.remoteServiceBaseUrl,
   timeout: 30000,
   headers:{ 
-    'Abp.TenantId': getTenantIdCookie()
+    'Abp.TenantId': getTenantIdCookie() ?? AppConsts.defaultTenantId 
   }
 });
 

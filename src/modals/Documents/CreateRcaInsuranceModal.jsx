@@ -15,7 +15,7 @@ const CreateRcaInsuranceModal = ({idvehicle, ...props}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast();
 
-  const { handleSubmit, register, setValue, control, formState: { errors } } = useForm();
+  const { handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data)=>{
     data.insuranceType=0;
@@ -54,7 +54,7 @@ const CreateRcaInsuranceModal = ({idvehicle, ...props}) => {
         footerComponent={
           <ModalFooter alignContent="space-between">
             <Button onClick={onClose}>{t("Cancel")}</Button> 
-            <Button onClick={handleSubmit(onSubmit)} colorScheme='blue' ml={3}>
+            <Button onClick={handleSubmit(onSubmit)} isLoading={isSubmitting} spinner={<PulseLoader size={8} color='white'/>} colorScheme='blue' ml={3}>
               {t("Save")}
             </Button>
           </ModalFooter>

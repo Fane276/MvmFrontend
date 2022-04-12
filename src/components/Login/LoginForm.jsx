@@ -92,7 +92,7 @@ const LoginForm = () => {
       <Button colorScheme='blue' variant='solid' onClick={handleSubmit(onSubmit)} isLoading={isSubmitting} spinner={<PulseLoader size={8} color='white' />} mt='5'>
         {t("Login")}
       </Button>
-      <Button colorScheme='blue' variant='outline' onClick={handleSubmit(onSubmit)} mt='2'>
+      <Button colorScheme='blue' variant='outline' onClick={()=>navigate("/register")} mt='2'>
         {t("Register")}
       </Button>
     </Flex>

@@ -76,5 +76,16 @@
   "InsuranceDeleted" : "Insurance deleted",
   "VehicleAdded" : "Vehicle added",
   "InsuranceEdited" : "Insurance edited",
-  "MyGarage" : "My garage"
+  "MyGarage" : "My garage",
+  "AccountCreated" : "Account created",
+  "Surname" : "Surname",
+  "SurnameError" : "Surname can not be empty",
+  "Name" : "Name",
+  "NameError" : "Name can not be empty",
+  "UserName" : "Username",
+  "UserNameError" : "Username can not be empty",
+  "EmailError" : "Email should match the pattern email@domain.com",
+  "PasswordError" : "Password can not be empty",
+  "ConfirmPassword" : "Confirm password",
+  "ConfirmPasswordError" : "Passwords don't match"
 }
