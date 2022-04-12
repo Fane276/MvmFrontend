@@ -33,11 +33,13 @@ const LoginForm = () => {
       var isSuccess = await tokenAuth(data);
       
       if(isSuccess){
-        dispatch(login({isAuthenticated:true, currentUser:null, currentTenant: null,isLoading:false}));
         httpRequestAuthenticated.defaults.headers['Abp.TenantId'] = getTenantIdCookie();
         httpRequestAuthenticated.defaults.headers['Authorization'] = `Bearer ${ getAuthTokenCookie()}`;
+        var userPermissionsRequest = await httpRequestAuthenticated.get("/api/services/app/Account/GetCurrentUserPermissions")
+        var permissions = userPermissionsRequest.data.result.items;
+        dispatch(login({isAuthenticated:true, currentUser:null, currentTenant: null,isLoading:false, permissions: permissions}));
 
-        navigate("/dashboard")
+        navigate("/")
       }
       else{
         console.log("fail token auth");

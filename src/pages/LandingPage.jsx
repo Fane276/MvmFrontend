@@ -3,17 +3,29 @@ import 'animate.css';
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../components/Context/AuthContex';
+import Permission from '../lib/permissionsConst';
 import GlobalLoading from './GlobalLoading';
 
 const LandingPage = () => {
-  const {isAuthenticated, isLoading} = useContext(AuthContext);
+  const {isAuthenticated, isLoading, permissions} = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(()=>{
       if(!isLoading){
         if(isAuthenticated){
-          navigate("/dashboard");
+          if(permissions){
+            if(permissions.find((perm)=>perm.name === Permission.usersPages)){
+              navigate("/DashboardAdmin");
+            }
+            else
+            {
+              navigate("/dashboard");
+            }
+          }
+          else{
+            navigate("/dashboard");
+          }
         }
         else{
           navigate('/login')

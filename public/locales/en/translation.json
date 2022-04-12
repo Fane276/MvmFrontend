@@ -87,5 +87,6 @@
   "EmailError" : "Email should match the pattern email@domain.com",
   "PasswordError" : "Password can not be empty",
   "ConfirmPassword" : "Confirm password",
-  "ConfirmPasswordError" : "Passwords don't match"
+  "ConfirmPasswordError" : "Passwords don't match",
+  "NotAuthorizedToViewThisPage" : "Not authorized to view this page"
 }

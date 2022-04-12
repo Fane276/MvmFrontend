@@ -12,10 +12,12 @@ function useAuth() {
         var request = await httpRequestAuthenticated("api/services/app/Session/GetCurrentLoginInformations")
         var currentSession = request.data.result;
         if(currentSession.user){
-          dispatch(login({isAuthenticated:true, currentUser:currentSession.user,currentTenant:currentSession.tenant, isLoading:false}));
+          var userPermissionsRequest = await httpRequestAuthenticated.get("/api/services/app/Account/GetCurrentUserPermissions")
+          var permissions = userPermissionsRequest.data.result.items;
+          dispatch(login({isAuthenticated:true, currentUser:currentSession.user,currentTenant:currentSession.tenant, isLoading:false, permissions:permissions}));
         }
         else{
-          dispatch(login({isAuthenticated:false, currentUser:null,currentTenant:null, isLoading:false}));
+          dispatch(login({isAuthenticated:false, currentUser:null,currentTenant:null, isLoading:false, permissions:[]}));
         }
     }
     fetch();

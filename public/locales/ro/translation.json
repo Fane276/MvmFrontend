@@ -76,7 +76,7 @@
   "InsuranceDeleted" : "Asigurarea a fost ștearsă",
   "VehicleAdded" : "Vehicul adăugat",
   "InsuranceEdited" : "Asigurare modificată",
-  "MyGarage" : "Grajul meu",
+  "MyGarage" : "Garajul meu",
   "AccountCreated" : "Contul a fost creat",
   "Surname" : "Prenume",
   "SurnameError" : "Prenumele trebuie completat",
@@ -87,5 +87,6 @@
   "EmailError" : "Email-ul trebuie să fie de forma email@domain.com",
   "PasswordError" : "Parola trebuie completată",
   "ConfirmPassword" : "Confirmă parola",
-  "ConfirmPasswordError" : "Parolele nu se potrivesc"
+  "ConfirmPasswordError" : "Parolele nu se potrivesc",
+  "NotAuthorizedToViewThisPage" : "Nu aveți permisiunea de a vedea această pagină"
 }

@@ -6,7 +6,8 @@ const initialUserState = {
     isAuthenticated:false,
     currentUser: null,
     currentTenant: null,
-    isLoading: true
+    isLoading: true,
+    permissions: []
   }
 }
 
