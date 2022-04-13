@@ -4,12 +4,14 @@ import {FiTrash} from 'react-icons/fi'
 import {GiHomeGarage} from 'react-icons/gi'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom';
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Divider, Flex, IconButton, Menu, MenuButton, MenuList, Text, useToast } from '@chakra-ui/react';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Divider, Flex, IconButton, Menu, MenuButton, MenuList, useToast } from '@chakra-ui/react';
 import Card from '../components/Cards/Card';
 import CardHeader from '../components/Cards/CardHeader';
 import ConfirmDeletionDialog from '../components/Dialogs/ConfirmDeletionDialog';
 import InsuranceCard from '../components/Documents/InsuranceCard';
 import AppLayout from '../components/Layout/AppLayout';
+import LastRefuelTabel from '../components/Refuel/LastRefuelTabel';
+import AddRefillModal from '../modals/FuelManagement/AddRefillModal';
 import { deleteInsurance, getInsuranceIds } from '../services/documents/insuranceService';
 
 const Vehicle = () => {
@@ -78,7 +80,7 @@ const Vehicle = () => {
           </Breadcrumb>
         </Box>
         <Flex w="100%" direction='row' justifyContent='space-around'>
-          <Box w='100%'>
+          <Box w='100%' m='2' ml='0'>
             <Card>
               <CardHeader 
                 title={t("Insurance")}
@@ -101,7 +103,14 @@ const Vehicle = () => {
               <InsuranceCard idvehicle={idVehicle}/>
             </Card>
           </Box>
-          <Box w='100%'>
+          <Box w='100%' m='2' mr='0'>
+            <Card>
+              <CardHeader 
+                title={t("FuelManagement")} 
+                action={<AddRefillModal idVehicle={idVehicle}/>}
+              />
+              <LastRefuelTabel endpoint={`/api/FuelManagement/GetVehicleRefills?IdVehicle=${idVehicle}`}/>
+            </Card>
           </Box>
         </Flex>
       </Flex>

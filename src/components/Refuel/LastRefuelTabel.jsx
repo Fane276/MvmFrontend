@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
-import { FiEye, FiTrash } from 'react-icons/fi'
-import { useNavigate } from 'react-router';
+import { FiTrash } from 'react-icons/fi'
 import { Box, Flex, Select, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
-import { deleteVehicle } from '../../services/Vehicles/vehiclesService';
+import { fuelTypeToString, fuelUnitToString } from '../../lib/vehicleConst';
+import { deleteRefill } from '../../services/fuelManagement/fuelManagementService';
 import { httpRequestAuthenticated } from '../../services/httpService';
 import ConfirmDeletionDialog from '../Dialogs/ConfirmDeletionDialog';
-import PageButton from './PageButton';
+import PageButton from '../Vehicles/PageButton';
 
-const VehiclesTable = ({endpoint}) => {
-
+const LastRefuelTabel = ({endpoint}) => {
+  
   const { t } = useTranslation();
 
   const [maxResultCount, setMaxResultCount] = useState(10);
@@ -18,8 +18,6 @@ const VehiclesTable = ({endpoint}) => {
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [lastPage, setLastPage] = useState(0)
-  
-  const navigate = useNavigate();
 
   useEffect(() => {
     const asyncExecuter = async()=>{
@@ -77,12 +75,10 @@ const VehiclesTable = ({endpoint}) => {
         </TableCaption>
         <Thead>
           <Tr>
-            <Th>{t('Title')}</Th>
-            <Th>{t('Make')}</Th>
-            <Th>{t('Model')}</Th>
-            <Th>{t('ProductionYear')}</Th>
-            <Th>{t('RegistrationNumber')}</Th>
-            <Th>{t('Actions')}</Th>
+            <Th>{t('Quantity')}</Th>
+            <Th>{t('FuelType')}</Th>
+            <Th>{t('AmountPayed')}</Th>
+            <Th w='10'>{t('Actions')}</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -92,24 +88,17 @@ const VehiclesTable = ({endpoint}) => {
 
                 <Tr key={item.id}>
                 <Td>
-                  {item.title}            
+                  {item.fuelAmount} {t(fuelUnitToString(item.fuelUnit))}            
                 </Td>
                 <Td>
-                  {item.makeAuto}            
+                  {t(fuelTypeToString(item.fuelType))}            
                 </Td>
                 <Td>
-                  {item.modelAuto}            
+                  {item.price} LEI
                 </Td>
                 <Td>
-                  {item.productionYear}            
-                </Td>
-                <Td>
-                  {item.registrationNumber}            
-                </Td>
-                <Td>
-                  <Flex justifyContent='space-around'>
-                    <FiEye onClick={()=>navigate(`/Vehicle/${item.id}`)}/> 
-                    <ConfirmDeletionDialog name={t("vehicle")} isIcon={true} action={()=>deleteVehicle(item.id)}>
+                  <Flex justifyContent='center'>
+                    <ConfirmDeletionDialog name={t("refuel")} isIcon={true} action={()=>deleteRefill(item.id)}>
                       <FiTrash color="#E53E3E"/> 
                     </ConfirmDeletionDialog>
                   </Flex>
@@ -124,4 +113,4 @@ const VehiclesTable = ({endpoint}) => {
   )
 }
 
-export default VehiclesTable
+export default LastRefuelTabel

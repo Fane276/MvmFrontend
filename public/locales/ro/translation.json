@@ -89,5 +89,17 @@
   "ConfirmPassword" : "Confirmă parola",
   "ConfirmPasswordError" : "Parolele nu se potrivesc",
   "NotAuthorizedToViewThisPage" : "Nu aveți permisiunea de a vedea această pagină",
-  "WrongUserNameOrPassword" : "Email-ul sau parola sunt incorecte"
+  "WrongUserNameOrPassword" : "Email-ul sau parola sunt incorecte",
+  "SavedSuccessfully" : "Salvat cu succes",
+  "AddRefillInfo" : "Adaugă informații alimentare",
+  "FuelAmount" : "Catitate combustibil",
+  "FuelAmountError" : "Cantitatea de combustibil trebuie sa fie un număr mai mare ca 0",
+  "FuelType" : "Tip combustibil",
+  "FuelTypeError" : "Tipul de combustibil trebuie selectat",
+  "Price" : "Preț",
+  "PriceError" : "Prețul trebuie sa fie un număr mai mare ca 0",
+  "FuelManagement" : "Mangement combustibil",
+  "refuel" : "alimentarea",
+  "vehicle" : "vehiculul",
+  "Deleted" : "Deleted"
 }

@@ -12,4 +12,9 @@ const createVehicle = async (vehicle)=>{
   return result;
 }
 
-export {createVehicle}
+const deleteVehicle = async (idVehicle)=>{
+  var result = await httpRequestAuthenticated.post("/api/Vehicle/DeleteRefill", {id: idVehicle});
+  return result;
+}
+
+export {createVehicle, deleteVehicle}

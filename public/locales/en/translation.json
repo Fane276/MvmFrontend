@@ -89,5 +89,17 @@
   "ConfirmPassword" : "Confirm password",
   "ConfirmPasswordError" : "Passwords don't match",
   "NotAuthorizedToViewThisPage" : "Not authorized to view this page",
-  "WrongUserNameOrPassword" : "Wrong email or password"
+  "WrongUserNameOrPassword" : "Wrong email or password",
+  "SavedSuccessfully" : "Saved successfully",
+  "AddRefillInfo" : "Add refill info",
+  "FuelAmount" : "Fuel amount",
+  "FuelAmountError" : "Fuel amount should be a number greater than 0",
+  "FuelType" : "Fuel type",
+  "FuelTypeError" : "Fuel type must be selected",
+  "Price" : "Price",
+  "PriceError" : "Price should be a number greater than 0",
+  "FuelManagement" : "Fuel management",
+  "refuel" : "refuel",
+  "vehicle" : "vehicle",
+  "Deleted" : "A fost șters"
 }

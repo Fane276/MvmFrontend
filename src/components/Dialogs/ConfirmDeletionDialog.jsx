@@ -1,15 +1,26 @@
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, MenuItem, useDisclosure } from '@chakra-ui/react'
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, HStack, MenuItem, useDisclosure, useToast } from '@chakra-ui/react'
 
-const ConfirmDeletionDialog = ({action, name, isMenuItem, children}) => {
+const ConfirmDeletionDialog = ({action, name, isMenuItem, isIcon, children, ...props}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef()
   const {t} = useTranslation();
 
+  const toast = useToast();
+
   const handleButtonClick = (value) => {
     if(value === true){
-      action()
+      action().then((result)=>{
+        if(result && result.status === 200){
+          toast({
+            title: `${t("Deleted")} ${name}`,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          })
+        }
+      })
     }
     onClose();
   }
@@ -17,13 +28,20 @@ const ConfirmDeletionDialog = ({action, name, isMenuItem, children}) => {
   return (
     <>
       {isMenuItem?
-        <MenuItem onClick={onOpen}>
+        <MenuItem onClick={onOpen} {...props}>
           {children}
         </MenuItem>
         :
-        <Button colorScheme='red' onClick={onOpen}>
+        (
+          isIcon?
+          <HStack onClick={onOpen} {...props}>
+            {children}
+          </HStack>
+          :
+        <Button colorScheme='red' onClick={onOpen} {...props}>
           {children}
         </Button>
+        )
       }
 
       <AlertDialog
