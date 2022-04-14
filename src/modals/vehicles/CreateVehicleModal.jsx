@@ -72,7 +72,7 @@ const CreateVehicleModal = () => {
   const [vehicleMake, setVehicleMake] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const { handleSubmit, register, setValue, getValues, control, formState: { errors, isSubmitting } } = useForm();
+  const { handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
 
   const onChangeVehicleType = (value) =>{
     setVehicleType(value.value);

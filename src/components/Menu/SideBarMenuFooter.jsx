@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Flex, Image, Text } from '@chakra-ui/react'
+import { Flex, Image, Text } from '@chakra-ui/react'
 
 const SideBarMenuFooter = ({navSize}) => {
   return (

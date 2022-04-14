@@ -101,5 +101,14 @@
   "FuelManagement" : "Fuel management",
   "refuel" : "refuel",
   "vehicle" : "vehicle",
-  "Deleted" : "A fost șters"
+  "Deleted" : "A fost șters",
+  "Monday": "Luni",
+  "Tuesday": "Marți",
+  "Wednesday": "Miercuri",
+  "Thursday": "Joi",
+  "Friday": "Vineri",
+  "Saturday": "Sâmbătă",
+  "Sunday": "Dumincă",
+  "TotalCostIs": "Total cost is",
+  "CostPerDay": "Cost per day"
 }

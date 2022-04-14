@@ -5,7 +5,6 @@ import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const PageButton = ({ currentPage, lastPage, handlePageClick }) => {
-  const render = [];
   const borderColor =  useColorModeValue('gray.200', 'gray.700');
   const [startIdx, setStartIdx] = useState();
   const [endIdx, setEndIdx] = useState();
@@ -44,7 +43,7 @@ const PageButton = ({ currentPage, lastPage, handlePageClick }) => {
     }
     setItems(newItems);
 
-  }, [currentPage, lastPage])
+  }, [currentPage, lastPage, endIdx, startIdx])
   
 
 
@@ -65,7 +64,7 @@ const PageButton = ({ currentPage, lastPage, handlePageClick }) => {
         return(
         <Button key={`page-${item.offset}`} 
           borderBottom='1px' 
-          borderColor={currentPage == item.idx? {borderColor} : 'transparent'} 
+          borderColor={currentPage === item.idx? {borderColor} : 'transparent'} 
           onClick={()=>handlePageClick(item.idx)} 
           value={item.idx}
           size='xs'

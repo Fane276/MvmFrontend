@@ -93,7 +93,7 @@ const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setVal
       hasOtherOption?
       <>
         {
-          otherIsVisible == false ?
+          otherIsVisible === false ?
           <AsyncSelect
           ref={asyncSelect}
           key={JSON.stringify(extraParameterValueLocal)}

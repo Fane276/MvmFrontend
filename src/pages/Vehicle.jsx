@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { Bar } from 'react-chartjs-2';
 import { useTranslation } from 'react-i18next';
 import {FiTrash} from 'react-icons/fi'
 import {GiHomeGarage} from 'react-icons/gi'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom';
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Divider, Flex, IconButton, Menu, MenuButton, MenuList, useToast } from '@chakra-ui/react';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Divider, Flex, IconButton, Menu, MenuButton, MenuList, VStack, useToast } from '@chakra-ui/react';
 import Card from '../components/Cards/Card';
 import CardHeader from '../components/Cards/CardHeader';
 import ConfirmDeletionDialog from '../components/Dialogs/ConfirmDeletionDialog';
@@ -13,6 +14,7 @@ import AppLayout from '../components/Layout/AppLayout';
 import LastRefuelTabel from '../components/Refuel/LastRefuelTabel';
 import AddRefillModal from '../modals/FuelManagement/AddRefillModal';
 import { deleteInsurance, getInsuranceIds } from '../services/documents/insuranceService';
+import { getPricePerLastDays } from '../services/fuelManagement/fuelManagementService';
 
 const Vehicle = () => {
   const {t} = useTranslation();
@@ -20,8 +22,12 @@ const Vehicle = () => {
 
   const [idRca, setIdRca] = useState();
   const [idCasco, setIdCasco] = useState();
+  const [dataPriceConsumtion, setDataPriceConsumtion] = useState(null)
+  const [chartBarOptions, setChartBarOptions] = useState(null)
   const toast = useToast();
 
+  
+  
   useEffect(()=>{
     const asyncExecutor = async()=>{
       var result = await getInsuranceIds(idVehicle);
@@ -32,7 +38,48 @@ const Vehicle = () => {
       }
     }
     asyncExecutor();
+  
   },[idVehicle])
+  
+  useEffect(()=>{
+    const asyncExecutor = async()=>{
+      var graphDataResult = await getPricePerLastDays(idVehicle);
+      var graphData = graphDataResult.data.result;
+      const options = {
+        plugins: {
+          title: {
+            display: true,
+            text: `${t("TotalCostIs")} ${graphData.totalValues} LEI`,
+          },
+        },
+        responsive: true,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        scales: {
+          x: {
+            stacked: false,
+          },
+        },
+      };
+      setChartBarOptions(options);
+      const data = {
+        labels: graphData.labels,
+        datasets: [
+          {
+            label: t("CostPerDay"),
+            data: graphData.values.map((val) => val),
+            backgroundColor: '#90CDF4',
+            borderColor: '#63B3ED'
+          },
+        ],
+      };
+      setDataPriceConsumtion(data);
+    }
+    asyncExecutor();
+  
+  },[idVehicle, t])
 
   const delInsurance = async (idInsurance)=>{
     await deleteInsurance(idInsurance)
@@ -61,7 +108,7 @@ const Vehicle = () => {
 
   return (
     <AppLayout>
-      <Flex direction='column' w='100%'>
+      <VStack w='100%'>
         <Box w='100%' pb='3'>
           <Breadcrumb>
             <BreadcrumbItem>
@@ -102,9 +149,15 @@ const Vehicle = () => {
                 />
               <InsuranceCard idvehicle={idVehicle}/>
             </Card>
+            <Card mt='4'>
+              {
+                dataPriceConsumtion &&
+                <Bar options={chartBarOptions} data={dataPriceConsumtion} />
+              }
+            </Card>
           </Box>
           <Box w='100%' m='2' mr='0'>
-            <Card>
+            <Card mb='2'>
               <CardHeader 
                 title={t("FuelManagement")} 
                 action={<AddRefillModal idVehicle={idVehicle}/>}
@@ -113,7 +166,7 @@ const Vehicle = () => {
             </Card>
           </Box>
         </Flex>
-      </Flex>
+      </VStack>
     </AppLayout>
   )
 }

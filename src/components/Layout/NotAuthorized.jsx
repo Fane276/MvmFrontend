@@ -2,7 +2,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import {GiPoliceCar} from 'react-icons/gi'
 import { Text, VStack } from '@chakra-ui/react'
-import Card from '../Cards/Card'
 
 const NotAuthorized = () => {
   const {t}= useTranslation();

@@ -32,7 +32,7 @@ const LandingPage = () => {
         }
       }
     },1000);
-  }, [isLoading, isAuthenticated, navigate])
+  }, [isLoading, isAuthenticated, navigate, permissions])
   
   return (
     <>

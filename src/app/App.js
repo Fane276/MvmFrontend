@@ -3,6 +3,15 @@ import 'react-datepicker/dist/react-datepicker.css'
 import './date-picker.css'
 import 'animate.css';
 
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
+} from 'chart.js';
 import enUS from 'date-fns/locale/en-US';
 import ro from 'date-fns/locale/ro';
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
@@ -22,6 +31,15 @@ import Vehicle from '../pages/Vehicle';
 registerLocale('ro', ro)
 registerLocale('en', enUS)
 setDefaultLocale('ro');
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function App() {
   return (

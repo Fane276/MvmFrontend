@@ -30,7 +30,7 @@ const EditCascoInsuranceModal = ({idvehicle, ...props}) => {
       setValue("idInsuranceCompany", result.idInsuranceCompany);
     }
     asyncExecutor();
-  }, [idvehicle])
+  }, [idvehicle, setValue])
   
 
 

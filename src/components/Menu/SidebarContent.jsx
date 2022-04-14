@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiGasPump, BiWrench } from 'react-icons/bi'
-import { FiCalendar, FiFileText, FiHome } from 'react-icons/fi'
+import { FiFileText, FiHome } from 'react-icons/fi'
 import { useLocation, useNavigate } from 'react-router'
 import { Flex } from '@chakra-ui/react'
 import NavItem from './NavItem'
