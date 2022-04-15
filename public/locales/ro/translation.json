@@ -110,5 +110,6 @@
   "Saturday": "Sâmbătă",
   "Sunday": "Dumincă",
   "TotalCostIs": "Costul total este",
-  "CostPerDay": "Costul pe zi"
+  "CostPerDay": "Costul pe zi",
+  "TotalRefuelCostIs": "Costul total de realimentare este"
 }

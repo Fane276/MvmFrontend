@@ -4,6 +4,7 @@ import './date-picker.css'
 import 'animate.css';
 
 import {
+  ArcElement,
   BarElement,
   CategoryScale,
   Chart as ChartJS,
@@ -38,7 +39,8 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ArcElement
 );
 
 function App() {

@@ -43,7 +43,7 @@ const PageButton = ({ currentPage, lastPage, handlePageClick }) => {
     }
     setItems(newItems);
 
-  }, [currentPage, lastPage, endIdx, startIdx])
+  }, [currentPage, lastPage])
   
 
 

@@ -15,4 +15,10 @@ const getPricePerLastDays = async (idVehicle)=>{
   return result;
 }
 
-export {addRefill, deleteRefill, getPricePerLastDays};
+const getPricePerVehicle = async ()=>{
+  var result = await httpRequestAuthenticated.get(`/api/FuelManagement/GetCostPerVehicle`);
+  return result;
+}
+
+
+export {addRefill, deleteRefill, getPricePerLastDays, getPricePerVehicle};

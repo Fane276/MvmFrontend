@@ -110,5 +110,6 @@
   "Saturday": "Sâmbătă",
   "Sunday": "Dumincă",
   "TotalCostIs": "Total cost is",
-  "CostPerDay": "Cost per day"
+  "CostPerDay": "Cost per day",
+  "TotalRefuelCostIs": "Total refuel cost is"
 }
