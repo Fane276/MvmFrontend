@@ -9,7 +9,7 @@ import Select2 from '../../components/Form/Select2'
 import ModalLayout from '../../components/Modals/ModalLayout'
 import { createVehicle } from '../../services/Vehicles/vehiclesService';
 
-const CreateVehicleModal = () => {
+const CreateVehicleModal = ({updateFunction}) => {
   const {t} = useTranslation();
   const vehicleTypes = [
     {
@@ -109,6 +109,7 @@ const CreateVehicleModal = () => {
     );
 
     onClose();
+    updateFunction();
   }
   return (
     <>

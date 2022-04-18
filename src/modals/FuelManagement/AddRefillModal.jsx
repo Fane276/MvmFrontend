@@ -9,7 +9,7 @@ import ModalLayout from '../../components/Modals/ModalLayout'
 import { FuelType, FuelUnit } from '../../lib/vehicleConst';
 import { addRefill } from '../../services/fuelManagement/fuelManagementService';
 
-const AddRefillModal = ({idVehicle}) => {
+const AddRefillModal = ({ updateFunction, idVehicle}) => {
   const {t} = useTranslation();
   const fuelUnits = Object.getOwnPropertyNames(FuelUnit).map((value, index)=>{return {value: index, label: value}});
   const fuelTypes = Object.getOwnPropertyNames(FuelType).map((value, index)=>{return {value: index, label: value}});
@@ -51,6 +51,7 @@ const AddRefillModal = ({idVehicle}) => {
     );
 
     onClose();
+    updateFunction();
   }
   return (
     <>

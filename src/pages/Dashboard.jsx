@@ -1,3 +1,4 @@
+import moment from 'moment'
 import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +19,8 @@ const Dashboard = () => {
   const { t } = useTranslation();
   const [graphData, setGraphData] = useState(null);
   const [graphOptions, setGraphOptions] = useState(null)
+
+  const [vehicleTableShouldUpdate, setVehicleTableShouldUpdate] = useState();
 
   useEffect(() => {
     const asyncExecutor = async ()=>{
@@ -58,6 +61,9 @@ const Dashboard = () => {
     asyncExecutor();
   }, [t])
   
+  const updateVehicleTableHandler = ()=>{
+    setVehicleTableShouldUpdate(moment())
+  }
 
  
   return (
@@ -95,9 +101,9 @@ const Dashboard = () => {
             <Card>
               <CardHeader 
                 title={t("MyGarage")} 
-                action={<CreateVehicleModal/>}
+                action={<CreateVehicleModal updateFunction={()=>updateVehicleTableHandler()}/>}
               />
-              <VehiclesTable endpoint='/api/Vehicle/GetCurrentUserPersonalVehicles'></VehiclesTable>
+              <VehiclesTable shouldUpdate={vehicleTableShouldUpdate} endpoint='/api/Vehicle/GetCurrentUserPersonalVehicles'></VehiclesTable>
             </Card>
           </Box>
         </Flex>

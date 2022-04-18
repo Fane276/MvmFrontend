@@ -10,7 +10,7 @@ import Select2 from '../../components/Form/Select2';
 import ModalLayout from '../../components/Modals/ModalLayout';
 import { saveInsurance } from '../../services/documents/insuranceService';
 
-const CreateCascoInsuranceModal = ({idvehicle, props}) => {
+const CreateCascoInsuranceModal = ({ updateFunction, idvehicle, props}) => {
   const {t} = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast();
@@ -47,6 +47,7 @@ const CreateCascoInsuranceModal = ({idvehicle, props}) => {
     );
     
     onClose();
+    updateFunction();
   }
   return (
     <>

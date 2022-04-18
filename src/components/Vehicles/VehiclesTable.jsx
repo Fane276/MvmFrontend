@@ -8,7 +8,7 @@ import { httpRequestAuthenticated } from '../../services/httpService';
 import ConfirmDeletionDialog from '../Dialogs/ConfirmDeletionDialog';
 import PageButton from './PageButton';
 
-const VehiclesTable = ({endpoint}) => {
+const VehiclesTable = ({shouldUpdate, endpoint}) => {
 
   const { t } = useTranslation();
 
@@ -40,7 +40,23 @@ const VehiclesTable = ({endpoint}) => {
     }
     asyncExecuter()
     
-  }, [endpoint, skipCount, maxResultCount])
+  }, [endpoint, skipCount, maxResultCount, shouldUpdate])
+  const updateTable = async()=>{
+    var result = await httpRequestAuthenticated.get(endpoint, {
+      params:{
+        MaxResultCount: maxResultCount,
+        SkipCount: skipCount
+      }
+    })
+    if(result.data.success === true){
+      result = result.data.result;
+      setItems(result.items);
+      setTotalCount(result.totalCount)
+
+      var lastPage= Math.floor(result.totalCount/maxResultCount);
+      setLastPage(lastPage)
+    }
+  }
 
   const handlePageChanged=(pageId)=>{
     setCurrentPage(pageId);
@@ -109,7 +125,7 @@ const VehiclesTable = ({endpoint}) => {
                 <Td>
                   <Flex justifyContent='space-around'>
                     <FiEye onClick={()=>navigate(`/Vehicle/${item.id}`)}/> 
-                    <ConfirmDeletionDialog name={t("vehicle")} isIcon={true} action={()=>deleteVehicle(item.id)}>
+                    <ConfirmDeletionDialog name={t("vehicle")} isIcon={true} action={()=>deleteVehicle(item.id)} updateParentFunction={updateTable}>
                       <FiTrash color="#E53E3E"/> 
                     </ConfirmDeletionDialog>
                   </Flex>

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +25,8 @@ const Vehicle = () => {
   const [idCasco, setIdCasco] = useState();
   const [dataPriceConsumtion, setDataPriceConsumtion] = useState(null)
   const [chartBarOptions, setChartBarOptions] = useState(null)
+  const [refuelTableShouldUpdate, setRefuelTableShouldUpdate] = useState();
+
   const toast = useToast();
 
   
@@ -106,6 +109,48 @@ const Vehicle = () => {
     });
   }
 
+  const updateChart = async()=>{
+    var graphDataResult = await getPricePerLastDays(idVehicle);
+    var graphData = graphDataResult.data.result;
+    const options = {
+      plugins: {
+        title: {
+          display: true,
+          text: `${t("TotalCostIs")} ${graphData.totalValues} LEI`,
+        },
+      },
+      responsive: true,
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      scales: {
+        x: {
+          stacked: false,
+        },
+      },
+    };
+    setChartBarOptions(options);
+    const data = {
+      labels: graphData.labels,
+      datasets: [
+        {
+          label: t("CostPerDay"),
+          data: graphData.values.map((val) => val),
+          backgroundColor: '#90CDF4',
+          borderColor: '#63B3ED'
+        },
+      ],
+    };
+    setDataPriceConsumtion(data);
+  }
+
+
+  const vehicleAddedHandler = ()=>{
+    setRefuelTableShouldUpdate(moment());
+    updateChart();
+  }
+
   return (
     <AppLayout>
       <VStack w='100%'>
@@ -160,9 +205,9 @@ const Vehicle = () => {
             <Card mb='2'>
               <CardHeader 
                 title={t("FuelManagement")} 
-                action={<AddRefillModal idVehicle={idVehicle}/>}
+                action={<AddRefillModal updateFunction={vehicleAddedHandler} idVehicle={idVehicle}/>}
               />
-              <LastRefuelTabel endpoint={`/api/FuelManagement/GetVehicleRefills?IdVehicle=${idVehicle}`}/>
+              <LastRefuelTabel shouldUpdate={refuelTableShouldUpdate} endpoint={`/api/FuelManagement/GetVehicleRefills?IdVehicle=${idVehicle}`}/>
             </Card>
           </Box>
         </Flex>

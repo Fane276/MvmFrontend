@@ -26,21 +26,35 @@ const InsuranceCard = ({idvehicle}) => {
     }
     asyncExecutor();
   }, [idvehicle])
+
+  const updateInsuranceStatus = async()=>{
+    var result = await getInsuranceStatus(idvehicle);
+
+    if(result.status === 200){
+      if(result.data.result.rca){
+        setRcaIsSet(true);
+      }
+      if(result.data.result.casco){
+        setCascoIsSet(true);
+      }
+    }
+
+  }
   
 
   return (
     <Flex direction='row' p='3'>
       {
         rcaIsSet ?
-        <EditRcaInsuranceModal idvehicle={idvehicle} mr='2'/>
+        <EditRcaInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} mr='2'/>
         :
-        <CreateRcaInsuranceModal idvehicle={idvehicle} mr='2'/>
+        <CreateRcaInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} mr='2'/>
       }
         {
           cascoIsSet ?
-          <EditCascoInsuranceModal idvehicle={idvehicle} ml='2'/>
+          <EditCascoInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} ml='2'/>
           :
-          <CreateCascoInsuranceModal idvehicle={idvehicle} ml='2'/>
+          <CreateCascoInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} ml='2'/>
         }
     </Flex>
   )

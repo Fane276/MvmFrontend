@@ -8,7 +8,7 @@ import { httpRequestAuthenticated } from '../../services/httpService';
 import ConfirmDeletionDialog from '../Dialogs/ConfirmDeletionDialog';
 import PageButton from '../Vehicles/PageButton';
 
-const LastRefuelTabel = ({endpoint}) => {
+const LastRefuelTabel = ({shouldUpdate,endpoint}) => {
   
   const { t } = useTranslation();
 
@@ -38,7 +38,7 @@ const LastRefuelTabel = ({endpoint}) => {
     }
     asyncExecuter()
     
-  }, [endpoint, skipCount, maxResultCount])
+  }, [endpoint, skipCount, maxResultCount, shouldUpdate])
 
   const handlePageChanged=(pageId)=>{
     setCurrentPage(pageId);

@@ -10,7 +10,7 @@ import Select2 from '../../components/Form/Select2';
 import ModalLayout from '../../components/Modals/ModalLayout';
 import { saveInsurance } from '../../services/documents/insuranceService';
 
-const CreateRcaInsuranceModal = ({idvehicle, ...props}) => {
+const CreateRcaInsuranceModal = ({updateFunction, idvehicle, ...props}) => {
   const {t} = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast();
@@ -46,6 +46,7 @@ const CreateRcaInsuranceModal = ({idvehicle, ...props}) => {
     }
     );
     onClose();
+    updateFunction();
   }
   return (
     <>

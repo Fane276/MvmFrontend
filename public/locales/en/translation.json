@@ -111,5 +111,20 @@
   "Sunday": "Dumincă",
   "TotalCostIs": "Total cost is",
   "CostPerDay": "Cost per day",
-  "TotalRefuelCostIs": "Total refuel cost is"
+  "TotalRefuelCostIs": "Total refuel cost is",
+  "DrivingLicence": "Driving licence",
+  "IdCard": "Identity Card",
+  "IsAvailableUntil": "Is available until",
+  "HasExpiredOn": "Has expired on",
+  "DocumentType": "Document type",
+  "DocumentTypeError": "Document type must be selected",
+  "OtherDocumentType": "Other document type",
+  "OtherDocumentTypeError": "Document type must be specified",
+  "OR": "OR",
+  "ExtractFromImage": "Extract from image",
+  "UserDocuments": "User documents",
+  "AddDocument": "Add document",
+  "DocumentAdded": "Document added",
+  "DocumentUpdated": "Document updated",
+  "DocumentDeleted": "Document deleted"
 }

@@ -111,5 +111,17 @@
   "Sunday": "Dumincă",
   "TotalCostIs": "Costul total este",
   "CostPerDay": "Costul pe zi",
-  "TotalRefuelCostIs": "Costul total de realimentare este"
+  "TotalRefuelCostIs": "Costul total de realimentare este",
+  "DrivingLicence": "Permis de conducere",
+  "IdCard": "Carte de identitate",
+  "IsAvailableUntil": "Valabil până pe data de",
+  "HasExpiredOn": "A expirat pe data de",
+  "DocumentType": "Tip document",
+  "DocumentTypeError": "Tipul de document trebuie selectat",
+  "OtherDocumentType": "Alt tip document",
+  "OtherDocumentTypeError": "Tipul de document trebuie specificat",
+  "OR": "SAU",
+  "ExtractFromImage": "Extrage din imagine",
+  "UserDocuments": "Acte utilizator",
+  "AddDocument": "Adaugă act"
 }

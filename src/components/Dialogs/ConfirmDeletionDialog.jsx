@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, HStack, MenuItem, useDisclosure, useToast } from '@chakra-ui/react'
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, HStack, IconButton, MenuItem, useDisclosure, useToast } from '@chakra-ui/react'
 
-const ConfirmDeletionDialog = ({action, name, isMenuItem, isIcon, children, ...props}) => {
+const ConfirmDeletionDialog = ({action, name, isMenuItem, isIcon, isButton, children, updateParentFunction, ...props}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef()
   const {t} = useTranslation();
@@ -19,6 +19,7 @@ const ConfirmDeletionDialog = ({action, name, isMenuItem, isIcon, children, ...p
             duration: 3000,
             isClosable: true,
           })
+          updateParentFunction()
         }
       })
     }
@@ -34,9 +35,15 @@ const ConfirmDeletionDialog = ({action, name, isMenuItem, isIcon, children, ...p
         :
         (
           isIcon?
-          <HStack onClick={onOpen} {...props}>
-            {children}
-          </HStack>
+            (isButton?
+              <IconButton onClick={onOpen} {...props}>
+                {children}
+              </IconButton>
+              :
+              <HStack onClick={onOpen} {...props}>
+                {children}
+              </HStack>
+            )
           :
         <Button colorScheme='red' onClick={onOpen} {...props}>
           {children}
