@@ -5,12 +5,13 @@ import { FiChevronDown } from 'react-icons/fi';
 import { Input, InputGroup, InputRightAddon } from '@chakra-ui/react';
 import { httpRequest } from '../../services/httpService';
 
-const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setValue,register, name, registerOptions, hasOtherOption, onChange}) => {
+const Select2 = ({extraParameter, defaultValue,  extraParameterValue, endpoint, control, setValue,register, name, registerOptions, hasOtherOption, onChange}) => {
   const [selectedValue, setSelectedValue] = useState(null);
   const [valueInput, setValueInput] = useState(null);
   const [otherIsVisible, setOtherIsVisible] = useState(false);
   const [extraParameterValueLocal, setExtraParameterValueLocal] = useState(null);
   const asyncSelect = useRef();
+
 
   const {t} = useTranslation();
  
@@ -22,6 +23,14 @@ const Select2 = ({extraParameter, extraParameterValue, endpoint, control, setVal
     }
 
   }, [extraParameterValue])
+
+  // useEffect(() => {
+  //   if(defaultValue){
+  //     setSelectedValue({label:defaultValue.value, value: defaultValue.id})
+  //   }
+
+  // }, [defaultValue])
+  
   
 
   // handle input change event

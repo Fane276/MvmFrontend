@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FiEye, FiTrash } from 'react-icons/fi'
 import { useNavigate } from 'react-router';
 import { Box, Flex, Select, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import UpdateVehicleModal from '../../modals/vehicles/UpdateVehicleModal';
 import { deleteVehicle } from '../../services/Vehicles/vehiclesService';
 import { httpRequestAuthenticated } from '../../services/httpService';
 import ConfirmDeletionDialog from '../Dialogs/ConfirmDeletionDialog';
@@ -93,12 +94,12 @@ const VehiclesTable = ({shouldUpdate, endpoint}) => {
         </TableCaption>
         <Thead>
           <Tr>
-            <Th>{t('Title')}</Th>
-            <Th>{t('Make')}</Th>
-            <Th>{t('Model')}</Th>
-            <Th>{t('ProductionYear')}</Th>
-            <Th>{t('RegistrationNumber')}</Th>
-            <Th>{t('Actions')}</Th>
+            <Th textAlign='center'>{t('Title')}</Th>
+            <Th textAlign='center'>{t('Make')}</Th>
+            <Th textAlign='center'>{t('Model')}</Th>
+            <Th textAlign='center'>{t('ProductionYear')}</Th>
+            <Th textAlign='center'>{t('RegistrationNumber')}</Th>
+            <Th textAlign='center'>{t('Actions')}</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -107,26 +108,27 @@ const VehiclesTable = ({shouldUpdate, endpoint}) => {
               return(
 
                 <Tr key={item.id}>
-                <Td>
+                <Td textAlign='center'>
                   {item.title}            
                 </Td>
-                <Td>
+                <Td textAlign='center'>
                   {item.makeAuto}            
                 </Td>
-                <Td>
+                <Td textAlign='center'>
                   {item.modelAuto}            
                 </Td>
-                <Td>
+                <Td textAlign='center'>
                   {item.productionYear}            
                 </Td>
-                <Td>
+                <Td textAlign='center'>
                   {item.registrationNumber}            
                 </Td>
-                <Td>
+                <Td textAlign='center'>
                   <Flex justifyContent='space-around'>
                     <FiEye onClick={()=>navigate(`/Vehicle/${item.id}`)}/> 
+                    <UpdateVehicleModal idVehicle={item.id} style={{marginLeft:'20px'}} updateFunction={updateTable}/> 
                     <ConfirmDeletionDialog name={t("vehicle")} isIcon={true} action={()=>deleteVehicle(item.id)} updateParentFunction={updateTable}>
-                      <FiTrash color="#E53E3E"/> 
+                      <FiTrash style={{marginLeft:'20px'}} color="#E53E3E"/> 
                     </ConfirmDeletionDialog>
                   </Flex>
                 </Td>
