@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiGasPump, BiWrench } from 'react-icons/bi'
-import { FiFileText, FiHome } from 'react-icons/fi'
+import { BiCar, BiFile } from 'react-icons/bi'
+import { GiHomeGarage } from 'react-icons/gi'
 import { useLocation, useNavigate } from 'react-router'
 import { Flex } from '@chakra-ui/react'
 import NavItem from './NavItem'
@@ -9,24 +9,19 @@ import NavItem from './NavItem'
 const MenuItems = [
 {
   title: "Home",
-  icon: FiHome,
+  icon: GiHomeGarage,
   path: '/dashboard'
 },
 {
-  title: "DocumentsManagement",
-  icon: FiFileText,
-  path: '/Documents'
+  title: "UserDocuments",
+  icon: BiFile,
+  path: '/UserDocuments'
 },
 {
-  title: "FuelEconomy",
-  icon: BiGasPump,
-  path: '/GasEconomy'
-},
-{
-  title: "ServiceHistory",
-  icon: BiWrench,
-  path: '/Service'
-},
+  title: "Vehicles",
+  icon: BiCar,
+  path: '/Vehicles'
+}
 
 ]
 

@@ -27,7 +27,9 @@ import GlobalLoading from '../pages/GlobalLoading';
 import LandingPage from '../pages/LandingPage';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import UserDocumentsPage from '../pages/UserDocumentsPage';
 import Vehicle from '../pages/Vehicle';
+import VehiclesPage from '../pages/VehiclesPage';
 
 registerLocale('ro', ro)
 registerLocale('en', enUS)
@@ -54,6 +56,8 @@ function App() {
         <Route exact path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
         <Route exact path="/DashboardAdmin" element={<ProtectedRoute requestPermission={Permission.usersPages}><DashboardAdmin/></ProtectedRoute>}/>
         <Route exact path="/Vehicle/:idVehicle" element={<ProtectedRoute><Vehicle/></ProtectedRoute>}/>
+        <Route exact path="/UserDocuments" element={<ProtectedRoute><UserDocumentsPage/></ProtectedRoute>}/>
+        <Route exact path="/Vehicles" element={<ProtectedRoute><VehiclesPage/></ProtectedRoute>}/>
       </Routes>
     </Router>
   );

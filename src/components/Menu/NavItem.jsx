@@ -1,7 +1,7 @@
 import React from 'react'
-import { Flex, Icon, Link, Menu, MenuButton, MenuList, Text, useColorModeValue } from '@chakra-ui/react'
+import { Flex, Icon, Link, Menu, Text, useColorModeValue } from '@chakra-ui/react'
 
-const NavItem = ({navSize, title, icon, active = false}) => {
+const NavItem = ({navSize, onClick, title, icon, active = false}) => {
 
   const activeColor = useColorModeValue('blue.100', 'blue.900');
   const iconColor = useColorModeValue('gray.900', 'gray.200');
@@ -20,17 +20,13 @@ const NavItem = ({navSize, title, icon, active = false}) => {
           borderRadius={8}
           _hover={{textDecor: 'none', backgroundColor: activeColor}}
           w={navSize === 'large' && "100%"}
+          onClick={onClick}
         >
-          <MenuButton>
-            <Flex justifyContent='center'>
-              <Icon as={icon} mt={1} mx={navSize === 'small' ? 2 : 0} fontSize='xl' color={iconColor}/>
-              <Text ml={4} mt="2px"  display={navSize === 'small' ? 'none' : 'flex'}>{title}</Text>
-            </Flex>
-          </MenuButton>
+          <Flex justifyContent='flex-start'>
+            <Icon as={icon} mt={1} mx={navSize === 'small' ? 2 : 0} fontSize='xl' color={iconColor}/>
+            <Text ml={4} mt="2px"  display={navSize === 'small' ? 'none' : 'flex'}>{title}</Text>
+          </Flex>
         </Link>
-        <MenuList>
-          <Flex w={200} h={10}></Flex>
-        </MenuList>
       </Menu>
 
     </Flex>
