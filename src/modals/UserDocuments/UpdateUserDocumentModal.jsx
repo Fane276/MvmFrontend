@@ -2,33 +2,49 @@ import moment from 'moment';
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import {FiPlus, FiShare} from 'react-icons/fi'
+import {FiEdit, FiShare} from 'react-icons/fi'
 import PulseLoader from 'react-spinners/PulseLoader'
-import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, ModalFooter, Select, Text, VStack, useDisclosure, useToast } from '@chakra-ui/react';
+import { Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, Select, Text, VStack, useDisclosure, useToast } from '@chakra-ui/react';
 import Card from '../../components/Cards/Card';
 import ChakraDatePicker from '../../components/Form/ChakraDatePicker';
 import ModalLayout from '../../components/Modals/ModalLayout';
 import { UserDocumentType } from '../../lib/userDocTypeConst';
-import { saveUserDocument } from '../../services/documents/userDocumentsService';
+import { getUserDocument, updateUserDocument } from '../../services/documents/userDocumentsService';
 
-const CreateUserDocumentModal = ({ updateFunction, ...props}) => {
+const UpdateUserDocumentModal = ({ idDocument, updateFunction, ...props}) => {
   const {t} = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast();
   const userDocumentTypes = Object.getOwnPropertyNames(UserDocumentType).map((value, index)=>{return {value: index, label: value}});
   
-  const { handleSubmit, register, watch, control, formState: { errors, isSubmitting } } = useForm();
+  const { handleSubmit, register, watch, setValue, control, formState: { errors, isSubmitting } } = useForm();
   
   const documentType = watch("documentType");
+
+  const onOpenHandler = async ()=>{
+    var result = await getUserDocument(idDocument)
+    if(result.status === 200){
+      var document = result.data.result;
+      setValue("documentType", document.documentType);
+      setValue("otherDocumentType", document.otherDocumentType);
+      setValue("validFrom", new Date(document.validFrom));
+      setValue("validTo", new Date(document.validTo));
+      setValue("id", document.id);
+      setValue("userId", document.userId);
+      setValue("tenantId", document.tenantId);
+    }
+    onOpen()
+  }
+  
 
   const onSubmit = async (data)=>{
     data.validFrom = moment(data.validFrom).format();
     data.validTo = moment(data.validTo).format();
-    await saveUserDocument(data)
+    await updateUserDocument(data)
     .then((result)=>{
       if(result.status === 200){
         toast({
-          title: t("DocumentAdded"),
+          title: t("DocumentUpdated"),
           status: 'success',
           duration: 3000,
           isClosable: true,
@@ -53,12 +69,9 @@ const CreateUserDocumentModal = ({ updateFunction, ...props}) => {
   }
   return (
     <>
-      <Button {...props}>
-        <Flex onClick={onOpen} >
-          <FiPlus/>
-          <Text ml='2'>{t("AddDocument")}</Text>
-        </Flex>
-      </Button>
+      <IconButton onClick={onOpenHandler} {...props}>
+        <FiEdit></FiEdit>
+      </IconButton>
       <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddPersonalDocument") } size='5xl'
         footerComponent={
           <ModalFooter alignContent="space-between">
@@ -133,4 +146,4 @@ const CreateUserDocumentModal = ({ updateFunction, ...props}) => {
   )
 }
 
-export default CreateUserDocumentModal
+export default UpdateUserDocumentModal

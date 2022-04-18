@@ -83,7 +83,6 @@ const CreateVehicleModal = ({updateFunction}) => {
   }
 
   const onSubmit = async (data)=>{
-    console.log(data)
 
     await createVehicle(data)
     .then((result)=>{

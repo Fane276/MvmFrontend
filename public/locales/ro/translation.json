@@ -123,5 +123,8 @@
   "OR": "SAU",
   "ExtractFromImage": "Extrage din imagine",
   "UserDocuments": "Acte utilizator",
-  "AddDocument": "Adaugă act"
+  "AddDocument": "Adaugă act",
+  "DocumentAdded": "Document a fost adăugat",
+  "DocumentUpdated": "Document a fost modificat",
+  "DocumentDeleted": "Document a fost șters"
 }

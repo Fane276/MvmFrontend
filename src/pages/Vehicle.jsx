@@ -87,7 +87,6 @@ const Vehicle = () => {
   const delInsurance = async (idInsurance)=>{
     await deleteInsurance(idInsurance)
     .then((result)=>{
-      console.log(result);
       if(result.status === 200){
         toast({
           title: t("InsuranceDeleted"),

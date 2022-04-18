@@ -9,7 +9,7 @@ import ModalLayout from '../../components/Modals/ModalLayout'
 import { FuelType, FuelUnit } from '../../lib/vehicleConst';
 import { addRefill } from '../../services/fuelManagement/fuelManagementService';
 
-const AddRefillModal = ({ updateFunction, idVehicle}) => {
+const AddRefillModal = ({ updateFunction, idVehicle, ...props}) => {
   const {t} = useTranslation();
   const fuelUnits = Object.getOwnPropertyNames(FuelUnit).map((value, index)=>{return {value: index, label: value}});
   const fuelTypes = Object.getOwnPropertyNames(FuelType).map((value, index)=>{return {value: index, label: value}});
@@ -24,8 +24,6 @@ const AddRefillModal = ({ updateFunction, idVehicle}) => {
     data.idVehicle = idVehicle;
     var values = Object.getOwnPropertyNames(data);
     values.map((value)=>{return data[value] = parseFloat(data[value])})
-
-    console.log(data)
 
     await addRefill(data)
     .then((result)=>{
@@ -55,7 +53,7 @@ const AddRefillModal = ({ updateFunction, idVehicle}) => {
   }
   return (
     <>
-      <IconButton onClick={onOpen}>
+      <IconButton onClick={onOpen} {...props}>
         <FiPlus/>
       </IconButton>
       <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddRefillInfo") } size='5xl'

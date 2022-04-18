@@ -15,4 +15,14 @@ const deleteUserDocument = async (idDocument)=>{
   return result
 }
 
-export {getUserDocuments, saveUserDocument, deleteUserDocument}
+const getUserDocument = async (idDocument)=>{
+  var result = await httpRequestAuthenticated.get(`/api/Document/GetUserDocument?idDocument=${idDocument}`);
+  return result
+}
+
+const updateUserDocument = async (document)=>{
+  var result = await httpRequestAuthenticated.post("/api/Document/UpdateUserDocument", document);
+  return result
+}
+
+export {getUserDocuments, saveUserDocument, deleteUserDocument, getUserDocument, updateUserDocument}

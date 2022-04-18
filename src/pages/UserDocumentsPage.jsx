@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {GiHomeGarage} from 'react-icons/gi'
 import { Link } from 'react-router-dom'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, SimpleGrid, VStack } from '@chakra-ui/react'
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, SimpleGrid, VStack, useColorModeValue } from '@chakra-ui/react'
 import UserDocumentCard from '../components/Documents/UserDocuments/UserDocumentCard'
 import AppLayout from '../components/Layout/AppLayout'
 import CreateUserDocumentModal from '../modals/UserDocuments/CreateUserDocumentModal'
@@ -30,7 +30,8 @@ const UserDocumentsPage = () => {
       }
     })
   }
-  
+
+  const backgroundColor =  useColorModeValue('white', 'gray.800');
   return (
     <AppLayout>
       <VStack w="100%">
@@ -55,7 +56,7 @@ const UserDocumentsPage = () => {
             </Breadcrumb>
           </Box>
           <Box pb='3'>
-            <CreateUserDocumentModal updateFunction={updateComponentHandler}/>
+            <CreateUserDocumentModal bgColor={backgroundColor} updateFunction={updateComponentHandler}/>
           </Box>
         </Flex>
         <SimpleGrid columns={3} spacing='20px' w='100%'>

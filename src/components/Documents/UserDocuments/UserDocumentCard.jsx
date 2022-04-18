@@ -2,9 +2,10 @@ import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {FaRegAddressCard} from 'react-icons/fa'
-import {FiEdit, FiFileText, FiTrash} from 'react-icons/fi'
+import {FiFileText, FiTrash} from 'react-icons/fi'
 import {GiKeyCard} from 'react-icons/gi'
-import { Flex, IconButton, Text, VStack, useColorModeValue, useToast } from '@chakra-ui/react'
+import { Flex, Text, VStack, useColorModeValue, useToast } from '@chakra-ui/react'
+import UpdateUserDocumentModal from '../../../modals/UserDocuments/UpdateUserDocumentModal'
 import { deleteUserDocument } from '../../../services/documents/userDocumentsService'
 import Card from '../../Cards/Card'
 import ConfirmDeletionDialog from '../../Dialogs/ConfirmDeletionDialog'
@@ -94,12 +95,10 @@ const UserDocumentCard = ({ updateFunction, document}) => {
               <Text>{t('HasExpiredOn')} {moment(document.validTo).format("DD.MM.yyyy")}</Text>
           }
         </Flex>
-        <Flex justifyContent='flex-end' w='100%' px='5' pb='2'>
-          <IconButton m='0' bgColor={backgroundColor}>
-            <FiEdit/>
-          </IconButton>
+        <Flex justifyContent='space-between' w='100%' px='5' pb='2'>
+          <UpdateUserDocumentModal idDocument={document.id} m='0' bgColor={backgroundColor} updateFunction={updateFunction}/>
           <ConfirmDeletionDialog name={t("document")} action={async () => await deleteDocumentHandle(document.id)} isIcon={true} isButton={true} bgColor={backgroundColor}>
-            <FiTrash/>
+            <FiTrash color='#E53E3E'/>
           </ConfirmDeletionDialog>
         </Flex>
 
