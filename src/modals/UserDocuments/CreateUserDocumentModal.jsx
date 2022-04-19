@@ -74,7 +74,7 @@ const CreateUserDocumentModal = ({ updateFunction, ...props}) => {
           <FormLabel>{t("DocumentType")}</FormLabel>
           <Select defaultValue="-1" placeholder={t("SelectDocumentType")} {...register("documentType", {required: true, setValueAs: v=>parseInt(v)})}>
             {userDocumentTypes.map((elem)=>{
-              return (<option key={elem.value} value={elem.value}>{elem.label}</option>)
+              return (<option key={elem.value} value={elem.value}>{t(elem.label)}</option>)
             })}
           </Select>
           {errors.documentType &&

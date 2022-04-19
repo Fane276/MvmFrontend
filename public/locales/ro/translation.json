@@ -126,5 +126,11 @@
   "AddDocument": "Adaugă act",
   "DocumentAdded": "Document a fost adăugat",
   "DocumentUpdated": "Document a fost modificat",
-  "DocumentDeleted": "Document a fost șters"
+  "DocumentDeleted": "Document a fost șters",
+  "PeriodicalDocument.Itp": "Inspecție tehnică (ITP)",
+  "PeriodicalDocument.FireExtinguisher": "Extinctor",
+  "PeriodicalDocument.Rovinieta": "Rovinieta",
+  "PeriodicalDocument.Vienieta": "Vinieta",
+  "PeriodicalDocument.MedicalKit": "Medical kit",
+  "PeriodicalDocuments": "Documente periodice"
 }

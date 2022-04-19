@@ -11,6 +11,7 @@ import Card from '../components/Cards/Card';
 import CardHeader from '../components/Cards/CardHeader';
 import ConfirmDeletionDialog from '../components/Dialogs/ConfirmDeletionDialog';
 import InsuranceCard from '../components/Documents/InsuranceCard';
+import PeriodicalDocumentsOutlineCard from '../components/Documents/PeriodicalDocuments/PeriodicalDocumentsOutlineCard';
 import AppLayout from '../components/Layout/AppLayout';
 import LastRefuelTabel from '../components/Refuel/LastRefuelTabel';
 import AddRefillModal from '../modals/FuelManagement/AddRefillModal';
@@ -73,8 +74,7 @@ const Vehicle = () => {
           {
             label: t("CostPerDay"),
             data: graphData.values.map((val) => val),
-            backgroundColor: '#90CDF4',
-            borderColor: '#63B3ED'
+            backgroundColor: 'rgba(49, 130, 206, 0.4)',
           },
         ],
       };
@@ -186,7 +186,7 @@ const Vehicle = () => {
                     <MenuList>
                       <ConfirmDeletionDialog action={async ()=>{await delInsurance(idRca)}} name={t("mandatoryInsurance")} isMenuItem={true}>{t("DeleteMandatoryInsurance")}</ConfirmDeletionDialog>
                       <Divider/>
-                      <ConfirmDeletionDialog action={async ()=>{await delInsurance(idCasco)}} name={t("cascoInsurance")} isMenuItem={true}>{t("DeleteMandatoryInsurance")}</ConfirmDeletionDialog>
+                      <ConfirmDeletionDialog action={async ()=>{await delInsurance(idCasco)}} name={t("cascoInsurance")} isMenuItem={true}>{t("DeleteCascoInsurance")}</ConfirmDeletionDialog>
                     </MenuList>
                   </Menu>
                 }
@@ -208,6 +208,7 @@ const Vehicle = () => {
               />
               <LastRefuelTabel shouldUpdate={refuelTableShouldUpdate} endpoint={`/api/FuelManagement/GetVehicleRefills?IdVehicle=${idVehicle}`}/>
             </Card>
+            <PeriodicalDocumentsOutlineCard m='2' idVehicle={idVehicle}/>
           </Box>
         </Flex>
       </VStack>

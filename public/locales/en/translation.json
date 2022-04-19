@@ -126,5 +126,11 @@
   "AddDocument": "Add document",
   "DocumentAdded": "Document added",
   "DocumentUpdated": "Document updated",
-  "DocumentDeleted": "Document deleted"
+  "DocumentDeleted": "Document deleted",
+  "PeriodicalDocument.Itp": "Technical inspection",
+  "PeriodicalDocument.FireExtinguisher": "Fire extinguisher",
+  "PeriodicalDocument.Rovinieta": "Rovinieta",
+  "PeriodicalDocument.Vinieta": "Vinieta",
+  "PeriodicalDocument.MedicalKit": "Medical kit",
+  "PeriodicalDocuments": "Periodical documents"
 }

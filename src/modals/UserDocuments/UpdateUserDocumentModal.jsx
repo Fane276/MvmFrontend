@@ -70,7 +70,7 @@ const UpdateUserDocumentModal = ({ idDocument, updateFunction, ...props}) => {
   return (
     <>
       <IconButton onClick={onOpenHandler} {...props}>
-        <FiEdit></FiEdit>
+        <FiEdit/>
       </IconButton>
       <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddPersonalDocument") } size='5xl'
         footerComponent={

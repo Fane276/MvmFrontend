@@ -1,16 +1,15 @@
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {FaRegAddressCard} from 'react-icons/fa'
-import {FiFileText, FiTrash} from 'react-icons/fi'
-import {GiKeyCard} from 'react-icons/gi'
+import {BsFileEarmarkCheck, BsFileEarmarkExcel} from 'react-icons/bs'
+import { FiTrash } from 'react-icons/fi'
 import { Flex, Text, VStack, useColorModeValue, useToast } from '@chakra-ui/react'
-import UpdateUserDocumentModal from '../../../modals/UserDocuments/UpdateUserDocumentModal'
-import { deleteUserDocument } from '../../../services/documents/userDocumentsService'
+import UpdatePeriodicalDocumentModal from '../../../modals/PeriodicalDocuments/UpdatePeriodicalDocumentModal'
+import { deletePeriodicalDocument } from '../../../services/documents/periodicalDocumentSerivce'
 import Card from '../../Cards/Card'
 import ConfirmDeletionDialog from '../../Dialogs/ConfirmDeletionDialog'
 
-const UserDocumentCard = ({ updateFunction, document}) => {
+const PeriodicalDocumentCard = ({ updateFunction, document}) => {
   const [isAvailable, setIsAvailable] = useState(false);
   const {t} = useTranslation()
   const toast = useToast()
@@ -27,7 +26,7 @@ const UserDocumentCard = ({ updateFunction, document}) => {
   }, [document])
 
   const deleteDocumentHandle = async (data) =>{
-    await deleteUserDocument(data)
+    await deletePeriodicalDocument(data)
     .then((result)=>{
       if(result.status === 200){
         toast({
@@ -59,35 +58,19 @@ const UserDocumentCard = ({ updateFunction, document}) => {
   return (
     <Card w='100%' borderColor={!isAvailable? 'red.600' : borderColor} pt='5'>
       <VStack>
-        <Flex justifyContent='center' px='20'>
+        <Flex justifyContent='center' px='10'>
           {
-            document.documentType === 1? 
-              <GiKeyCard size="70px" color={!isAvailable &&  '#E53E3E'}></GiKeyCard>
+            isAvailable? 
+              <BsFileEarmarkCheck size="70px" color='#38A169'></BsFileEarmarkCheck>
             :
-            (
-              document.documentType === 2?
-                <FaRegAddressCard size="70px" color={!isAvailable && '#E53E3E'}></FaRegAddressCard>
-              :
-                <FiFileText size="70px" color={!isAvailable && '#E53E3E'}></FiFileText>
-              )
-            }
+              <BsFileEarmarkExcel size="70px" color='#E53E3E'></BsFileEarmarkExcel>
+          }
         </Flex>
         
-        <Flex justifyContent='center' px='20'>
-          {
-            document.documentType === 1? 
-              <Text fontSize='2xl'>{t('DrivingLicence')}</Text>
-            :
-            (
-              document.documentType === 2?
-                <Text fontSize='2xl'>{t('IdCard')}</Text>
-              :
-                <Text fontSize='2xl'>{document.otherDocumentType}</Text>
-              )
-            }
-          
+        <Flex justifyContent='center' px='10'>
+          <Text fontSize='2xl'>{t(document.periodicalDocumentType)}</Text>
         </Flex>
-        <Flex justifyContent='center' px='20'>
+        <Flex justifyContent='center' px='10'>
           {
             isAvailable?
               <Text>{t('IsAvailableUntil')} {moment(document.validTo).format("DD.MM.yyyy")}</Text>
@@ -96,8 +79,8 @@ const UserDocumentCard = ({ updateFunction, document}) => {
           }
         </Flex>
         <Flex justifyContent='space-between' w='100%' px='5' pb='2'>
-          <UpdateUserDocumentModal idDocument={document.id} m='0' bgColor={backgroundColor} updateFunction={updateFunction}/>
-          <ConfirmDeletionDialog name={t("document")} action={async () => await deleteDocumentHandle(document.id)} isIcon={true} isButton={true} bgColor={backgroundColor}>
+          <UpdatePeriodicalDocumentModal idDocument={document.id} m='0' bgColor={backgroundColor} updateFunction={updateFunction}/>
+          <ConfirmDeletionDialog name={t("document")} action={async () => await deleteDocumentHandle({idDocument: document.id, idVehicle: document.idVehicle })} isIcon={true} isButton={true} bgColor={backgroundColor}>
             <FiTrash color='#E53E3E'/>
           </ConfirmDeletionDialog>
         </Flex>
@@ -107,4 +90,4 @@ const UserDocumentCard = ({ updateFunction, document}) => {
   )
 }
 
-export default UserDocumentCard
+export default PeriodicalDocumentCard

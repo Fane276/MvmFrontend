@@ -1,32 +1,32 @@
 import moment from 'moment';
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import {FiEdit} from 'react-icons/fi'
 import PulseLoader from 'react-spinners/PulseLoader'
-import { Button, FormControl, FormErrorMessage, FormLabel, Input, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react';
-import InsuranceNotSet from '../../components/Documents/Insurance/InsuranceNotSet';
+import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, ModalFooter, Select, useDisclosure, useToast } from '@chakra-ui/react';
 import ChakraDatePicker from '../../components/Form/ChakraDatePicker';
-import Select2 from '../../components/Form/Select2';
 import ModalLayout from '../../components/Modals/ModalLayout';
-import { saveInsurance } from '../../services/documents/insuranceService';
+import { getPeriodicalDocument, getPeriodicalDocumentsTypes, updatePeriodicalDocument } from '../../services/documents/periodicalDocumentSerivce';
 
-const CreateCascoInsuranceModal = ({ updateFunction, idvehicle, ...props}) => {
+const UpdatePeriodicalDocumentModal = ({ idDocument, updateFunction, ...props}) => {
   const {t} = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const [documentTypes, setDocumentTypes] = useState([])
+
   const toast = useToast();
 
   const { handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data)=>{
-    data.insuranceType=1;
-    data.idVehicle = parseInt(idvehicle); 
     data.validFrom = moment(data.validFrom).format();
     data.validTo = moment(data.validTo).format();
-    await saveInsurance(data)
+    await updatePeriodicalDocument(data)
     .then((result)=>{
       if(result.status === 200){
         toast({
-          title: t("InsuranceAdded"),
+          title: t("DocumentUpdated"),
           status: 'success',
           duration: 3000,
           isClosable: true,
@@ -35,7 +35,6 @@ const CreateCascoInsuranceModal = ({ updateFunction, idvehicle, ...props}) => {
     })
     .catch((err)=>{
       if(err){
-
         toast({
           title: t("AnErrorOccurred"),
           status: 'error',
@@ -49,9 +48,30 @@ const CreateCascoInsuranceModal = ({ updateFunction, idvehicle, ...props}) => {
     onClose();
     updateFunction();
   }
+
+  const handleOnOpen = async ()=>{
+    var resultDocTypes = await getPeriodicalDocumentsTypes();
+    if(resultDocTypes.status === 200){
+      var periodicalDocumentTypes = resultDocTypes.data.result.items
+      setDocumentTypes(periodicalDocumentTypes);
+    }
+    var result = await getPeriodicalDocument(idDocument)
+    if(result.status === 200){
+      var document = result.data.result;
+      setValue("idPeriodicalDocumentType", document.idPeriodicalDocumentType);
+      setValue("validFrom", new Date(document.validFrom));
+      setValue("validTo", new Date(document.validTo));
+      setValue("id", document.id);
+      setValue("idVehicle", document.idVehicle);
+    }
+    onOpen()
+  }
+
   return (
     <>
-      <InsuranceNotSet insuranceType='casco' onClick={onOpen} {...props}/>
+      <IconButton onClick={handleOnOpen} {...props}>
+        <FiEdit/>
+      </IconButton>
       <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddCascoInsurance") } size='5xl'
         footerComponent={
           <ModalFooter alignContent="space-between">
@@ -62,22 +82,18 @@ const CreateCascoInsuranceModal = ({ updateFunction, idvehicle, ...props}) => {
           </ModalFooter>
         }
       >
-        <FormControl mt='2' isInvalid={errors.idInsuranceCompany}>
-          <FormLabel>{t("InsuranceCompany")}</FormLabel>
-          <Select2 endpoint='/api/services/app/InsuranceCatalogue/GetInsuranceCompanies' control={control} setValue={setValue} register={register} name='idInsuranceCompany' registerOptions={{required:true}}/>
-          {errors.idInsuranceCompany &&
-          <FormErrorMessage>{t("InsuranceCompanyError")}</FormErrorMessage>
+        <FormControl isInvalid={errors.idPeriodicalDocumentType}>
+          <FormLabel>{t("DocumentType")}</FormLabel>
+          <Select defaultValue="-1" placeholder={t("SelectDocumentType")} {...register("idPeriodicalDocumentType", {required: true, setValueAs: v=>parseInt(v)})}>
+            {documentTypes.map((elem)=>{
+              return (<option key={elem.value} value={elem.value}>{t(elem.text)}</option>)
+            })}
+          </Select>
+          {errors.idPeriodicalDocumentType &&
+          <FormErrorMessage>{t("DocumentTypeError")}</FormErrorMessage>
           }
         </FormControl>
-        
-        <FormControl isInvalid={errors.insurancePolicyNumber}>
-          <FormLabel>{t("InsurancePolicyNumber")}</FormLabel>
-          <Input {...register("insurancePolicyNumber", { required: true })} />
-          {errors.insurancePolicyNumber &&
-          <FormErrorMessage>{t("InsurancePolicyNumberError")}</FormErrorMessage>
-          }
-        </FormControl>
-        
+                
         <FormControl isInvalid={errors.validFrom}>
           <FormLabel>{t("ValidFrom")}</FormLabel>
           <ChakraDatePicker
@@ -106,4 +122,4 @@ const CreateCascoInsuranceModal = ({ updateFunction, idvehicle, ...props}) => {
   )
 }
 
-export default CreateCascoInsuranceModal
+export default UpdatePeriodicalDocumentModal
