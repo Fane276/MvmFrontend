@@ -132,5 +132,7 @@
   "PeriodicalDocument.Rovinieta": "Rovinieta",
   "PeriodicalDocument.Vienieta": "Vinieta",
   "PeriodicalDocument.MedicalKit": "Medical kit",
-  "PeriodicalDocuments": "Documente periodice"
+  "PeriodicalDocuments": "Documente periodice",
+  "NoDataAvailable": "Nu există informații de afișat",
+  "RequiresAtention": "Necesită atentie"
 }

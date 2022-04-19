@@ -201,14 +201,14 @@ const Vehicle = () => {
             </Card>
           </Box>
           <Box w='100%' m='2' mr='0'>
-            <Card mb='2'>
+            <Card mb='4'>
               <CardHeader 
                 title={t("FuelManagement")} 
                 action={<AddRefillModal updateFunction={vehicleAddedHandler} idVehicle={idVehicle}/>}
               />
               <LastRefuelTabel shouldUpdate={refuelTableShouldUpdate} endpoint={`/api/FuelManagement/GetVehicleRefills?IdVehicle=${idVehicle}`}/>
             </Card>
-            <PeriodicalDocumentsOutlineCard m='2' idVehicle={idVehicle}/>
+            <PeriodicalDocumentsOutlineCard idVehicle={idVehicle}/>
           </Box>
         </Flex>
       </VStack>

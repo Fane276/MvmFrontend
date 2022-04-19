@@ -9,4 +9,10 @@ const userDocumentTypeToString=(value)=>{
   if(value === 2) return "IdCard";
   return "OtherDoc";
 }
-export {UserDocumentType, userDocumentTypeToString}
+
+const documentType = {
+  UserDocument: 0,
+  Insurance: 1,
+  Periodical: 2,
+}
+export {UserDocumentType, userDocumentTypeToString, documentType}

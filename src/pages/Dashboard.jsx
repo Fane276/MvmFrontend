@@ -4,9 +4,10 @@ import { Doughnut } from 'react-chartjs-2';
 import { useTranslation } from 'react-i18next';
 import {GiHomeGarage} from 'react-icons/gi'
 import { Link } from 'react-router-dom';
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, VStack } from '@chakra-ui/react';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Text, VStack } from '@chakra-ui/react';
 import Card from '../components/Cards/Card';
 import CardHeader from '../components/Cards/CardHeader';
+import ExpiredDocumentsCard from '../components/Documents/ExpiredDocumentsCard';
 import AppLayout from '../components/Layout/AppLayout';
 import VehiclesTable from '../components/Vehicles/VehiclesTable';
 import CreateVehicleModal from '../modals/vehicles/CreateVehicleModal';
@@ -90,11 +91,17 @@ const Dashboard = () => {
                 <Box w='400px'> 
                   {
                     graphData &&
+                    graphData.labels.lenght > 0?
                     <Doughnut options={graphOptions} data={graphData}/>
+                    :
+                    <Flex w='100%' h={'200px'} justifyContent='center' alignItems='center'>
+                      <Text>{t("NoDataAvailable")}</Text>
+                    </Flex>
                   }
                 </Box>
               </Flex>
             </Card>
+            <ExpiredDocumentsCard mt='2'/>
           </Box>
           <Box w='100%' ml='2'>
             <Card>

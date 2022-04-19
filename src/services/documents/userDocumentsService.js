@@ -25,4 +25,11 @@ const updateUserDocument = async (document)=>{
   return result
 }
 
-export {getUserDocuments, saveUserDocument, deleteUserDocument, getUserDocument, updateUserDocument}
+const getExpiredDocuments = async ()=>{
+  var result = await httpRequestAuthenticated.get(`/api/Document/GetExpiredDocuments`);
+  return result
+}
+
+
+
+export {getUserDocuments, saveUserDocument, deleteUserDocument, getUserDocument, updateUserDocument, getExpiredDocuments}

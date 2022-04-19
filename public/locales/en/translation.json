@@ -132,5 +132,7 @@
   "PeriodicalDocument.Rovinieta": "Rovinieta",
   "PeriodicalDocument.Vinieta": "Vinieta",
   "PeriodicalDocument.MedicalKit": "Medical kit",
-  "PeriodicalDocuments": "Periodical documents"
+  "PeriodicalDocuments": "Periodical documents",
+  "NoDataAvailable": "No data available",
+  "RequiresAtention": "Requires atention"
 }

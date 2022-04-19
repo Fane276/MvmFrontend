@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiEdit2 } from 'react-icons/fi';
 import PulseLoader from 'react-spinners/PulseLoader'
-import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, Select, useDisclosure, useToast } from '@chakra-ui/react';
+import { Button, FormControl, FormErrorMessage, FormLabel, Input, ModalFooter, Select, useDisclosure, useToast } from '@chakra-ui/react';
 import Select2 from '../../components/Form/Select2'
 import ModalLayout from '../../components/Modals/ModalLayout'
 import { getVehicle, updateVehicle } from '../../services/Vehicles/vehiclesService';
@@ -132,7 +132,7 @@ const UpdateVehicleModal = ({idVehicle, updateFunction, ...props}) => {
   }
   return (
     <>
-      <FiEdit2 onClick={onOpenHandler} {...props}/>
+      <FiEdit2 color='#00B5D8' onClick={onOpenHandler} {...props}/>
       <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddVehicle") } size='5xl'
         footerComponent={
           <ModalFooter alignContent="space-between">
