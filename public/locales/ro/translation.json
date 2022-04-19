@@ -134,5 +134,10 @@
   "PeriodicalDocument.MedicalKit": "Medical kit",
   "PeriodicalDocuments": "Documente periodice",
   "NoDataAvailable": "Nu există informații de afișat",
-  "RequiresAtention": "Necesită atentie"
+  "RequiresAtention": "Necesită atentie",
+  "AddPersonalDocument": "Adaugă document personal",
+  "SelectDocumentType": "Selectează tipul de document",
+  "OtherDoc": "Alt tip document",
+  "NoDocumentAddedYet": "Nu ați adăugat încă un document",
+  "AddADocumentNow": "Adaugă acum un document"
 }

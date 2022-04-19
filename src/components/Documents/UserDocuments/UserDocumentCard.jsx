@@ -62,13 +62,13 @@ const UserDocumentCard = ({ updateFunction, document}) => {
         <Flex justifyContent='center' px='20'>
           {
             document.documentType === 1? 
-              <GiKeyCard size="70px" color={!isAvailable &&  '#E53E3E'}></GiKeyCard>
+              <GiKeyCard size="70px" color={!isAvailable ? '#E53E3E' : '#ffffff'}></GiKeyCard>
             :
             (
               document.documentType === 2?
-                <FaRegAddressCard size="70px" color={!isAvailable && '#E53E3E'}></FaRegAddressCard>
+                <FaRegAddressCard size="70px" color={!isAvailable ? '#E53E3E' : '#ffffff'}></FaRegAddressCard>
               :
-                <FiFileText size="70px" color={!isAvailable && '#E53E3E'}></FiFileText>
+                <FiFileText size="70px" color={!isAvailable ? '#E53E3E' : '#ffffff'}></FiFileText>
               )
             }
         </Flex>

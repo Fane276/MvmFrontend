@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { FiEye, FiTrash } from 'react-icons/fi'
 import { useNavigate } from 'react-router';
-import { Box, Flex, Select, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Flex, Select, Table, TableCaption, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import UpdateVehicleModal from '../../modals/vehicles/UpdateVehicleModal';
 import { deleteVehicle } from '../../services/Vehicles/vehiclesService';
 import { httpRequestAuthenticated } from '../../services/httpService';
@@ -41,7 +41,7 @@ const VehiclesTable = ({shouldUpdate, endpoint}) => {
     }
     asyncExecuter()
     
-  }, [endpoint, skipCount, maxResultCount, shouldUpdate])
+  }, [endpoint, skipCount, maxResultCount, shouldUpdate, navigate])
   const updateTable = async()=>{
     var result = await httpRequestAuthenticated.get(endpoint, {
       params:{
@@ -104,6 +104,7 @@ const VehiclesTable = ({shouldUpdate, endpoint}) => {
         </Thead>
         <Tbody>
           {
+            items.length>0 ?(
             items.map((item)=>{
               return(
 
@@ -135,6 +136,13 @@ const VehiclesTable = ({shouldUpdate, endpoint}) => {
               </Tr>
               )
             })
+            ) 
+            :
+            <Tr justifyContent='center' alignItems='center'>
+              <Td colSpan={6}>
+                <Text textAlign='center'>{t("NoDataAvailable")}</Text>
+              </Td>
+            </Tr>
           }
         </Tbody>
       </Table>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Flex } from '@chakra-ui/react'
+import { Flex, useMediaQuery } from '@chakra-ui/react'
 import CreateCascoInsuranceModal from '../../modals/Documents/CreateCascoInsuranceModal'
 import CreateRcaInsuranceModal from '../../modals/Documents/CreateRcaInsuranceModal'
 import EditCascoInsuranceModal from '../../modals/Documents/EditCascoInsuranceModal'
@@ -42,19 +42,20 @@ const InsuranceCard = ({idvehicle}) => {
   }
   
 
+  const [isMobileScreen] = useMediaQuery('(max-width:768px)');
   return (
-    <Flex direction='row' p='3'>
+    <Flex direction={!isMobileScreen? 'row': 'column'} p='3'>
       {
         rcaIsSet ?
-        <EditRcaInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} mr='2'/>
+        <EditRcaInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} mr={!isMobileScreen? '2': '0'}/>
         :
-        <CreateRcaInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} mr='2'/>
+        <CreateRcaInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} mr={!isMobileScreen? '2': '0'}/>
       }
         {
           cascoIsSet ?
-          <EditCascoInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} ml='2'/>
+          <EditCascoInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} ml={!isMobileScreen? '2': '0'} mt={!isMobileScreen? '0': '2'}/>
           :
-          <CreateCascoInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} ml='2'/>
+          <CreateCascoInsuranceModal updateFunction={updateInsuranceStatus} idvehicle={idvehicle} ml={!isMobileScreen? '2': '0'} mt={!isMobileScreen? '0': '2'}/>
         }
     </Flex>
   )

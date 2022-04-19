@@ -134,5 +134,10 @@
   "PeriodicalDocument.MedicalKit": "Medical kit",
   "PeriodicalDocuments": "Periodical documents",
   "NoDataAvailable": "No data available",
-  "RequiresAtention": "Requires atention"
+  "RequiresAtention": "Requires atention",
+  "AddPersonalDocument": "Add personal document",
+  "SelectDocumentType": "Select document type",
+  "OtherDoc": "Other document type",
+  "NoDocumentAddedYet": "No document added yet",
+  "AddADocumentNow": "Add a document now"
 }

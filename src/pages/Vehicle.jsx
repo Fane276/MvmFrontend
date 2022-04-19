@@ -6,7 +6,7 @@ import {FiTrash} from 'react-icons/fi'
 import {GiHomeGarage} from 'react-icons/gi'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom';
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Divider, Flex, IconButton, Menu, MenuButton, MenuList, VStack, useToast } from '@chakra-ui/react';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Divider, Flex, IconButton, Menu, MenuButton, MenuList, VStack, useMediaQuery, useToast } from '@chakra-ui/react';
 import Card from '../components/Cards/Card';
 import CardHeader from '../components/Cards/CardHeader';
 import ConfirmDeletionDialog from '../components/Dialogs/ConfirmDeletionDialog';
@@ -150,6 +150,7 @@ const Vehicle = () => {
     updateChart();
   }
 
+  const [isMobileScreen] = useMediaQuery('(max-width:768px)');
   return (
     <AppLayout>
       <VStack w='100%'>
@@ -170,6 +171,8 @@ const Vehicle = () => {
             </BreadcrumbItem>
           </Breadcrumb>
         </Box>
+        {!isMobileScreen?
+        
         <Flex w="100%" direction='row' justifyContent='space-around'>
           <Box w='100%' m='2' ml='0'>
             <Card>
@@ -211,6 +214,45 @@ const Vehicle = () => {
             <PeriodicalDocumentsOutlineCard idVehicle={idVehicle}/>
           </Box>
         </Flex>
+        :
+        <VStack w='100%'>
+          <Card>
+            <CardHeader 
+              title={t("Insurance")}
+              action={
+                <Menu>
+                  <MenuButton
+                    as={IconButton}
+                    aria-label="Delete insurance"
+                    icon={<FiTrash/>}
+                    variant='outline'
+                  />
+                  <MenuList>
+                    <ConfirmDeletionDialog action={async ()=>{await delInsurance(idRca)}} name={t("mandatoryInsurance")} isMenuItem={true}>{t("DeleteMandatoryInsurance")}</ConfirmDeletionDialog>
+                    <Divider/>
+                    <ConfirmDeletionDialog action={async ()=>{await delInsurance(idCasco)}} name={t("cascoInsurance")} isMenuItem={true}>{t("DeleteCascoInsurance")}</ConfirmDeletionDialog>
+                  </MenuList>
+                </Menu>
+              }
+              />
+            <InsuranceCard idvehicle={idVehicle}/>
+          </Card>
+          <Card mb='4'>
+            <CardHeader 
+              title={t("FuelManagement")} 
+              action={<AddRefillModal updateFunction={vehicleAddedHandler} idVehicle={idVehicle}/>}
+            />
+            <LastRefuelTabel shouldUpdate={refuelTableShouldUpdate} endpoint={`/api/FuelManagement/GetVehicleRefills?IdVehicle=${idVehicle}`}/>
+          </Card>
+          <Card mt='4'>
+            {
+              dataPriceConsumtion &&
+              <Bar options={chartBarOptions} data={dataPriceConsumtion} />
+            }
+          </Card>
+          <PeriodicalDocumentsOutlineCard idVehicle={idVehicle}/>
+        </VStack>
+        }
       </VStack>
     </AppLayout>
   )

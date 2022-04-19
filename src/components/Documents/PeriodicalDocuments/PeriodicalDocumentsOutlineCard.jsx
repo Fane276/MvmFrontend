@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SimpleGrid } from '@chakra-ui/react';
+import { Flex, SimpleGrid, Text, useMediaQuery } from '@chakra-ui/react';
 import CreatePeriodicalDocumentModal from '../../../modals/PeriodicalDocuments/CreatePeriodicalDocumentModal';
 import { getPeriodicalDocuments } from '../../../services/documents/periodicalDocumentSerivce';
 import Card from '../../Cards/Card';
@@ -34,6 +34,7 @@ const PeriodicalDocumentsOutlineCard = ({idVehicle, ...props}) => {
   }
 
   
+  const [isMobileScreen] = useMediaQuery('(max-width:768px)');
   return (
     <Card {...props}>
       <CardHeader 
@@ -42,11 +43,16 @@ const PeriodicalDocumentsOutlineCard = ({idVehicle, ...props}) => {
           <CreatePeriodicalDocumentModal idvehicle={idVehicle} updateFunction={()=>updateComponentHandler(idVehicle)}/>
         }
       />
-      <SimpleGrid columns={2} spacing='20px' w='100%' p='5'>
+      <SimpleGrid columns={documentsList && documentsList.length >0 && !isMobileScreen ? 2:1} spacing='20px' w='100%' p='5'>
         {documentsList &&
-          documentsList.map((document)=>{
-            return <PeriodicalDocumentCard updateFunction={()=>updateComponentHandler(idVehicle)} key={document.id} document={document}/>
-          })
+          documentsList.length >0 ?
+            documentsList.map((document)=>{
+              return <PeriodicalDocumentCard updateFunction={()=>updateComponentHandler(idVehicle)} key={document.id} document={document}/>
+            })
+          :
+          <Flex w='100%' h={'200px'} justifyContent='center' alignItems='center'>
+            <Text textAlign='center'>{t("NoDataAvailable")}</Text>
+          </Flex>
         }
       </SimpleGrid>
     </Card>

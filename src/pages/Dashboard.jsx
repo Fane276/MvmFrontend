@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { useTranslation } from 'react-i18next';
 import {GiHomeGarage} from 'react-icons/gi'
 import { Link } from 'react-router-dom';
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Text, VStack } from '@chakra-ui/react';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Text, VStack, useMediaQuery } from '@chakra-ui/react';
 import Card from '../components/Cards/Card';
 import CardHeader from '../components/Cards/CardHeader';
 import ExpiredDocumentsCard from '../components/Documents/ExpiredDocumentsCard';
@@ -22,6 +22,8 @@ const Dashboard = () => {
   const [graphOptions, setGraphOptions] = useState(null)
 
   const [vehicleTableShouldUpdate, setVehicleTableShouldUpdate] = useState();
+
+  const [isMobileScreen] = useMediaQuery('(max-width:768px)');
 
   useEffect(() => {
     const asyncExecutor = async ()=>{
@@ -83,20 +85,23 @@ const Dashboard = () => {
             </BreadcrumbItem>
           </Breadcrumb>
         </Box>
+        {!isMobileScreen?
+        
         <Flex w="100%" direction='row' justifyContent='space-around'>
           <Box w='100%' mr='2'>
             <Card>
-
               <Flex w="100%" alignItems='center' justifyContent='center'>
                 <Box w='400px'> 
                   {
                     graphData &&
-                    graphData.labels.lenght > 0?
+                    (
+                    graphData.labels.length > 0 ?
                     <Doughnut options={graphOptions} data={graphData}/>
                     :
                     <Flex w='100%' h={'200px'} justifyContent='center' alignItems='center'>
                       <Text>{t("NoDataAvailable")}</Text>
                     </Flex>
+                    )
                   }
                 </Box>
               </Flex>
@@ -113,6 +118,35 @@ const Dashboard = () => {
             </Card>
           </Box>
         </Flex>
+        :
+        <VStack w='100%'>
+          <Card>
+            <CardHeader 
+              title={t("MyGarage")} 
+              action={<CreateVehicleModal updateFunction={()=>updateVehicleTableHandler()}/>}
+            />
+            <VehiclesTable shouldUpdate={vehicleTableShouldUpdate} endpoint='/api/Vehicle/GetCurrentUserPersonalVehicles'></VehiclesTable>
+          </Card>
+          <Card>
+            <Flex w="100%" alignItems='center' justifyContent='center'>
+              <Box w='400px'> 
+                {
+                  graphData &&
+                  (
+                  graphData.labels.length > 0 ?
+                  <Doughnut options={graphOptions} data={graphData}/>
+                  :
+                  <Flex w='100%' h={'200px'} justifyContent='center' alignItems='center'>
+                    <Text>{t("NoDataAvailable")}</Text>
+                  </Flex>
+                  )
+                }
+              </Box>
+            </Flex>
+          </Card>
+          <ExpiredDocumentsCard mt='2'/>
+        </VStack>
+      }
       </VStack>
     </AppLayout>
   )

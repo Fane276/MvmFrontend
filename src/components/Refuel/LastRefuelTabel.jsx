@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { FiTrash } from 'react-icons/fi'
-import { Box, Flex, Select, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Flex, Select, Table, TableCaption, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import { fuelTypeToString, fuelUnitToString } from '../../lib/vehicleConst';
 import { deleteRefill } from '../../services/fuelManagement/fuelManagementService';
 import { httpRequestAuthenticated } from '../../services/httpService';
@@ -83,6 +83,7 @@ const LastRefuelTabel = ({shouldUpdate,endpoint}) => {
         </Thead>
         <Tbody>
           {
+            items.length > 0?
             items.map((item)=>{
               return(
 
@@ -106,6 +107,12 @@ const LastRefuelTabel = ({shouldUpdate,endpoint}) => {
               </Tr>
               )
             })
+            :
+            <Tr justifyContent='center' alignItems='center'>
+              <Td colSpan={6}>
+                <Text textAlign='center'>{t("NoDataAvailable")}</Text>
+              </Td>
+            </Tr>
           }
         </Tbody>
       </Table>

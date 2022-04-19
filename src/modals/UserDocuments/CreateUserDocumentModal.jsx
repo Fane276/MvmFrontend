@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import {FiPlus, FiShare} from 'react-icons/fi'
+import { FiShare } from 'react-icons/fi'
 import PulseLoader from 'react-spinners/PulseLoader'
 import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, ModalFooter, Select, Text, VStack, useDisclosure, useToast } from '@chakra-ui/react';
 import Card from '../../components/Cards/Card';
@@ -11,7 +11,7 @@ import ModalLayout from '../../components/Modals/ModalLayout';
 import { UserDocumentType } from '../../lib/userDocTypeConst';
 import { saveUserDocument } from '../../services/documents/userDocumentsService';
 
-const CreateUserDocumentModal = ({ updateFunction, ...props}) => {
+const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
   const {t} = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast();
@@ -53,11 +53,8 @@ const CreateUserDocumentModal = ({ updateFunction, ...props}) => {
   }
   return (
     <>
-      <Button {...props}>
-        <Flex onClick={onOpen} >
-          <FiPlus/>
-          <Text ml='2'>{t("AddDocument")}</Text>
-        </Flex>
+      <Button onClick={onOpen} {...props}>
+        {children}
       </Button>
       <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddPersonalDocument") } size='5xl'
         footerComponent={
