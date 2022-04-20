@@ -139,5 +139,8 @@
   "SelectDocumentType": "Selectează tipul de document",
   "OtherDoc": "Alt tip document",
   "NoDocumentAddedYet": "Nu ați adăugat încă un document",
-  "AddADocumentNow": "Adaugă acum un document"
+  "AddADocumentNow": "Adaugă acum un document",
+  "DropZoneMessage": "Drag 'n' drop some files here, or click to select files", 
+  "DataExtractedSuccessfully": "Datele au fost extrase cu succes", 
+  "DataCouldNotBeExtracted": "Datele au putut fi extrase"
 }

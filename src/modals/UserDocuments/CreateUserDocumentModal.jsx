@@ -1,13 +1,14 @@
+import axios from 'axios';
 import moment from 'moment';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { FiShare } from 'react-icons/fi'
 import PulseLoader from 'react-spinners/PulseLoader'
-import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, ModalFooter, Select, Text, VStack, useDisclosure, useToast } from '@chakra-ui/react';
-import Card from '../../components/Cards/Card';
+import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, ModalFooter, Select, Text, useDisclosure, useToast } from '@chakra-ui/react';
 import ChakraDatePicker from '../../components/Form/ChakraDatePicker';
+import FileInput from '../../components/Form/FileInput';
 import ModalLayout from '../../components/Modals/ModalLayout';
+import AppConsts from '../../lib/appconst';
 import { UserDocumentType } from '../../lib/userDocTypeConst';
 import { saveUserDocument } from '../../services/documents/userDocumentsService';
 
@@ -17,13 +18,15 @@ const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
   const toast = useToast();
   const userDocumentTypes = Object.getOwnPropertyNames(UserDocumentType).map((value, index)=>{return {value: index, label: value}});
   
-  const { handleSubmit, register, watch, control, formState: { errors, isSubmitting } } = useForm();
+  const { handleSubmit, register, watch, setValue, control, formState: { errors, isSubmitting } } = useForm();
   
   const documentType = watch("documentType");
+  const file_upload = watch("file_upload");
 
   const onSubmit = async (data)=>{
     data.validFrom = moment(data.validFrom).format();
     data.validTo = moment(data.validTo).format();
+
     await saveUserDocument(data)
     .then((result)=>{
       if(result.status === 200){
@@ -51,6 +54,57 @@ const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
     onClose();
     updateFunction()
   }
+
+  useEffect(() => {
+    if(file_upload && file_upload[0]){
+      var formData = new FormData();
+      formData.append("file", file_upload[0]);
+      axios.post(`${AppConsts.ocrBaseUrl}extract_text`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then((result)=>{
+        if(result && result.status === 200){
+          const dateRegex = new RegExp(/(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])[.](19|20)\d\d/);
+          var dateFromIsValid = dateRegex.test(result.data.FromDate)
+          var dateToIsValid = dateRegex.test(result.data.ToDate)
+          if(dateFromIsValid && dateToIsValid){
+            var dateFrom = moment(result.data.FromDate, 'DD.MM.yyyy');
+            if(dateFrom){
+              setValue("validFrom", new Date(dateFrom.format()))
+            }
+            var dateTo =moment(result.data.ToDate, 'DD.MM.yyyy');
+            if(dateTo){
+              setValue("validTo", new Date(dateTo.format()))
+            }
+            setValue('documentType', UserDocumentType.DrivingLicence)
+
+            toast({
+              title: t("DataExtractedSuccessfully"),
+              status: 'success',
+              duration: 3000,
+              isClosable: true,
+            })
+          }
+        }
+      })
+      .catch((err)=>{
+        if(err.response.status === 500){
+          toast({
+            title: t("DataCouldNotBeExtracted"),
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
+          setValue('file_upload',[])
+        }
+      })
+    }
+  
+  }, [file_upload, setValue, t, toast])
+  
+
   return (
     <>
       <Button onClick={onOpen} {...props}>
@@ -119,12 +173,18 @@ const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
         <Flex justifyContent='center' my='10'>
           <Text>- {t("OR")} -</Text>
         </Flex>
-        <Card minH='20px' p='5'>
-          <VStack>
-            <FiShare size='20px'/>
-            <Text>{t("ExtractFromImage")}</Text>
-          </VStack>
-        </Card>
+        <FileInput accept='image/jpeg,image/png' multiple={false} control={control} name='file_upload'/>
+        {/* <Dropzone multiple={false} onDrop={acceptedFiles => console.log(acceptedFiles)}>
+          {({getRootProps, getInputProps}) => (
+            <Card minH='20px' p='5'>
+              <VStack {...getRootProps()}>
+                <FiShare size='20px'/>
+                <Text>{t("ExtractFromImage")}</Text>
+                <input {...getInputProps()} />
+              </VStack>
+            </Card>
+          )}
+        </Dropzone> */}
       </ModalLayout>
     </>
   )

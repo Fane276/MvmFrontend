@@ -139,5 +139,8 @@
   "SelectDocumentType": "Select document type",
   "OtherDoc": "Other document type",
   "NoDocumentAddedYet": "No document added yet",
-  "AddADocumentNow": "Add a document now"
+  "AddADocumentNow": "Add a document now",
+  "DropZoneMessage": "Drag 'n' drop some files here, or click to select files", 
+  "DataExtractedSuccessfully": "Data extracted successfully", 
+  "DataCouldNotBeExtracted": "Data could not be extracted"
 }
