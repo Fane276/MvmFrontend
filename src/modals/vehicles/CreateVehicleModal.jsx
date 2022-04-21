@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiPlus } from 'react-icons/fi';
+import InputMask from 'react-input-mask';
 import PulseLoader from 'react-spinners/PulseLoader'
 import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react';
 import Select2 from '../../components/Form/Select2'
@@ -167,7 +168,7 @@ const CreateVehicleModal = ({updateFunction}) => {
 
         <FormControl isInvalid={errors.registrationNumber}>
           <FormLabel>{t("RegistrationNumber")}</FormLabel>
-          <Input {...register("registrationNumber", { required: true })} />
+          <Input as={InputMask} style={{textTransform: "uppercase"}} mask="a*99aaa" maskChar={null} {...register("registrationNumber", { required: true })} />
           {errors.registrationNumber &&
           <FormErrorMessage>{t("RegistrationNumberError")}</FormErrorMessage>
           }
