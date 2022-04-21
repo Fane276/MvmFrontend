@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import {FaRegAddressCard} from 'react-icons/fa'
 import {FiFileText, FiTrash} from 'react-icons/fi'
 import {GiKeyCard} from 'react-icons/gi'
-import { Flex, Text, VStack, useColorModeValue, useToast } from '@chakra-ui/react'
+import { Flex, Text, VStack, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react'
 import UpdateUserDocumentModal from '../../../modals/UserDocuments/UpdateUserDocumentModal'
 import { deleteUserDocument } from '../../../services/documents/userDocumentsService'
 import Card from '../../Cards/Card'
@@ -53,7 +53,7 @@ const UserDocumentCard = ({ updateFunction, document}) => {
     );
   }
   
-
+  const { colorMode } = useColorMode()
   const backgroundColor =  useColorModeValue('white', 'gray.800');
   const borderColor =  useColorModeValue('gray.200', 'gray.700');
   return (
@@ -62,13 +62,13 @@ const UserDocumentCard = ({ updateFunction, document}) => {
         <Flex justifyContent='center' px='20'>
           {
             document.documentType === 1? 
-              <GiKeyCard size="70px" color={!isAvailable ? '#E53E3E' : '#ffffff'}></GiKeyCard>
+              <GiKeyCard size="70px" color={!isAvailable ? '#E53E3E' : (colorMode === 'light'? "#000000": "#ffffff")}></GiKeyCard>
             :
             (
               document.documentType === 2?
-                <FaRegAddressCard size="70px" color={!isAvailable ? '#E53E3E' : '#ffffff'}></FaRegAddressCard>
+                <FaRegAddressCard size="70px" color={!isAvailable ? '#E53E3E' : (colorMode === 'light'? "#000000": "#ffffff")}></FaRegAddressCard>
               :
-                <FiFileText size="70px" color={!isAvailable ? '#E53E3E' : '#ffffff'}></FiFileText>
+                <FiFileText size="70px" color={!isAvailable ? '#E53E3E' : (colorMode === 'light'? "#000000": "#ffffff")}></FiFileText>
               )
             }
         </Flex>

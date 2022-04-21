@@ -13,8 +13,8 @@ import VehiclesTable from '../components/Vehicles/VehiclesTable';
 import CreateVehicleModal from '../modals/vehicles/CreateVehicleModal';
 import { getPricePerVehicle } from '../services/fuelManagement/fuelManagementService';
 
-const chartBgColors = ['rgba(49, 130, 206, 0.2)', 'rgba(178, 245, 234, 0.2)', 'rgba(107, 70, 193, 0.2)', 'rgba(0, 163, 196, 0.2)']
-const chartBorderColors = ['rgba(49, 130, 206, 1)', 'rgba(178, 245, 234, 1)', 'rgba(107, 70, 193, 1)','rgba(0, 163, 196, 1)'];
+const chartBgColors = ['rgba(49, 130, 206, 0.2)', 'rgba(107, 70, 193, 0.2)', 'rgba(178, 245, 234, 0.2)', 'rgba(0, 163, 196, 0.2)']
+const chartBorderColors = ['rgba(49, 130, 206, 1)', 'rgba(107, 70, 193, 1)', 'rgba(178, 245, 234, 1)', 'rgba(0, 163, 196, 1)'];
 
 const Dashboard = () => {
   const { t } = useTranslation();

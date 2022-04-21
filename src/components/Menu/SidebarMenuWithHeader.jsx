@@ -1,12 +1,27 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import Header from "../Header/Header";
 import SidebarMenu from "./SidebarMenu";
 
 export default function SidebarMenuWithHeader({children}) {
+  const [ navSize, setNavSize] = useState("large");
+
+  const {collapsed} = useSelector((state)=>state.menu.value);
+
+  useEffect(() => {
+    if(collapsed){
+      setNavSize('small')
+    }
+    else{
+      setNavSize('large')
+    }
+  }, [collapsed])
+
   return (
-    <Flex minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Flex bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarMenu />
-      <Box w="100%">
+      <Box w="100%" minH='100vh' pl={navSize === 'large'? '300px': '100px'}>
         <Header/>
         {children}
       </Box>

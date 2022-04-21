@@ -4,6 +4,7 @@ import { Flex, Icon, Link, Menu, Text, useColorModeValue } from '@chakra-ui/reac
 const NavItem = ({navSize, onClick, title, icon, active = false}) => {
 
   const activeColor = useColorModeValue('blue.100', 'blue.900');
+  const activeBorderColor = useColorModeValue('gray.200', 'gray.900');
   const iconColor = useColorModeValue('gray.900', 'gray.200');
 
   return (
@@ -16,9 +17,12 @@ const NavItem = ({navSize, onClick, title, icon, active = false}) => {
       <Menu>
         <Link
           backgroundColor={active === true && activeColor}
+          shadow={active === true && 'lg'}
+          borderColor={active === true && activeBorderColor}
+          borderWidth={active === true && '1px'}
           p={2}
           borderRadius={8}
-          _hover={{textDecor: 'none', backgroundColor: activeColor}}
+          _hover={{textDecor: 'none', backgroundColor: activeColor, shadow: 'lg'}}
           w={navSize === 'large' && "100%"}
           onClick={onClick}
         >

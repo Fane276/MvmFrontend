@@ -1,12 +1,12 @@
+import moment from 'moment'
 import React from 'react'
-import { Flex, Image, Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 
 const SideBarMenuFooter = ({navSize}) => {
   return (
     <Flex flexDir="row" ml={navSize === "small" ? '0' : '4'} mt={{base:"2", md:'4'}} alignItems='center'>
-      <Image h='42px'  src='/mvm-logo-small.png'/>
-      {/* <Heading as="h4" size="sm">MvManagement</Heading> */}
-      <Text  display={navSize === "small" ? 'none' : 'inline'} ml={4}>Version 1.0.0</Text>
+      <Text textAlign='center' display={navSize === "small" ? 'none' : 'inline'} ml={4}>©{moment().format('yyyy')} MvManagement </Text>
+      <Text textAlign='center' display={navSize === "small" ? 'inline' : 'none'}>©{moment().format('yyyy')}</Text>
     </Flex>
   )
 }

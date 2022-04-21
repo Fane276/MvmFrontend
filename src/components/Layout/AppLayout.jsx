@@ -6,7 +6,6 @@ const AppLayout = ({children, ...props}) => {
   const bgGradient =  useColorModeValue('white', 'gray.800');
   return (
     <Flex 
-      minH="100vh"
       background={bgGradient}
       direction="column"
       {...props}

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Divider, Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
+import { setMenuState } from '../../state/menu/menuSlice';
 import SideBarMenuFooter from './SideBarMenuFooter';
 import SidebarContent from './SidebarContent';
 
@@ -10,12 +12,24 @@ const SidebarMenu = ({ children, ...rest }) => {
 
   const menuBgColor = useColorModeValue('white','gray.800');
   const menuBorderColor = useColorModeValue('gray.200', 'gray.700');
+  const dispatch = useDispatch()
+  const {collapsed} = useSelector((state)=>state.menu.value);
 
+  useEffect(() => {
+    if(collapsed){
+      setNavSize('small')
+    }
+    else{
+      setNavSize('large')
+    }
+  }, [collapsed])
+  
 
   return (
     <Flex
-      pos="sticky"
-      h="100vh"
+      pos="fixed"
+      h="100%"
+      zIndex='999'
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
       w={navSize === "small" ? "100px" : "300px"}
       flexDir="column"
@@ -28,6 +42,7 @@ const SidebarMenu = ({ children, ...rest }) => {
     >
       <Flex
         p="5%"
+
         flexDir="column"
         alignItems={navSize === "small" ? 'center' : 'flex-start'}
         as="nav"
@@ -46,27 +61,13 @@ const SidebarMenu = ({ children, ...rest }) => {
             <Image h='42px'  src='/mvm-logo-large.png'/>
           }
         </Text>
-        {/* <IconButton
-          p="0.5"
-          background="none"
-          _hover={{ backgroud: 'none' }}
-          icon={<FiMenu/>}
-          onClick={()=>{
-              if(navSize === "small"){
-                setNavSize("large")
-              }
-              else{
-                setNavSize("small")
-              }
-          }}
-        /> */}
         <Box
           onClick={()=>{
             if(navSize === "small"){
-              setNavSize("large")
+              dispatch(setMenuState({collapsed:false}))
             }
             else{
-              setNavSize("small")
+              dispatch(setMenuState({collapsed:true}))
             }
           }}
         >

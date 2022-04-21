@@ -136,12 +136,12 @@ function Header() {
               </HStack>
             </MenuButton>
             <MenuList>
-              <MenuItem mb='1' onClick={()=>{}}> 
+              <MenuItem mb='1' onClick={()=>navigate('/Profile')}> 
                 <Avatar size='sm' ml={3}/>
                 <Text ml={3} display={{ base: 'none', md: 'block' }}>{currentUserLocal?.surname} {currentUserLocal?.name}</Text>
               </MenuItem>  
               <Divider/>
-              <MenuItem my='1' onClick={()=>{}}> 
+              <MenuItem my='1' onClick={()=>navigate('/Profile')}> 
                 <Text ml={3}>
                   {t("Settings")}
                 </Text>
