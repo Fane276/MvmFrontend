@@ -142,5 +142,16 @@
   "AddADocumentNow": "Add a document now",
   "DropZoneMessage": "Drag 'n' drop some files here, or click to select files", 
   "DataExtractedSuccessfully": "Data extracted successfully", 
-  "DataCouldNotBeExtracted": "Data could not be extracted"
+  "DataCouldNotBeExtracted": "Data could not be extracted",
+  "ChangePassword": "Change password",
+  "CurrentPassword": "Current password",
+  "CurrentPasswordError": "Current password should not be empty",
+  "NewPassword": "New password",
+  "NewPasswordError": "New password should not be empty",
+  "EditYourInformation": "Edit your information",
+  "Username": "Username",
+  "EmailAddress": "Email address",
+  "PasswordChanged": "Password changed",
+  "InformationUpdated": "Information updated",
+  "AboutYou": "About you"
 }

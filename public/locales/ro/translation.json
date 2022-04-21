@@ -142,5 +142,16 @@
   "AddADocumentNow": "Adaugă acum un document",
   "DropZoneMessage": "Drag 'n' drop some files here, or click to select files", 
   "DataExtractedSuccessfully": "Datele au fost extrase cu succes", 
-  "DataCouldNotBeExtracted": "Datele au putut fi extrase"
+  "DataCouldNotBeExtracted": "Datele au putut fi extrase",
+  "ChangePassword": "Schimbă parola",
+  "CurrentPassword": "Parola actuală",
+  "CurrentPasswordError": "Parola actuală trebuie completată",
+  "NewPassword": "Parola nouă",
+  "NewPasswordError": "Parola nouă trebuie completată",
+  "EditYourInformation": "Modifică informații",
+  "Username": "Nume utilizator",
+  "EmailAddress": "Adresă de email",
+  "PasswordChanged": "Parola a fost schimbată",
+  "InformationUpdated": "Informațiile au fost modificate",
+  "AboutYou": "Despre dumneavostră"
 }
