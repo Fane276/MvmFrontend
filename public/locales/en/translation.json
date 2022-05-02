@@ -153,5 +153,16 @@
   "EmailAddress": "Email address",
   "PasswordChanged": "Password changed",
   "InformationUpdated": "Information updated",
-  "AboutYou": "About you"
+  "AboutYou": "About you",
+  "RefillDate": "Refill date",
+  "AmountPayed": "Amount payed",
+  "Quantity": "Quantity",
+  "RefillDateError": "Refill date should not be empty",
+  "Petrol": "Petrol",
+  "Diesel": "Diesel",
+  "Electric": "Electric",
+  "Liter": "Liter",
+  "Galon": "Galon",
+  "Kilowatt": "Kilowatt"
+  
 }

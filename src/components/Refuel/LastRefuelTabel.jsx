@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { FiTrash } from 'react-icons/fi'
@@ -78,6 +79,7 @@ const LastRefuelTabel = ({shouldUpdate,endpoint}) => {
             <Th>{t('Quantity')}</Th>
             <Th>{t('FuelType')}</Th>
             <Th>{t('AmountPayed')}</Th>
+            <Th>{t('RefillDate')}</Th>
             <Th w='10'>{t('Actions')}</Th>
           </Tr>
         </Thead>
@@ -96,6 +98,9 @@ const LastRefuelTabel = ({shouldUpdate,endpoint}) => {
                 </Td>
                 <Td>
                   {item.price} LEI
+                </Td>
+                <Td>
+                  {moment(item.refillDate).format('DD.MM.yyyy')}
                 </Td>
                 <Td>
                   <Flex justifyContent='center'>

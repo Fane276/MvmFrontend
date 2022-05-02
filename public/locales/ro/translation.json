@@ -153,5 +153,15 @@
   "EmailAddress": "Adresă de email",
   "PasswordChanged": "Parola a fost schimbată",
   "InformationUpdated": "Informațiile au fost modificate",
-  "AboutYou": "Despre dumneavostră"
+  "AboutYou": "Despre dumneavostră",
+  "RefillDate": "Dată alimentare",
+  "AmountPayed": "Sumă plătită",
+  "Quantity": "Catitate",
+  "RefillDateError": "Data alimentării trebuie completată",
+  "Petrol": "Benzină",
+  "Diesel": "Motorină",
+  "Electric": "Electric",
+  "Liter": "Litri",
+  "Galon": "Galoane",
+  "Kilowatt": "Kilowatt"
 }

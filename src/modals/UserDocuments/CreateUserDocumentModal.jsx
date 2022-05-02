@@ -1,6 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import PulseLoader from 'react-spinners/PulseLoader'
@@ -17,6 +17,8 @@ const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast();
   const userDocumentTypes = Object.getOwnPropertyNames(UserDocumentType).map((value, index)=>{return {value: index, label: value}});
+
+  const [ocrIsLoading, setOcrIsLoading] = useState(false);
   
   const { handleSubmit, register, watch, setValue, control, formState: { errors, isSubmitting } } = useForm();
   
@@ -59,6 +61,8 @@ const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
     if(file_upload && file_upload[0]){
       var formData = new FormData();
       formData.append("file", file_upload[0]);
+      setOcrIsLoading(true);
+
       axios.post(`${AppConsts.ocrBaseUrl}extract_text`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -80,6 +84,8 @@ const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
             }
             setValue('documentType', UserDocumentType.DrivingLicence)
 
+            setOcrIsLoading(false);
+
             toast({
               title: t("DataExtractedSuccessfully"),
               status: 'success',
@@ -90,6 +96,7 @@ const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
         }
       })
       .catch((err)=>{
+        setOcrIsLoading(false);
         if(err.response.status === 500){
           toast({
             title: t("DataCouldNotBeExtracted"),
@@ -173,7 +180,7 @@ const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
         <Flex justifyContent='center' my='10'>
           <Text>- {t("OR")} -</Text>
         </Flex>
-        <FileInput accept='image/jpeg,image/png' multiple={false} control={control} name='file_upload'/>
+        <FileInput accept='image/jpeg,image/png' multiple={false} control={control} name='file_upload' isLoading={ocrIsLoading}/>
         {/* <Dropzone multiple={false} onDrop={acceptedFiles => console.log(acceptedFiles)}>
           {({getRootProps, getInputProps}) => (
             <Card minH='20px' p='5'>

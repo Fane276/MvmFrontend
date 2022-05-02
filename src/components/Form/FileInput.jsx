@@ -4,9 +4,10 @@ import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {FiUpload} from 'react-icons/fi'
 import {VscVerified} from 'react-icons/vsc'
+import ScaleLoader from 'react-spinners/ScaleLoader'
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 
-const FileInput = ({ control, name, multiple, accept, ...props}) => {
+const FileInput = ({ control, name, multiple, accept, isLoading, ...props}) => {
   const {t} = useTranslation();
   return(
     <Controller
@@ -28,10 +29,14 @@ const FileInput = ({ control, name, multiple, accept, ...props}) => {
             >
               <Flex w="100%" direction='column' alignItems='center' justifyContent='center'>
                 <input {...getInputProps()} name={name} onBlur={field.onBlur} />
-                {field.value.length>0?
+                {isLoading?
+                  <ScaleLoader color="#3182CE"/>
+                :
+                (<>{field.value.length>0?
                   <VscVerified size='60px' color="#3182CE" className="animate__animated animate__zoomIn"/>
                   :
                   <FiUpload size='60px' color="#3182CE"  className="animate__animated animate__zoomIn"/>
+                }</>)
                 }
                 <Text mt='5' textAlign='center' fontSize='xl'>{t("DropZoneMessage")}</Text>
               </Flex>
