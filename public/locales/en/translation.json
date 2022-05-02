@@ -163,6 +163,13 @@
   "Electric": "Electric",
   "Liter": "Liter",
   "Galon": "Galon",
-  "Kilowatt": "Kilowatt"
-  
+  "Kilowatt": "Kilowatt",
+  "VehicleUpdated": "Vehicle updated",
+  "Period": "Period",
+  "OneWeek": "1 week",
+  "OneMonth": "1 month",
+  "ThreeMonths": "3 months",
+  "SixMonths": "6 months",
+  "NineMonths": "9 months",
+  "OneYear": "1 year"
 }

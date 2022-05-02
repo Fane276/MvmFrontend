@@ -10,9 +10,15 @@ const deleteRefill = async (idRefill)=>{
   return result;
 }
 
-const getPricePerLastDays = async (idVehicle)=>{
-  var result = await httpRequestAuthenticated.get(`/api/FuelManagement/GetPricePerLastWeek?idVehicle=${idVehicle}`);
-  return result;
+const getPricePerLastDays = async (idVehicle, period)=>{
+  if(period){
+    let result = await httpRequestAuthenticated.get(`/api/FuelManagement/GetPricePerLastWeek?idVehicle=${idVehicle}&period=${period}`);
+    return result;
+  }
+  else{
+    let result = await httpRequestAuthenticated.get(`/api/FuelManagement/GetPricePerLastWeek?idVehicle=${idVehicle}`);
+    return result;
+  }
 }
 
 const getPricePerVehicle = async ()=>{

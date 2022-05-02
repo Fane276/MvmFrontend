@@ -6,7 +6,7 @@ import {FiTrash} from 'react-icons/fi'
 import {GiHomeGarage} from 'react-icons/gi'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom';
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Divider, Flex, IconButton, Menu, MenuButton, MenuList, VStack, useMediaQuery, useToast } from '@chakra-ui/react';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Divider, Flex, FormLabel, IconButton, Menu, MenuButton, MenuList, Select, VStack, useMediaQuery, useToast } from '@chakra-ui/react';
 import Card from '../components/Cards/Card';
 import CardHeader from '../components/Cards/CardHeader';
 import ConfirmDeletionDialog from '../components/Dialogs/ConfirmDeletionDialog';
@@ -18,6 +18,34 @@ import AddRefillModal from '../modals/FuelManagement/AddRefillModal';
 import { deleteInsurance, getInsuranceIds } from '../services/documents/insuranceService';
 import { getPricePerLastDays } from '../services/fuelManagement/fuelManagementService';
 
+const costPeriod=[
+  {
+    value: 7,
+    label: "OneWeek"
+  },
+  {
+    value: 31,
+    label: "OneMonth"
+  },
+  {
+    value: 93,
+    label: "ThreeMonths"
+  },
+  {
+    value: 186,
+    label: "SixMonths"
+  },
+  {
+    value: 279,
+    label: "NineMonths"
+  },
+  {
+    value: 365,
+    label: "OneYear"
+  },
+]
+
+
 const Vehicle = () => {
   const {t} = useTranslation();
   const { idVehicle } = useParams();
@@ -27,6 +55,7 @@ const Vehicle = () => {
   const [dataPriceConsumtion, setDataPriceConsumtion] = useState(null)
   const [chartBarOptions, setChartBarOptions] = useState(null)
   const [refuelTableShouldUpdate, setRefuelTableShouldUpdate] = useState();
+  const [chartPeriod, setChartPeriod] = useState(7)
 
   const toast = useToast();
 
@@ -47,7 +76,7 @@ const Vehicle = () => {
   
   useEffect(()=>{
     const asyncExecutor = async()=>{
-      var graphDataResult = await getPricePerLastDays(idVehicle);
+      var graphDataResult = await getPricePerLastDays(idVehicle, chartPeriod);
       var graphData = graphDataResult.data.result;
       const options = {
         plugins: {
@@ -82,7 +111,7 @@ const Vehicle = () => {
     }
     asyncExecutor();
   
-  },[idVehicle, t])
+  },[idVehicle, t, chartPeriod])
 
   const delInsurance = async (idInsurance)=>{
     await deleteInsurance(idInsurance)
@@ -144,6 +173,9 @@ const Vehicle = () => {
     setDataPriceConsumtion(data);
   }
 
+  const handlePeriodChange = (event) => {
+    setChartPeriod(event.target.value)
+  }
 
   const vehicleAddedHandler = ()=>{
     setRefuelTableShouldUpdate(moment());
@@ -199,7 +231,17 @@ const Vehicle = () => {
             <Card mt='4'>
               {
                 dataPriceConsumtion &&
-                <Bar options={chartBarOptions} data={dataPriceConsumtion} />
+                <VStack>
+                  <Bar options={chartBarOptions} data={dataPriceConsumtion} />
+                  <Flex w="100%" justifyContent='flex-end' alignItems='center'>
+                    <FormLabel>{t("Period")}:</FormLabel>
+                    <Select value={chartPeriod} onChange={handlePeriodChange} mx='5' mb='2' w='300px'>
+                      {costPeriod.map((option)=>{
+                        return <option key={option.value} value={option.value} >{t(option.label)}</option>
+                      })}
+                    </Select>
+                  </Flex>
+                </VStack>
               }
             </Card>
           </Box>
@@ -245,10 +287,19 @@ const Vehicle = () => {
             <LastRefuelTabel shouldUpdate={refuelTableShouldUpdate} endpoint={`/api/FuelManagement/GetVehicleRefills?IdVehicle=${idVehicle}`}/>
           </Card>
           <Card mt='4'>
-            {
-              dataPriceConsumtion &&
-              <Bar options={chartBarOptions} data={dataPriceConsumtion} />
-            }
+              {
+                dataPriceConsumtion &&
+                <VStack>
+                  <Bar options={chartBarOptions} data={dataPriceConsumtion} />
+                  <Flex w="100%" alignItems='center'>
+                    <Select value={chartPeriod} onChange={handlePeriodChange}>
+                      {costPeriod.map((option)=>{
+                        return <option key={option.value} value={option.value} >{t(option.label)}</option>
+                      })}
+                    </Select>
+                  </Flex>
+                </VStack>
+              }
           </Card>
           <PeriodicalDocumentsOutlineCard idVehicle={idVehicle}/>
         </VStack>

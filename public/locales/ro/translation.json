@@ -163,5 +163,13 @@
   "Electric": "Electric",
   "Liter": "Litri",
   "Galon": "Galoane",
-  "Kilowatt": "Kilowatt"
+  "Kilowatt": "Kilowatt",
+  "VehicleUpdated": "Vehiculul a fost actualizat",
+  "Period": "Perioadă",
+  "OneWeek": "O săptămână",
+  "OneMonth": "O lună",
+  "ThreeMonths": "3 luni",
+  "SixMonths": "6 luni",
+  "NineMonths": "9 luni",
+  "OneYear": "Un an"
 }

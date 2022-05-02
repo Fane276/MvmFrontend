@@ -87,7 +87,7 @@ const UpdateVehicleModal = ({idVehicle, updateFunction, ...props}) => {
     .then((result)=>{
       if(result.status === 200){
         toast({
-          title: t("VehicleAdded"),
+          title: t("VehicleUpdated"),
           status: 'success',
           duration: 3000,
           isClosable: true,

@@ -122,7 +122,7 @@ const VehiclesTable = ({shouldUpdate, endpoint}) => {
                   {item.productionYear}            
                 </Td>
                 <Td textAlign='center'>
-                  {item.registrationNumber}            
+                  {item.registrationNumber.toUpperCase()}            
                 </Td>
                 <Td textAlign='center'>
                   <Flex justifyContent='space-around'>
