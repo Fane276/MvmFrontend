@@ -72,7 +72,7 @@ const UpdatePeriodicalDocumentModal = ({ idDocument, updateFunction, ...props}) 
       <IconButton onClick={handleOnOpen} {...props}>
         <FiEdit/>
       </IconButton>
-      <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddCascoInsurance") } size='5xl'
+      <ModalLayout isOpen={isOpen} onClose={onClose} title={t("EditPeriodicalDocument") } size='5xl'
         footerComponent={
           <ModalFooter alignContent="space-between">
             <Button onClick={onClose}>{t("Cancel")}</Button> 

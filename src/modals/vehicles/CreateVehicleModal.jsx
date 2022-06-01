@@ -69,7 +69,7 @@ const CreateVehicleModal = ({updateFunction}) => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const { handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
+  const { reset, handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data)=>{
     data.idMakeAuto = data.makeAuto.value;
@@ -109,9 +109,18 @@ const CreateVehicleModal = ({updateFunction}) => {
     onClose();
     updateFunction();
   }
+
+  const handleOpen = () => {
+    reset(undefined, {
+      dirtyFields: false
+    })
+    onOpen();
+  }
+
+
   return (
     <>
-      <IconButton onClick={onOpen}>
+      <IconButton onClick={handleOpen}>
         <FiPlus/>
       </IconButton>
       <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddVehicle") } size='5xl'
@@ -157,7 +166,7 @@ const CreateVehicleModal = ({updateFunction}) => {
             setValue={setValue} 
             register={register} 
             name='makeAuto' 
-            registerOptions={{required:true}} 
+            rules={{required:true}} 
             extraParameter="categorie"
             hasOtherOption={true}
             />
@@ -177,12 +186,12 @@ const CreateVehicleModal = ({updateFunction}) => {
             setValue={setValue} 
             register={register} 
             name='model' 
-            registerOptions={{required:true}} 
+            rules={{required:true}} 
             extraParameter="idMarca"
             hasOtherOption={true}
           />
           {errors.model &&
-          <FormErrorMessage>{t("Model")}</FormErrorMessage>
+          <FormErrorMessage>{t("ModelError")}</FormErrorMessage>
           }
         </FormControl>
 

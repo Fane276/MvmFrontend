@@ -18,7 +18,7 @@ const ChangePasswordModal = ({ updateFunction, ...props}) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const { handleSubmit, register, getValues, formState: { errors, isSubmitting } } = useForm();
+  const { reset, handleSubmit, register, getValues, formState: { errors, isSubmitting } } = useForm();
 
   const inputBorderFocusColor = useColorModeValue('purple.600', 'purple.500');
   
@@ -60,6 +60,9 @@ const ChangePasswordModal = ({ updateFunction, ...props}) => {
   }
 
   const onOpenHandler = async ()=>{
+    reset(undefined, {
+      dirtyFields: false
+    })
     onOpen()
   }
 

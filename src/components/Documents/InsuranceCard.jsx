@@ -6,7 +6,7 @@ import EditCascoInsuranceModal from '../../modals/Documents/EditCascoInsuranceMo
 import EditRcaInsuranceModal from '../../modals/Documents/EditRcaInsuranceModal'
 import { getInsuranceStatus } from '../../services/documents/insuranceService'
 
-const InsuranceCard = ({idvehicle}) => {
+const InsuranceCard = ({handleChange, idvehicle}) => {
   const [rcaIsSet, setRcaIsSet] = useState(false);
   const [cascoIsSet, setCascoIsSet] = useState(false);
 
@@ -38,7 +38,7 @@ const InsuranceCard = ({idvehicle}) => {
         setCascoIsSet(true);
       }
     }
-
+    handleChange()
   }
   
 

@@ -20,7 +20,7 @@ const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
 
   const [ocrIsLoading, setOcrIsLoading] = useState(false);
   
-  const { handleSubmit, register, watch, setValue, control, formState: { errors, isSubmitting } } = useForm();
+  const { reset, handleSubmit, register, watch, setValue, control, formState: { errors, isSubmitting } } = useForm();
   
   const documentType = watch("documentType");
   const file_upload = watch("file_upload");
@@ -110,11 +110,18 @@ const CreateUserDocumentModal = ({ children, updateFunction, ...props}) => {
     }
   
   }, [file_upload, setValue, t, toast])
-  
+
+  const handleOpen = () => {
+    reset(undefined, {
+      dirtyFields: false
+    })
+    onOpen();
+  }
+
 
   return (
     <>
-      <Button onClick={onOpen} {...props}>
+      <Button onClick={handleOpen} {...props}>
         {children}
       </Button>
       <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddPersonalDocument") } size='5xl'

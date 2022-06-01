@@ -40,6 +40,8 @@ const EditCascoInsuranceModal = ({updateFunction, idvehicle, ...props}) => {
     data.idVehicle= parseInt(idvehicle); 
     data.validFrom = moment(data.validFrom).format();
     data.validTo = moment(data.validTo).format();
+    data.idInsuranceCompany = data.insuranceCompany.value;
+
     await updateInsurance(data)
     .then((result)=>{
       if(result.status === 200){
@@ -81,7 +83,15 @@ const EditCascoInsuranceModal = ({updateFunction, idvehicle, ...props}) => {
       >
         <FormControl mt='2' isInvalid={errors.idInsuranceCompany}>
           <FormLabel>{t("InsuranceCompany")}</FormLabel>
-          <Select2 endpoint='/api/services/app/InsuranceCatalogue/GetInsuranceCompanies' control={control} setValue={setValue} register={register} name='idInsuranceCompany' registerOptions={{required:true}}/>
+          <Select2 
+            valueName="value"
+            textName="text"
+            endpoint='/api/services/app/InsuranceCatalogue/GetInsuranceCompanies' 
+            control={control} 
+            setValue={setValue} 
+            register={register} 
+            name='insuranceCompany' 
+            registerOptions={{required:true}}/>
           {errors.idInsuranceCompany &&
           <FormErrorMessage>{t("InsuranceCompanyError")}</FormErrorMessage>
           }

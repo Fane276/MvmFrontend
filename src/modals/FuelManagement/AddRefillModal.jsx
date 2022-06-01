@@ -20,7 +20,7 @@ const AddRefillModal = ({ updateFunction, idVehicle, ...props}) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const {control, handleSubmit, setValue, register, formState: { errors, isSubmitting } } = useForm();
+  const {reset, control, handleSubmit, setValue, register, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data)=>{
     data.idVehicle = idVehicle;
@@ -55,6 +55,10 @@ const AddRefillModal = ({ updateFunction, idVehicle, ...props}) => {
 
   const handleModalOpen = () =>{
     setValue('refillDate', moment().toDate())
+    
+    reset(undefined, {
+      dirtyFields: false
+    })
     onOpen();
   }
 

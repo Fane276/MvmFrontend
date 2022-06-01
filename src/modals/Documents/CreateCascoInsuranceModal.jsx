@@ -15,13 +15,15 @@ const CreateCascoInsuranceModal = ({ updateFunction, idvehicle, ...props}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast();
 
-  const { handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
+  const { reset, handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data)=>{
     data.insuranceType=1;
     data.idVehicle = parseInt(idvehicle); 
     data.validFrom = moment(data.validFrom).format();
     data.validTo = moment(data.validTo).format();
+    data.idInsuranceCompany = data.insuranceCompany.value;
+    
     await saveInsurance(data)
     .then((result)=>{
       if(result.status === 200){
@@ -49,9 +51,18 @@ const CreateCascoInsuranceModal = ({ updateFunction, idvehicle, ...props}) => {
     onClose();
     updateFunction();
   }
+
+  const handleOpen = () => { 
+    reset(undefined, {
+      dirtyFields: false
+    })
+    onOpen()
+  }
+
+
   return (
     <>
-      <InsuranceNotSet insuranceType='casco' onClick={onOpen} {...props}/>
+      <InsuranceNotSet insuranceType='casco' onClick={handleOpen} {...props}/>
       <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddCascoInsurance") } size='5xl'
         footerComponent={
           <ModalFooter alignContent="space-between">
@@ -62,10 +73,19 @@ const CreateCascoInsuranceModal = ({ updateFunction, idvehicle, ...props}) => {
           </ModalFooter>
         }
       >
-        <FormControl mt='2' isInvalid={errors.idInsuranceCompany}>
+        <FormControl mt='2' isInvalid={errors.insuranceCompany}>
           <FormLabel>{t("InsuranceCompany")}</FormLabel>
-          <Select2 endpoint='/api/services/app/InsuranceCatalogue/GetInsuranceCompanies' control={control} setValue={setValue} register={register} name='idInsuranceCompany' registerOptions={{required:true}}/>
-          {errors.idInsuranceCompany &&
+          <Select2 
+            valueName="value"
+            textName="text"
+            endpoint='/api/services/app/InsuranceCatalogue/GetInsuranceCompanies' 
+            control={control} 
+            setValue={setValue} 
+            register={register} 
+            name='insuranceCompany' 
+            rules={{required:true}}
+            />
+          {errors.insuranceCompany &&
           <FormErrorMessage>{t("InsuranceCompanyError")}</FormErrorMessage>
           }
         </FormControl>

@@ -172,5 +172,7 @@
   "SixMonths": "6 luni",
   "NineMonths": "9 luni",
   "OneYear": "Un an",
-  "PageYouAreTryingToAccessDoesNotExist": "Pagina pe care incercați să o accesați nu există"
+  "PageYouAreTryingToAccessDoesNotExist": "Pagina pe care incercați să o accesați nu există",
+  "AddPeriodicalDocument": "Adaugă document periodic",
+  "EditPeriodicalDocument": "Modifică document periodic"
 }

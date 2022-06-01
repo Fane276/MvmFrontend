@@ -123,6 +123,7 @@ const Vehicle = () => {
           duration: 3000,
           isClosable: true,
         })
+        handleInsuranceChange();
       }
     })
     .catch((err)=>{
@@ -182,6 +183,15 @@ const Vehicle = () => {
     updateChart();
   }
 
+  const handleInsuranceChange = async ()=>{
+    var result = await getInsuranceIds(idVehicle);
+      if(result.status === 200){
+        result = result.data.result;
+        setIdRca(result.rcaId);
+        setIdCasco(result.cascoId);
+      }
+  }
+
   const [isMobileScreen] = useMediaQuery('(max-width:768px)');
   return (
     <AppLayout>
@@ -199,7 +209,7 @@ const Vehicle = () => {
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink>Vehicle {idVehicle}</BreadcrumbLink>
+              <BreadcrumbLink>Vehicle</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
         </Box>
@@ -226,7 +236,7 @@ const Vehicle = () => {
                   </Menu>
                 }
                 />
-              <InsuranceCard idvehicle={idVehicle}/>
+              <InsuranceCard handleChange={handleInsuranceChange} idvehicle={idVehicle}/>
             </Card>
             <Card mt='4'>
               {

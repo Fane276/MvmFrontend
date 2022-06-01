@@ -17,7 +17,7 @@ const CreatePeriodicalDocumentModal = ({ updateFunction, idvehicle, ...props}) =
 
   const toast = useToast();
 
-  const { handleSubmit, register, control, formState: { errors, isSubmitting } } = useForm();
+  const { reset, handleSubmit, register, control, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data)=>{
     data.idVehicle = parseInt(idvehicle); 
@@ -56,6 +56,10 @@ const CreatePeriodicalDocumentModal = ({ updateFunction, idvehicle, ...props}) =
       var periodicalDocumentTypes = result.data.result.items
       setDocumentTypes(periodicalDocumentTypes);
     }
+    
+    reset(undefined, {
+      dirtyFields: false
+    })
     onOpen()
   }
 
@@ -64,7 +68,7 @@ const CreatePeriodicalDocumentModal = ({ updateFunction, idvehicle, ...props}) =
       <IconButton onClick={handleOnOpen} {...props}>
         <FiPlus/>
       </IconButton>
-      <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddCascoInsurance") } size='5xl'
+      <ModalLayout isOpen={isOpen} onClose={onClose} title={t("AddPeriodicalDocument") } size='5xl'
         footerComponent={
           <ModalFooter alignContent="space-between">
             <Button onClick={onClose}>{t("Cancel")}</Button> 

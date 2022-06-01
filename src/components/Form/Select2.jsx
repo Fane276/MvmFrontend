@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Controller, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiChevronDown } from 'react-icons/fi';
-import { Input, InputGroup, InputRightAddon } from '@chakra-ui/react';
+import { Input, InputGroup, InputRightAddon, useColorModeValue } from '@chakra-ui/react';
 import { httpRequest } from '../../services/httpService';
 
 const Select2 = ({extraParameter, setValue, valueName, textName, endpoint, control, dependsOn,register, name, rules, hasOtherOption, onChange}) => {
@@ -39,6 +39,7 @@ const Select2 = ({extraParameter, setValue, valueName, textName, endpoint, contr
 
 
   const dependent = useWatch({control: control, name: dependsOn})
+  const borderColor = useColorModeValue('gray.200', 'whiteAlpha.300');
   
   useEffect(()=>{
     if(dependsOn){
@@ -128,7 +129,7 @@ const Select2 = ({extraParameter, setValue, valueName, textName, endpoint, contr
               }),
               control: (provided) => ({
                 ...provided,
-                borderColor: fieldState.error? "red.400":'whiteAlpha.300',
+                borderColor: fieldState.error? "red.400": borderColor,
                 boxShadow: fieldState.error? "0 0 0 1px #e53e3e":'none',
               }),
             }}
@@ -140,7 +141,7 @@ const Select2 = ({extraParameter, setValue, valueName, textName, endpoint, contr
                 borderRight='none'
                 {...register(`${name}.other`)}
                 />
-              <InputRightAddon bgColor="transparent" borderColor="whiteAlpha.300" borderLeft='none' onClick={openSelect}>
+              <InputRightAddon bgColor="transparent" borderColor={borderColor} borderLeft='none' onClick={openSelect}>
                 <FiChevronDown/>
               </InputRightAddon>
             </InputGroup>
