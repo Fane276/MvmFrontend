@@ -35,7 +35,7 @@ const InsuranceSet = ({insuranceType, valabilTo, ...props}) => {
         :
         <Text fontSize='larger' textAlign='center'>
           {insuranceType === 'casco'?t("CascoInsuranceIsExpiredFrom") : t("MandatoryInsuranceIsExpiredFrom")} 
-          {moment(valabilTo).add(1,"day").format("DD.MM.yyyy")}
+          {moment(valabilTo).format("DD.MM.yyyy")}
         </Text>
         }
       </Flex>
