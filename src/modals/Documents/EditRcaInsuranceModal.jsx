@@ -51,6 +51,7 @@ const EditRcaInsuranceModal = ({updateFunction, idvehicle, ...props}) => {
           duration: 3000,
           isClosable: true,
         })
+        setValidDate(data.validTo)
       }
     })
     .catch((err)=>{

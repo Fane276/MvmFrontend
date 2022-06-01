@@ -1,10 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { BsInfoCircle } from 'react-icons/bs';
 import { FiPlus } from 'react-icons/fi';
 import InputMask from 'react-input-mask';
 import PulseLoader from 'react-spinners/PulseLoader'
-import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, Select, useDisclosure, useToast } from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, Select, Tooltip, useColorModeValue, useDisclosure, useToast } from '@chakra-ui/react';
 import Select2 from '../../components/Form/Select2'
 import ModalLayout from '../../components/Modals/ModalLayout'
 import { createVehicle } from '../../services/Vehicles/vehiclesService';
@@ -117,6 +118,8 @@ const CreateVehicleModal = ({updateFunction}) => {
     onOpen();
   }
 
+  const tooltipColor = useColorModeValue('gray.900', 'gray.200')
+  const tooltipBgColor = useColorModeValue('gray.100', 'gray.800')
 
   return (
     <>
@@ -135,7 +138,7 @@ const CreateVehicleModal = ({updateFunction}) => {
       >
         <FormControl isInvalid={errors.title}>
           <FormLabel>{t("Title")}</FormLabel>
-          <Input {...register("title", { required: true })} />
+          <Input placeholder={t("Title")} {...register("title", { required: true })} />
           {errors.title &&
           <FormErrorMessage>{t("TitleError")}</FormErrorMessage>
           }
@@ -197,15 +200,24 @@ const CreateVehicleModal = ({updateFunction}) => {
 
         <FormControl isInvalid={errors.productionYear}>
           <FormLabel>{t("ProductionYear")}</FormLabel>
-          <Input {...register("productionYear", { required: true })} />
+          <Input placeholder={t("ProductionYear")} {...register("productionYear", { required: true })} />
           {errors.productionYear &&
           <FormErrorMessage>{t("ProductionYearError")}</FormErrorMessage>
           }
         </FormControl>
 
         <FormControl isInvalid={errors.registrationNumber}>
-          <FormLabel>{t("RegistrationNumber")}</FormLabel>
-          <Input as={InputMask} style={{textTransform: "uppercase"}} mask="a*99aaa" maskChar={null} {...register("registrationNumber", { required: true })} />
+          <Flex justifyContent='start' alignItems="center">
+            <FormLabel mr={1}>
+              {t("RegistrationNumber")}
+            </FormLabel>
+            <Tooltip label={t("RegistrationNumberError")} color={tooltipColor} bgColor={tooltipBgColor} borderRadius={10}>
+              <Box mb={1}>
+                <BsInfoCircle size="16px"/>
+              </Box>
+            </Tooltip>
+          </Flex>
+          <Input as={InputMask} style={{textTransform: "uppercase"}} placeholder="AB12ABC" mask="a*99aaa" maskChar={null} {...register("registrationNumber", { required: true })} />
           {errors.registrationNumber &&
           <FormErrorMessage>{t("RegistrationNumberError")}</FormErrorMessage>
           }
@@ -213,7 +225,7 @@ const CreateVehicleModal = ({updateFunction}) => {
 
         <FormControl isInvalid={errors.chassisNo}>
           <FormLabel>{t("ChassisNo")}</FormLabel>
-          <Input {...register("chassisNo", { required: true })} />
+          <Input placeholder={t("ChassisNo")} {...register("chassisNo", { required: true })} />
           {errors.chassisNo &&
           <FormErrorMessage>{t("ChassisNo")}</FormErrorMessage>
           }

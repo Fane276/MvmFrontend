@@ -81,7 +81,7 @@ const EditCascoInsuranceModal = ({updateFunction, idvehicle, ...props}) => {
           </ModalFooter>
         }
       >
-        <FormControl mt='2' isInvalid={errors.idInsuranceCompany}>
+        <FormControl mt='2' isInvalid={errors.insuranceCompany}>
           <FormLabel>{t("InsuranceCompany")}</FormLabel>
           <Select2 
             valueName="value"
@@ -91,8 +91,8 @@ const EditCascoInsuranceModal = ({updateFunction, idvehicle, ...props}) => {
             setValue={setValue} 
             register={register} 
             name='insuranceCompany' 
-            registerOptions={{required:true}}/>
-          {errors.idInsuranceCompany &&
+            rules={{required:true}}/>
+          {errors.insuranceCompany &&
           <FormErrorMessage>{t("InsuranceCompanyError")}</FormErrorMessage>
           }
         </FormControl>

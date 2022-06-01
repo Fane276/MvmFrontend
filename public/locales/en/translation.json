@@ -140,7 +140,7 @@
   "OtherDoc": "Other document type",
   "NoDocumentAddedYet": "No document added yet",
   "AddADocumentNow": "Add a document now",
-  "DropZoneMessage": "Drag 'n' drop some files here, or click to select files", 
+  "DropZoneMessage": "Let us do the work for you, upload your document", 
   "DataExtractedSuccessfully": "Data extracted successfully", 
   "DataCouldNotBeExtracted": "Data could not be extracted",
   "ChangePassword": "Change password",
@@ -174,5 +174,6 @@
   "OneYear": "1 year",
   "PageYouAreTryingToAccessDoesNotExist": "Page you are trying to access does not exist",
   "AddPeriodicalDocument": "Add periodical document",
-  "EditPeriodicalDocument": "Edit periodical document"
+  "EditPeriodicalDocument": "Edit periodical document",
+  "EditVehicle": "Edit vehicle"
 }
