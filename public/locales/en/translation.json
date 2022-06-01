@@ -171,5 +171,6 @@
   "ThreeMonths": "3 months",
   "SixMonths": "6 months",
   "NineMonths": "9 months",
-  "OneYear": "1 year"
+  "OneYear": "1 year",
+  "PageYouAreTryingToAccessDoesNotExist": "Page you are trying to access does not exist"
 }

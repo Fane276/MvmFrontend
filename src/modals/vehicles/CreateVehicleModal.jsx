@@ -1,11 +1,10 @@
-import { Select } from 'chakra-react-select';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiPlus } from 'react-icons/fi';
 import InputMask from 'react-input-mask';
 import PulseLoader from 'react-spinners/PulseLoader'
-import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react';
+import { Button, FormControl, FormErrorMessage, FormLabel, IconButton, Input, ModalFooter, Select, useDisclosure, useToast } from '@chakra-ui/react';
 import Select2 from '../../components/Form/Select2'
 import ModalLayout from '../../components/Modals/ModalLayout'
 import { createVehicle } from '../../services/Vehicles/vehiclesService';
@@ -68,23 +67,20 @@ const CreateVehicleModal = ({updateFunction}) => {
   ]
 
   const toast = useToast();
-
-  const [vehicleType, setVehicleType] = useState();
-  const [vehicleMake, setVehicleMake] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
 
-  const onChangeVehicleType = (value) =>{
-    setVehicleType(value.value);
-  }
-
-  const onChangeVehicleMake = (value) =>{
-    setVehicleMake(value);
-  }
-
   const onSubmit = async (data)=>{
-
+    data.idMakeAuto = data.makeAuto.value;
+    if(data.idMakeAuto === -1){
+      data.OtherMakeAuto = data.makeAuto.other;
+    }
+    data.idModelAuto = data.model.value;
+    if(data.idModelAuto === -1){
+      data.OtherModelAuto = data.model.other;
+    }
+    console.log(data);
     await createVehicle(data)
     .then((result)=>{
       if(result.status === 200){
@@ -136,24 +132,54 @@ const CreateVehicleModal = ({updateFunction}) => {
 
         <FormControl isInvalid={errors.idVehicleType}>
           <FormLabel>{t("VehicleType")}</FormLabel>
-          <Select options={vehicleTypes} onChange={onChangeVehicleType} name="idVehicleType"  />
+          <Select {...register("idVehicleType", { required: true, valueAsNumber: true })}>
+            { vehicleTypes && 
+            vehicleTypes.map((item)=>{
+              return <option key={item.value} value={item.value}>{item.label}</option>  
+            })
+            }
+          </Select>
           {errors.idVehicleType &&
           <FormErrorMessage>{t("VehicleTypeError")}</FormErrorMessage>
           }
         </FormControl>
 
-        <FormControl mt='2' isInvalid={errors.idMake}>
+        <FormControl mt='2' isInvalid={errors.makeAuto}>
           <FormLabel>{t("Make")}</FormLabel>
-          <Select2 extraParameterValue={vehicleType} extraParameter={"categorie"} onChange={onChangeVehicleMake} endpoint='/api/services/app/AutoCatalogue/GetMakeByCategory' control={control} setValue={setValue} register={register} name='idMakeAuto' registerOptions={{required:true}} hasOtherOption={true}/>
-          {errors.idMake &&
+          <Select2 
+            dependsOn="idVehicleType" 
+            valueName="id" 
+            textName="name" 
+            endpoint='/api/services/app/AutoCatalogue/GetMakeByCategory' 
+            control={control} 
+            setValue={setValue} 
+            register={register} 
+            name='makeAuto' 
+            registerOptions={{required:true}} 
+            extraParameter="categorie"
+            hasOtherOption={true}
+            />
+          {errors.makeAuto &&
           <FormErrorMessage>{t("MakeError")}</FormErrorMessage>
           }
         </FormControl>
 
-        <FormControl mt='2' isInvalid={errors.idModel}>
+        <FormControl mt='2' isInvalid={errors.model}>
           <FormLabel>{t("Model")}</FormLabel>
-          <Select2 extraParameterValue={vehicleMake} extraParameter={"idMarca"} endpoint='/api/services/app/AutoCatalogue/GetModels' control={control} setValue={setValue} register={register} name='idModelAuto' registerOptions={{required:true}} hasOtherOption={true}/>
-          {errors.idModel &&
+          <Select2 
+            dependsOn="makeAuto" 
+            valueName="id" 
+            textName="name" 
+            endpoint='/api/services/app/AutoCatalogue/GetModels' 
+            control={control} 
+            setValue={setValue} 
+            register={register} 
+            name='model' 
+            registerOptions={{required:true}} 
+            extraParameter="idMarca"
+            hasOtherOption={true}
+          />
+          {errors.model &&
           <FormErrorMessage>{t("Model")}</FormErrorMessage>
           }
         </FormControl>

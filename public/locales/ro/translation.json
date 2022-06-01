@@ -101,7 +101,7 @@
   "FuelManagement" : "Mangement combustibil",
   "refuel" : "alimentarea",
   "vehicle" : "vehiculul",
-  "Deleted" : "Deleted",
+  "Deleted" : "A fost sters",
   "Monday": "Luni",
   "Tuesday": "Marți",
   "Wednesday": "Miercuri",
@@ -171,5 +171,6 @@
   "ThreeMonths": "3 luni",
   "SixMonths": "6 luni",
   "NineMonths": "9 luni",
-  "OneYear": "Un an"
+  "OneYear": "Un an",
+  "PageYouAreTryingToAccessDoesNotExist": "Pagina pe care incercați să o accesați nu există"
 }

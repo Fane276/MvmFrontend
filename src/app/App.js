@@ -26,6 +26,7 @@ import DashboardAdmin from '../pages/DashboardAdmin';
 import GlobalLoading from '../pages/GlobalLoading';
 import LandingPage from '../pages/LandingPage';
 import Login from '../pages/Login';
+import NotFoundPage from '../pages/NotFoundPage';
 import Profile from '../pages/Profile';
 import Register from '../pages/Register';
 import UserDocumentsPage from '../pages/UserDocumentsPage';
@@ -60,6 +61,7 @@ function App() {
         <Route exact path="/UserDocuments" element={<ProtectedRoute><UserDocumentsPage/></ProtectedRoute>}/>
         <Route exact path="/Vehicles" element={<ProtectedRoute><VehiclesPage/></ProtectedRoute>}/>
         <Route exact path="/Profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+        <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
     </Router>
   );
