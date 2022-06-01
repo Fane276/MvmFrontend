@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiPlus } from 'react-icons/fi';
@@ -74,11 +74,13 @@ const CreateVehicleModal = ({updateFunction}) => {
   const onSubmit = async (data)=>{
     data.idMakeAuto = data.makeAuto.value;
     if(data.idMakeAuto === -1){
-      data.OtherMakeAuto = data.makeAuto.other;
+      data.idMakeAuto = undefined;
+      data.otherAutoMake = data.makeAuto.other;
     }
     data.idModelAuto = data.model.value;
     if(data.idModelAuto === -1){
-      data.OtherModelAuto = data.model.other;
+      data.idModelAuto = undefined;
+      data.OtherAutoModel = data.model.other;
     }
     console.log(data);
     await createVehicle(data)
@@ -207,9 +209,6 @@ const CreateVehicleModal = ({updateFunction}) => {
           <FormErrorMessage>{t("ChassisNo")}</FormErrorMessage>
           }
         </FormControl>
-        
-        
-        
       </ModalLayout>
     </>
   )

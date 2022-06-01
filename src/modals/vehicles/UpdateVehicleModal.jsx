@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiEdit2 } from 'react-icons/fi';
@@ -65,24 +65,21 @@ const vehicleTypes = [
 ]
 const UpdateVehicleModal = ({idVehicle, updateFunction, ...props}) => {
   const {t} = useTranslation();
-  
-
   const toast = useToast();
-
-  const [vehicleMake, setVehicleMake] = useState();
-  const [vehicle, setVehicle] = useState();
   
   const { isOpen, onOpen, onClose } = useDisclosure()
   
-  const { handleSubmit, register, watch, setValue, control, formState: { errors, isSubmitting } } = useForm();
-  const vehicleType = watch('idVehicleType');
-
-  const onChangeVehicleMake = (value) =>{
-    setVehicleMake(value);
-  }
-
+  const { handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
   const onSubmit = async (data)=>{
-
+    data.idMakeAuto = data.makeAuto.value;
+    if(data.idMakeAuto === -1){
+      data.OtherMakeAuto = data.makeAuto.other;
+    }
+    data.idModelAuto = data.model.value;
+    if(data.idModelAuto === -1){
+      data.OtherModelAuto = data.model.other;
+    }
+    console.log(data);
     await updateVehicle(data)
     .then((result)=>{
       if(result.status === 200){
@@ -115,9 +112,9 @@ const UpdateVehicleModal = ({idVehicle, updateFunction, ...props}) => {
     if(result.status === 200){
       var vehicle = result.data.result;
       console.log(vehicle)
-      setValue("idVehicleType", vehicle.vehicleType);
-      setValue("idMakeAuto", vehicle.idMakeAuto);
-      setValue("idModelAuto", vehicle.idModelAuto);
+      setValue("vehicleType", vehicle.vehicleType);
+      setValue("makeAuto", {value: vehicle.idMakeAuto, text: vehicle.makeAuto});
+      setValue("model", {value: vehicle.idModelAuto, text: vehicle.modelAuto});
       setValue("title", vehicle.title);
       setValue("id", vehicle.id);
       setValue("productionYear", vehicle.productionYear);
@@ -126,7 +123,6 @@ const UpdateVehicleModal = ({idVehicle, updateFunction, ...props}) => {
       setValue("tenantId", vehicle.tenantId);
       setValue("userId", vehicle.userId);
 
-      setVehicle(vehicle);
     }
 
     onOpen()
@@ -152,30 +148,56 @@ const UpdateVehicleModal = ({idVehicle, updateFunction, ...props}) => {
           }
         </FormControl>
 
-        <FormControl isInvalid={errors.idVehicleType}>
+        <FormControl isInvalid={errors.vehicleType}>
           <FormLabel>{t("VehicleType")}</FormLabel>
-          <Select defaultValue="-1" {...register("idVehicleType", {required: true, setValueAs: v=>parseInt(v)})}>
-            {vehicleTypes.map((elem)=>{
-              return (<option key={elem.value} value={elem.value}>{elem.label}</option>)
-            })}
+          <Select {...register("vehicleType", { required: true, valueAsNumber: true })}>
+            { vehicleTypes && 
+            vehicleTypes.map((item)=>{
+              return <option key={item.value} value={item.value}>{item.label}</option>  
+            })
+            }
           </Select>
-          {errors.idVehicleType &&
+          {errors.vehicleType &&
           <FormErrorMessage>{t("VehicleTypeError")}</FormErrorMessage>
           }
         </FormControl>
 
-        <FormControl mt='2' isInvalid={errors.idMake}>
+        <FormControl mt='2' isInvalid={errors.makeAuto}>
           <FormLabel>{t("Make")}</FormLabel>
-          <Select2 extraParameterValue={vehicleType} defaultValue={vehicle && {id: vehicle.idMakeAuto, value: vehicle.makeAuto}} extraParameter={"categorie"} onChange={onChangeVehicleMake} endpoint='/api/services/app/AutoCatalogue/GetMakeByCategory' control={control} setValue={setValue} register={register} name='idMakeAuto' registerOptions={{required:true}} hasOtherOption={true}/>
-          {errors.idMake &&
+          <Select2 
+            dependsOn="vehicleType" 
+            valueName="id" 
+            textName="name" 
+            endpoint='/api/services/app/AutoCatalogue/GetMakeByCategory' 
+            control={control} 
+            setValue={setValue} 
+            register={register} 
+            name='makeAuto' 
+            registerOptions={{required:true}} 
+            extraParameter="categorie"
+            hasOtherOption={true}
+            />
+          {errors.makeAuto &&
           <FormErrorMessage>{t("MakeError")}</FormErrorMessage>
           }
         </FormControl>
 
-        <FormControl mt='2' isInvalid={errors.idModel}>
+        <FormControl mt='2' isInvalid={errors.model}>
           <FormLabel>{t("Model")}</FormLabel>
-          <Select2 extraParameterValue={vehicleMake} defaultValue={vehicle && {id: vehicle.idModelAuto, value: "ana"}} extraParameter={"idMarca"} endpoint='/api/services/app/AutoCatalogue/GetModels' control={control} setValue={setValue} register={register} name='idModelAuto' registerOptions={{required:true}} hasOtherOption={true}/>
-          {errors.idModel &&
+          <Select2 
+            dependsOn="makeAuto" 
+            valueName="id" 
+            textName="name" 
+            endpoint='/api/services/app/AutoCatalogue/GetModels' 
+            control={control} 
+            setValue={setValue} 
+            register={register} 
+            name='model' 
+            registerOptions={{required:true}} 
+            extraParameter="idMarca"
+            hasOtherOption={true}
+          />
+          {errors.model &&
           <FormErrorMessage>{t("Model")}</FormErrorMessage>
           }
         </FormControl>
@@ -203,9 +225,6 @@ const UpdateVehicleModal = ({idVehicle, updateFunction, ...props}) => {
           <FormErrorMessage>{t("ChassisNo")}</FormErrorMessage>
           }
         </FormControl>
-        
-        
-        
       </ModalLayout>
     </>
   )
