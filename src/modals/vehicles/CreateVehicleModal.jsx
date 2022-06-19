@@ -9,6 +9,7 @@ import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton
 import Select2 from '../../components/Form/Select2'
 import ModalLayout from '../../components/Modals/ModalLayout'
 import { createVehicle } from '../../services/Vehicles/vehiclesService';
+import { getTenantIdCookie } from '../../services/cookie/cookieService';
 
 const CreateVehicleModal = ({updateFunction}) => {
   const {t} = useTranslation();
@@ -73,6 +74,11 @@ const CreateVehicleModal = ({updateFunction}) => {
   const { reset, handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data)=>{
+    var tenantIdCookie = getTenantIdCookie();
+    if(tenantIdCookie !== undefined){
+      data.tenantId = getTenantIdCookie();
+    }
+
     data.idMakeAuto = data.makeAuto.value;
     if(data.idMakeAuto === -1){
       data.idMakeAuto = undefined;
@@ -83,7 +89,6 @@ const CreateVehicleModal = ({updateFunction}) => {
       data.idModelAuto = undefined;
       data.OtherAutoModel = data.model.other;
     }
-    console.log(data);
     await createVehicle(data)
     .then((result)=>{
       if(result.status === 200){

@@ -8,6 +8,8 @@ import PulseLoader from 'react-spinners/PulseLoader'
 import { Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, useColorModeValue, useToast } from '@chakra-ui/react';
 import ValidationRules from '../../lib/validationRules';
 import { registerUser } from '../../services/account/accountService';
+import { getTenantIdCookie, setTenantIdCookie } from '../../services/cookie/cookieService';
+import { httpRequest } from '../../services/httpService';
 
 const RegisterForm = () => {
   const { t } = useTranslation();
@@ -21,6 +23,14 @@ const RegisterForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    var tenantIdCookie = getTenantIdCookie();
+    if(tenantIdCookie === undefined){
+      setTenantIdCookie(1);
+      httpRequest.defaults.headers['Abp.TenantId'] = getTenantIdCookie();
+    }else{
+      httpRequest.defaults.headers['Abp.TenantId'] = tenantIdCookie;
+    }
+
     await registerUser(data)
     .then((result)=>{
       if(result.status === 200){

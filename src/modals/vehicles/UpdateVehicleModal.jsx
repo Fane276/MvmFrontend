@@ -9,6 +9,7 @@ import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, Mod
 import Select2 from '../../components/Form/Select2'
 import ModalLayout from '../../components/Modals/ModalLayout'
 import { getVehicle, updateVehicle } from '../../services/Vehicles/vehiclesService';
+import { getTenantIdCookie } from '../../services/cookie/cookieService';
 
 const vehicleTypes = [
   {
@@ -72,6 +73,10 @@ const UpdateVehicleModal = ({idVehicle, updateFunction, ...props}) => {
   
   const { handleSubmit, register, setValue, control, formState: { errors, isSubmitting } } = useForm();
   const onSubmit = async (data)=>{
+    var tenantIdCookie = getTenantIdCookie();
+    if(tenantIdCookie !== undefined){
+      data.tenantId = getTenantIdCookie();
+    }
     data.idMakeAuto = data.makeAuto.value;
     if(data.idMakeAuto === -1){
       data.OtherMakeAuto = data.makeAuto.other;
@@ -80,7 +85,6 @@ const UpdateVehicleModal = ({idVehicle, updateFunction, ...props}) => {
     if(data.idModelAuto === -1){
       data.OtherModelAuto = data.model.other;
     }
-    console.log(data);
     await updateVehicle(data)
     .then((result)=>{
       if(result.status === 200){
@@ -112,7 +116,6 @@ const UpdateVehicleModal = ({idVehicle, updateFunction, ...props}) => {
     var result = await getVehicle(idVehicle)
     if(result.status === 200){
       var vehicle = result.data.result;
-      console.log(vehicle)
       setValue("vehicleType", vehicle.vehicleType);
       setValue("makeAuto", {value: vehicle.idMakeAuto, text: vehicle.makeAuto});
       setValue("model", {value: vehicle.idModelAuto, text: vehicle.modelAuto});

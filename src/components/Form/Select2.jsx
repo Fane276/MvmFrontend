@@ -61,7 +61,6 @@ const Select2 = ({extraParameter, setValue, valueName, textName, endpoint, contr
  
   const fetchData = (query) => {
     if(query){
-      console.log(dependent)
       if(extraParameter && dependent){
         return  httpRequest.get(`${endpoint}?${extraParameter}=${dependent.value ?? dependent}&q=${query}`).then(result => {
           const res =  result.data.result.items;

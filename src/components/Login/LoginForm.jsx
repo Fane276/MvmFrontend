@@ -30,6 +30,8 @@ const LoginForm = () => {
     if(tenantIdCookie === undefined){
       setTenantIdCookie(1);
       httpRequest.defaults.headers['Abp.TenantId'] = getTenantIdCookie();
+    }else{
+      httpRequest.defaults.headers['Abp.TenantId'] = tenantIdCookie;
     }
 
     await tokenAuth(data).then(async (result)=>{
